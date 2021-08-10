@@ -1,0 +1,1 @@
+store used for redux or other store managements
