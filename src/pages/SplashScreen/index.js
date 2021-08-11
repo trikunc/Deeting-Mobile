@@ -9,7 +9,7 @@ const SplashScreen = () => {
    		<SafeAreaView style={styles.container}>
    			<View style={styles.block} >
         		<Image
-              		source={require("../../assets/logo.png")}
+              		source={require("../../assets/images/logoLarge.png")}
               		style={styles.logo}
             	/>
             	<Text style={styles.text} >Simple is better</Text>
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
 	},
 	logo : {
 		marginTop: 200,
-		width: 200,
-		height: 200,
+		width: 180,
+		height: 180,
 	},
 	text :{
 		marginTop: 24,
