@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image } from 'react-native';
 
 import COLORS from '../../utils/color';
+import { fonts } from '../../utils/fonts';
 
 const SplashScreen = () => {
     return (
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
 		color: COLORS.WHITE,
 		fontSize: 25,
 		lineHeight: 44.8,
+		fontFamily: fonts.NunitoSansSemiBold,
 	},
 });
 
