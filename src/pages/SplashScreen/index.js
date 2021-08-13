@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
 		marginTop: 24,
 		color: COLORS.WHITE,
 		fontSize: 25,
-		lineHeight: 44.8,
-		fontFamily: fonts.NunitoSansSemiBold,
+		lineHeight: 44.8
 	},
 });
 
