@@ -5,6 +5,8 @@ import {Platform} from 'react-native';
 
 export const fonts = {
 
-	NunitoSansSemiBold :  Platform.OS === 'ios' ? 'NunitoSans SemiBold' : 'NunitoSans-SemiBold',
-	
+	NunitoSansReguler  : Platform.OS === 'ios' ? 'NunitoSans Regular' : 'NunitoSans-Regular',
+	NunitoSansSemiBold : Platform.OS === 'ios' ? 'NunitoSans SemiBold' : 'NunitoSans-SemiBold',
+	NunitoSansBold     : Platform.OS === 'ios' ? 'NunitoSans Bold' : 'NunitoSans-Bold',
+	NunitoSansLight    : Platform.OS === 'ios' ? 'NunitoSans Light' : 'NunitoSans-Light'
 };

@@ -22,7 +22,7 @@ const SplashScreen = () => {
 const styles = StyleSheet.create({
 	container : {
 		flex: 1,
-		backgroundColor: COLORS.PRIMARY,
+		backgroundColor: '#6C51E1',
 	},
 	block : {
 		alignItems: 'center' 
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		lineHeight: 44.8,
 		fontFamily: fonts.NunitoSansSemiBold,
+		letterSpacing: 0.5,
 	},
 });
 
