@@ -1,6 +1,10 @@
 const COLORS = {
-	PRIMARY : '#6C51E1',
+	PRIMARY : '#5D41D6',
 	WHITE : '#FFFFFF',
+	GREEN : '#219653',
+	BLACK : '#333333',
+	NEUTRAL : '#4F4F4F',
+	TEXTINPUT: '#908E8E',
 };
 
 
