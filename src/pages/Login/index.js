@@ -10,7 +10,7 @@ import SuccesSignUp from '../Register/succesSignUp';
 
 const Stack = createStackNavigator();
     
-const Login  = () => {
+const RouteLogin  = () => {
 
     const style = {
         headerShown: false, ...TransitionPresets.SlideFromRightIOS,
@@ -32,4 +32,4 @@ const Login  = () => {
 
 
 
-export default Login;
+export default RouteLogin;

@@ -4,7 +4,16 @@ import { SafeAreaView, View, Text, StyleSheet, Image } from 'react-native';
 import COLORS from '../../utils/color';
 import { fonts } from '../../utils/fonts';
 
-const SplashScreen = () => {
+const SplashScreen = ({navigation}) => {
+
+	React.useEffect(() => {
+
+		setTimeout( () => {
+			navigation.replace('RouteLogin');
+		}, 3000)
+
+	}, [navigation]);
+
     return (
    		<SafeAreaView style={styles.container}>
    			<View style={styles.block} >
@@ -28,7 +37,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center' 
 	},
 	logo : {
-		marginTop: 200,
+		marginTop: '54%',
 		width: 180,
 		height: 180,
 	},
@@ -36,7 +45,9 @@ const styles = StyleSheet.create({
 		marginTop: 24,
 		color: COLORS.WHITE,
 		fontSize: 25,
-		lineHeight: 44.8
+		lineHeight: 33.8,
+		letterSpacing: 0.5,
+		fontFamily: fonts.NunitoSansSemiBold,
 	},
 });
 
