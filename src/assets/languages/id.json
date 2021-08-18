@@ -1,0 +1,54 @@
+{
+	// Splashscreen
+	"Simple is better":"Sederhana itu lebih baik",
+
+	// Landing Page
+	"Choose Language":"Pilih bahasa",
+	"Join a Meeting" :"Bergabung dalam Rapat",
+	"Sign In":"Masuk",
+	"Donthaveaccount":"Tidak punya akun?",
+	"Sign Up Free":"Daftar Gratis",
+
+	
+	"Email":"Surel",
+	"Password":"Kata sandi",
+	"Enter your email":"Masukkan email Anda",
+	"Enter your password":"Masukkan kata sandi Anda",
+	"Remember me":"Ingat saya",
+	"Forgot password":"Lupa kata sandi?",
+	"Or":"Atau",
+	"Sign in with Google":"Masuk dengan Google",
+	"Sign in with Apple":"Masuk dengan Apple",
+	"Sign in with Facebook":"Masuk dengan Facebook",
+
+	"EnterEmail":"Masukkan email Anda untuk mendapatkan kata sandi",
+	"Submit":"Kirim",
+	"We have sent a password recovery":"Kami telah mengirim pemulihan kata sandi",
+	"instructions to your email":"petunjuk ke email Anda.",
+	"Open Email App":"Buka Aplikasi Email",
+	"Reset Password":"Setel Ulang Kata Sandi",
+	"Create your a new password":"Buat kata sandi baru Anda",
+	"Create Password":"Buat Kata Sandi",
+	"createPasswordPlaceholder":"Min.6 karakter, 1 huruf kapital",
+	"Confirm Password":"konfirmasi sandi",
+	"Repeat your password":"Ulangi kata sandi Anda",
+	"Save":"Simpan",
+	"Password Changed Successfully":"Kata Sandi Berhasil Diubah!",
+	"Back to Sign In":"Kembali ke Masuk",
+
+	// Register
+
+	"Sign Up":"Daftar",
+	"Register your new account":"Daftarkan akun baru Anda",
+	"Nickname":"Nama panggilan",
+	"Optional":"Opsional",
+	"Enter your nickname":"Masukkan nama panggilan Anda",
+	"placeHolderEmail":"Contoh: name@mail.com",
+
+
+	// Sukses Register
+
+	"Verify Email":"Verifikasi email",
+	"textDescription":"Silakan klik tombol di bawah untuk mengonfirmasi alamat email Anda dan mengaktifkan akun Anda.",
+	"Go to Sign In":"Pergi ke Masuk"
+}

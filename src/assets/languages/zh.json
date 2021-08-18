@@ -1,0 +1,54 @@
+{
+	// Splashscreen
+	"Simple is better":"简单更好",
+
+	// Landing Page
+	"Choose Language":"选择语言",
+	"Join a Meeting" :"加入会议",
+	"Sign In":"登入",
+	"Donthaveaccount":"没有账户？",
+	"Sign Up Free":"免费注册",
+
+	
+	"Email":"电子邮件",
+	"Password":"密码",
+	"Enter your email":"输入你的电子邮箱",
+	"Enter your password":"输入您的密码",
+	"Remember me":"记住账号",
+	"Forgot password":"忘记密码？",
+	"Or":"要么",
+	"Sign in with Google":"使用 Google 登录",
+	"Sign in with Apple":"使用 Apple 登录",
+	"Sign in with Facebook":"使用 Facebook 登录",
+
+	"EnterEmail":"输入您的电子邮件以恢复密码。",
+	"Submit":"提交",
+	"We have sent a password recovery":"我们已发送密码恢复",
+	"instructions to your email":"说明发送到您的电子邮件。",
+	"Open Email App":"打开电子邮件应用程序",
+	"Reset Password":"重设密码",
+	"Create your a new password":"创建您的新密码",
+	"Create Password":"创建密码",
+	"createPasswordPlaceholder":"最少 6 个字符，1 个大写字母",
+	"Confirm Password":"确认密码",
+	"Repeat your password":"重复你的密码",
+	"Save":"节省",
+	"Password Changed Successfully":"密码修改成功！",
+	"Back to Sign In":"返回登录",
+
+	// Register
+
+	"Sign Up":"报名",
+	"Register your new account":"注册您的新帐户",
+	"Nickname":"昵称",
+	"Optional":"可选的",
+	"Enter your nickname":"输入你的昵称",
+	"placeHolderEmail":"示例：name@mail.com",
+
+
+	// Sukses Register
+
+	"Verify Email":"验证邮件",
+	"textDescription":"请单击下面的按钮以确认您的电子邮件地址并激活您的帐户。",
+	"Go to Sign In":"去登录"
+}
