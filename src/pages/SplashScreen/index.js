@@ -9,7 +9,7 @@ const SplashScreen = ({navigation}) => {
 	React.useEffect(() => {
 
 		setTimeout( () => {
-			navigation.replace('RouteLogin');
+			navigation.replace('Landing');
 		}, 3000)
 
 	}, [navigation]);

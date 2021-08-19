@@ -1,0 +1,56 @@
+{
+	// Splashscreen
+	"Simple is better":"Simple is better",
+
+	// Landing Page
+	"Choose Language":"Choose Language",
+	"Join a Meeting" :"Join a Meeting",
+	"Sign In":"Sign In",
+	"Donthaveaccount":"Don’t have an account?",
+	"Sign Up Free":"Sign Up Free",
+
+	
+	"Email":"Email",
+	"Password":"Password",
+	"Enter your email":"Enter your email",
+	"Enter your password":"Enter your password",
+	"Remember me":"Remember me",
+	"Forgot password":"Forgot password?",
+	"Or":"Or",
+	"Sign in with Google":"Sign in with Google",
+	"Sign in with Apple":"Sign in with Apple",
+	"Sign in with Facebook":"Sign in with Facebook",
+
+	"titleForgot":"Forgot Password",
+	"EnterEmail":"Enter your email to recover the password",
+	"Submit":"Submit",
+	"Check Your Email":"Check Your Email",
+	"We have sent a password recovery":"We have sent a password recovery instructions to your email.",
+	"Open Email App":"Open Email App",
+	"Reset Password":"Reset Password",
+	"Create your a new password":"Create your a new password",
+	"Create Password":"Create Password",
+	"createPasswordPlaceholder":"Min.6 characters, 1 capital letter",
+	"Confirm Password":"Confirm Password",
+	"Repeat your password":"Repeat your password",
+	"Save":"Save",
+	"Password Changed Successfully":"Password Changed Successfully!",
+	"Back to Sign In":"Back to Sign In",
+
+	// Register
+
+	"Sign Up":"Sign Up",
+	"Register your new account":"Register your new account",
+	"Nickname":"Nickname",
+	"Optional":"Optional",
+	"Enter your nickname":"Enter your nickname",
+	"placeHolderEmail":"Example: name@mail.com",
+
+
+	// Sukses Register
+
+	"Verify Email":"Verify Email",
+	"Verify My Email":"Verify My Email",
+	"textDescription":"Please click the button bellow to confirm your email address and activate your account.",
+	"Go to Sign In":"Go to Sign In"
+}

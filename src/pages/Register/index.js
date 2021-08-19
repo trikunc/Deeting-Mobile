@@ -9,6 +9,8 @@ import {
 	TextInput,
 } from 'react-native';
 
+import { useTranslation } from 'react-i18next';
+
 import  COLORS  from '../../utils/color';
 import { fonts } from '../../utils/fonts';
 
@@ -17,6 +19,8 @@ const eyeHide = '../../assets/icons/hideEye.png';
 
 
 const Register = ({navigation}) => {
+
+	const { t  } = useTranslation();
 
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -36,37 +40,37 @@ const Register = ({navigation}) => {
      	</TouchableOpacity>
 
      	<View style={styles.card} >
-     		<Text style={styles.signUp} >Sign Up</Text>
-     		<Text style={styles.text}>Register your new account</Text>
+     		<Text style={styles.signUp} >{t('Sign Up')}</Text>
+     		<Text style={styles.text}>{t('Register your new account')}</Text>
 
      		<View style={{ marginTop: 36 }} >
      			<Text style={{ marginBottom: 8 }} >
 	     			<Text style={styles.label} >
-	     				Nickname {' '}
+	     				{t('Nickname')} {' '}
 	     			</Text>
 	     			<Text style={{
 	     				fontSize: 14,
 	     				letterSpacing: 0.5,
 	     				lineHeight: 19.6,
 	     				fontFamily: fonts.NunitoSansLight,
-	     			}} >(Optional)</Text>
+	     			}} >({t('Optional')})</Text>
      			</Text>
 	     		<TextInput
 			        style={styles.input}
 			        onChangeText={(text) => setName(text)}
 			        value={name}
-			        placeholder="Enter your nickname"
+			        placeholder={t('Enter your nickname')}
 	      		/>
 
-     			<Text style={styles.label} >Email</Text>
+     			<Text style={styles.label} >{t('Email')}</Text>
 	     		<TextInput
 			        style={styles.input}
 			        onChangeText={(text) => setEmail(text)}
 			        value={email}
-			        placeholder="Example: name@mail.com"
+			        placeholder={t('placeHolderEmail')}
 	      		/>
 
-     			<Text style={styles.label} >Create Password</Text>
+     			<Text style={styles.label} >{t('Create Password')}</Text>
 	      		<View style={styles.password} >
 		      		<TextInput
 		      			autoCapitalize="none"
@@ -75,7 +79,7 @@ const Register = ({navigation}) => {
 				        onChangeText={(text) => setPassword(text)}
 				        value={password}
 				        placeholderTextColor = {COLORS.TEXTINPUT}
-				        placeholder="Min.6 characters, 1 capital letter"
+				        placeholder={t('createPasswordPlaceholder')}
 		      		/>
 
 		      		<TouchableOpacity onPress={() => setPass(!pass)} >
@@ -89,7 +93,7 @@ const Register = ({navigation}) => {
 		      		</TouchableOpacity>
 	      		</View>
 
-	      		<Text style={styles.label} >Confirm Password</Text>
+	      		<Text style={styles.label} >{t('Confirm Password')}</Text>
 	      		<View style={styles.password} >
 		      		<TextInput
 		      			autoCapitalize="none"
@@ -98,7 +102,7 @@ const Register = ({navigation}) => {
 				        onChangeText={(text) => setConfirm(text)}
 				        value={passwordConfirm}
 				        placeholderTextColor = {COLORS.TEXTINPUT}
-				        placeholder="Repeat your password"
+				        placeholder={t('Repeat your password')}
 		      		/>
 
 		      		<TouchableOpacity onPress={() => setPassConfirm(!passConfirm)} >
@@ -117,7 +121,7 @@ const Register = ({navigation}) => {
      		<TouchableOpacity activeOpacity={0.9} style={styles.button} 
      			onPress={() => navigation.navigate('SuccesSignUp')}
      		>
-            		<Text style={styles.textsignUp} >Sign Up</Text>
+            		<Text style={styles.textsignUp} >{t('Sign Up')}</Text>
             </TouchableOpacity>
 
      	</View>

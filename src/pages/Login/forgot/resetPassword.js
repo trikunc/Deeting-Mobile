@@ -12,6 +12,8 @@ import {
 
 import Modal from 'react-native-modal';
 
+import { useTranslation } from 'react-i18next';
+
 import COLORS from '../../../utils/color';
 import {fonts } from '../../../utils/fonts';
 
@@ -20,6 +22,8 @@ const eyeHide = '../../../assets/icons/hideEye.png';
 const deviceHeight = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
+
+	const { t } = useTranslation();
 
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setConfirm] = useState('');
@@ -50,11 +54,11 @@ const ResetPassword = ({navigation}) => {
      {/* card */}
 
      	<View style={styles.card} >
-     		<Text style={styles.forgotPassword} >Reset Password</Text>
-     		<Text style={styles.text}>Create your a new password</Text>
+     		<Text style={styles.forgotPassword} >{t('Reset Password')}</Text>
+     		<Text style={styles.text}>{t('Create your a new password')}</Text>
 
      		<View style={{ marginTop: 30 }} >
-	     		<Text style={styles.label} >Create Password</Text>
+	     		<Text style={styles.label} >{t('Create Password')}</Text>
 	      		<View style={styles.password} >
 		      		<TextInput
 		      			autoCapitalize="none"
@@ -63,7 +67,7 @@ const ResetPassword = ({navigation}) => {
 				        onChangeText={(text) => setPassword(text)}
 				        value={password}
 				        placeholderTextColor = {COLORS.TEXTINPUT}
-				        placeholder="Min.6 characters, 1 capital letter"
+				        placeholder={t('createPasswordPlaceholder')}
 		      		/>
 
 		      		<TouchableOpacity onPress={() => setPass(!pass)} >
@@ -77,7 +81,7 @@ const ResetPassword = ({navigation}) => {
 		      		</TouchableOpacity>
 	      		</View>
 
-	      		<Text style={styles.label} >Confirm Password</Text>
+	      		<Text style={styles.label} >{t('Confirm Password')}</Text>
 	      		<View style={styles.password} >
 		      		<TextInput
 		      			autoCapitalize="none"
@@ -86,7 +90,7 @@ const ResetPassword = ({navigation}) => {
 				        onChangeText={(text) => setConfirm(text)}
 				        value={passwordConfirm}
 				        placeholderTextColor = {COLORS.TEXTINPUT}
-				        placeholder="Repeat your password"
+				        placeholder={t('Repeat your password')}
 		      		/>
 
 		      		<TouchableOpacity onPress={() => setPassConfirm(!passConfirm)} >
@@ -105,7 +109,7 @@ const ResetPassword = ({navigation}) => {
       		<TouchableOpacity activeOpacity={0.9} style={styles.button} 
       			onPress={() => setVisible(true)}
       		>
-        		<Text style={styles.textSave} >Save</Text>
+        		<Text style={styles.textSave} >{t('Save')}</Text>
             </TouchableOpacity>
 
      	</View>
@@ -125,14 +129,14 @@ const ResetPassword = ({navigation}) => {
 	      			/>
 
 	      			<Text style={styles.textSucces} >
-	      				Password Changed Successfully!
+	      				{t('Password Changed Successfully')}
 	      			</Text>
 
 	      			<View style={{ marginTop: 30 }} >
 	      				<TouchableOpacity style={{ flexDirection: 'row'}} 
 	      					onPress={() => backSign()}
 	      				>
-	      					<Text style={styles.backSign} >Back to Sign In</Text>
+	      					<Text style={styles.backSign} >{t('Back to Sign In')}</Text>
 	      					<Image source={require('../../../assets/icons/ArrowRight.png')} 
 	      						style={{ 
 	      							width: 19, 

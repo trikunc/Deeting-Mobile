@@ -1,35 +1,37 @@
 import React from 'react';
 import {SafeAreaView, View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import  COLORS  from '../../utils/color';
 import { fonts } from '../../utils/fonts';
 
 const SuccesSignUp = ({navigation}) => {
+
+	const { t  } = useTranslation();
+
    return(
      <SafeAreaView style={styles.container}>
         
         <View style={styles.card}>
      		<Image source={require('../../assets/icons/Email.png')} style={styles.image} />
      		
-     		<Text style={styles.textVerif} >Verify Email</Text>
+     		<Text style={styles.textVerif} >{t('Verify Email')}</Text>
      		<Text style={styles.text} >
-     				Please click the button bellow to
-					confirm your email address and 
-					activate your account.
+     			{t('textDescription')}
 			</Text>
      	</View>
 
      	<TouchableOpacity activeOpacity={0.9} style={styles.button} >
-            <Text style={styles.textButton} >Verify My Email</Text>
+            <Text style={styles.textButton} >{t('Verify My Email')}</Text>
         </TouchableOpacity>
 
-         <Text style={styles.textOr} >Or</Text>
+         <Text style={styles.textOr} >{t('Or')}</Text>
 
          <View style={{ marginTop: 30, alignItems: 'center' }} >
 			<TouchableOpacity style={{ flexDirection: 'row'}} 
 				onPress={() => navigation.navigate('SignIn')}
 			>
-				<Text style={styles.backSign} >Go to Sign In</Text>
+				<Text style={styles.backSign} >{t('Go to Sign In')}</Text>
 				<Image source={require('../../assets/icons/ArrowRight.png')} 
 					style={{ 
 						width: 19, 

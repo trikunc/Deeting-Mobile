@@ -3,8 +3,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-// import Login from '../pages/Login/index';
+
 import TabsScreen from './TabsScreen';
+
+import SplashScreen from '../pages/SplashScreen/index.js';
 
 import Landing from '../pages/Login/landing';
 import SignIn from '../pages/Login/signIn';
@@ -22,13 +24,14 @@ function AppNavigation() {
     ...TransitionPresets.SlideFromRightIOS,
   };
   const AppStack = () => (
-    <Stack.Navigator initialRouteName="Landing">
+    <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="TabsScreen"
         component={TabsScreen}
         options={{headerShown: false}}
       />
 
+      <Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown: false}}/>
       <Stack.Screen name="Landing" component={Landing} options={style} />
       <Stack.Screen name="SignIn" component={SignIn} options={style} />
       <Stack.Screen name="ForgotPassword" component={Forgot} options={style} />
