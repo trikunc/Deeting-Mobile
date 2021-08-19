@@ -13,6 +13,8 @@ import ResetPassword from '../pages/Login/forgot/resetPassword';
 import Register from '../pages/Register';
 import SuccesSignUp from '../pages/Register/succesSignUp';
 import ChangePassword from '../pages/Home/ChangePass';
+import seeAllMeetings from '../pages/Home/Meetings/seeAllMeetings';
+import detailMeeting from '../pages/Home/Meetings/meetingDetail';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +48,16 @@ function AppNavigation() {
       <Stack.Screen
         name="ChangePassword"
         component={ChangePassword}
+        options={style}
+      />
+      <Stack.Screen
+        name="seeAllMeetings"
+        component={seeAllMeetings}
+        options={style}
+      />
+      <Stack.Screen
+        name="detailMeeting"
+        component={detailMeeting}
         options={style}
       />
     </Stack.Navigator>

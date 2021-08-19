@@ -8,6 +8,7 @@ const COLORS = {
   TEXTINPUT: '#908E8E',
   DANGER: '#E64949',
   GRAY: '#707070',
+  RED: '#FF5151',
 };
 
 export default COLORS;
