@@ -21,10 +21,11 @@
 	"Sign in with Apple":"使用 Apple 登录",
 	"Sign in with Facebook":"使用 Facebook 登录",
 
+	"titleForgot":"忘记密码",
 	"EnterEmail":"输入您的电子邮件以恢复密码。",
 	"Submit":"提交",
-	"We have sent a password recovery":"我们已发送密码恢复",
-	"instructions to your email":"说明发送到您的电子邮件。",
+	"Check Your Email":"检查您的电子邮件",
+	"We have sent a password recovery":"我们已将密码恢复说​​明发送至您的电子邮件。",
 	"Open Email App":"打开电子邮件应用程序",
 	"Reset Password":"重设密码",
 	"Create your a new password":"创建您的新密码",
@@ -49,6 +50,7 @@
 	// Sukses Register
 
 	"Verify Email":"验证邮件",
+	"Verify My Email":"验证我的电子邮件",
 	"textDescription":"请单击下面的按钮以确认您的电子邮件地址并激活您的帐户。",
 	"Go to Sign In":"去登录"
 }

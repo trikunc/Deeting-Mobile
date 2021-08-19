@@ -10,14 +10,14 @@
 		"id":"2",
 		"code":"zh",
 		"name":"中国",
-		"text":"中国",
+		"text":"zh-CN",
 		"img":"enUS"
 	},
 	{
 		"id":"3",
 		"code":"id",
 		"name":"Indonesia",
-		"text":"id",
+		"text":"id-ID",
 		"img":"ina"
 	},
 	

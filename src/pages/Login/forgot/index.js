@@ -12,6 +12,8 @@ import {
 	Dimensions
 } from 'react-native';
 
+import { useTranslation } from 'react-i18next';
+
 import Modal from 'react-native-modal';
 import COLORS from '../../../utils/color';
 import {fonts } from '../../../utils/fonts';
@@ -20,6 +22,8 @@ const deviceHeight = Dimensions.get('window').height;
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -90;
 
 const Forgot = ({navigation}) => {
+
+	const { t, i18n } = useTranslation();
 
 	const [email, setEmail] = useState("");
 
@@ -46,19 +50,19 @@ const Forgot = ({navigation}) => {
      	 
      	<View style={styles.card} >
 
-     		<Text style={styles.forgotPassword} >Forgot Password</Text>
-     		<Text style={styles.text}>Enter your email to recover the password</Text>
+     		<Text style={styles.forgotPassword} >{t('titleForgot')}</Text>
+     		<Text style={styles.text}>{t('EnterEmail')}</Text>
      	<KeyboardAvoidingView
       		behavior="height"
       		keyboardVerticalOffset={keyboardVerticalOffset}    	
       	>
      		<View style={{ marginTop: 36 }} >
-	     		<Text style={styles.label} >Email</Text>
+	     		<Text style={styles.label} >{t('Email')}</Text>
 	     		<TextInput
 			        style={styles.input}
 			        onChangeText={(text) => setEmail(text)}
 			        value={email}
-			        placeholder="Enter your email"
+			        placeholder={t('Enter your email')}
 	      		/>
       		</View>
 
@@ -66,7 +70,7 @@ const Forgot = ({navigation}) => {
       		<TouchableOpacity activeOpacity={0.9} style={styles.button} 
       			onPress={() => setVisible(true) }
       		>
-            	<Text style={styles.textSubmit} >Submit</Text>
+            	<Text style={styles.textSubmit} >{t('Submit')}</Text>
             </TouchableOpacity>
 
      	</View>
@@ -85,17 +89,19 @@ const Forgot = ({navigation}) => {
 	      				style={styles.image}
 	      			/>
 
-	      			<Text style={styles.textCheck} >Check Your Email</Text>
+	      			<Text style={styles.textCheck} >{t('Check Your Email')}</Text>
 
-	      			<View style={{ marginTop: 5, alignItems: 'center'}}>
-		      			<Text style={styles.textLetter}>We have sent a password recovery</Text>
-		      			<Text style={styles.textLetter} >instructions to your email.</Text>
+	      			<View style={{ marginTop: 5}}>
+		      			<Text style={styles.textLetter}>
+		      				{t('We have sent a password recovery')}
+		      			</Text>
+		      			
 	      			</View>
 
 	      			<TouchableOpacity style={styles.buttonOpenEmail} 
 	      				onPress={() => onEmail()} 
 	      			>
-	      				<Text style={styles.textButton} >Open Email App</Text>
+	      				<Text style={styles.textButton} >{t('Open Email App')}</Text>
 	      			</TouchableOpacity>
 
 	      		</View>
@@ -184,7 +190,8 @@ const styles = StyleSheet.create({
 		marginHorizontal: 16,
 		fontFamily: fonts.NunitoSansLight,
 		fontSize: 17,
-		letterSpacing: 0.5
+		letterSpacing: 0.5,
+		textAlign: 'center' 
 	},
 
 	image:{

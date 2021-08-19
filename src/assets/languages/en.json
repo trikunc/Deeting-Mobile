@@ -21,10 +21,11 @@
 	"Sign in with Apple":"Sign in with Apple",
 	"Sign in with Facebook":"Sign in with Facebook",
 
+	"titleForgot":"Forgot Password",
 	"EnterEmail":"Enter your email to recover the password",
 	"Submit":"Submit",
-	"We have sent a password recovery":"We have sent a password recovery",
-	"instructions to your email":"instructions to your email.",
+	"Check Your Email":"Check Your Email",
+	"We have sent a password recovery":"We have sent a password recovery instructions to your email.",
 	"Open Email App":"Open Email App",
 	"Reset Password":"Reset Password",
 	"Create your a new password":"Create your a new password",
@@ -49,6 +50,7 @@
 	// Sukses Register
 
 	"Verify Email":"Verify Email",
+	"Verify My Email":"Verify My Email",
 	"textDescription":"Please click the button bellow to confirm your email address and activate your account.",
 	"Go to Sign In":"Go to Sign In"
 }

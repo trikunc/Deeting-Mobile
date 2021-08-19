@@ -9,6 +9,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import { useTranslation } from 'react-i18next';
+
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
@@ -19,6 +21,9 @@ const checkboxFill = '../../assets/icons/checkbokFill.png';
 const checkbox = '../../assets/icons/checkbok.png';
 
 const SignIn = ({navigation}) => {
+
+  const { t, i18n } = useTranslation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pass, setPass] = useState(true);
@@ -37,15 +42,15 @@ const SignIn = ({navigation}) => {
       </TouchableOpacity>
 
       <View style={styles.card}>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>{t('Email')}</Text>
         <TextInput
           style={styles.input}
           onChangeText={text => setEmail(text)}
           value={email}
-          placeholder="Enter your email"
+          placeholder={t('Enter your email')}
         />
 
-        <Text style={styles.label}>Password</Text>
+        <Text style={styles.label}>{t('Password')}</Text>
         <View style={styles.password}>
           <TextInput
             autoCapitalize="none"
@@ -54,7 +59,7 @@ const SignIn = ({navigation}) => {
             onChangeText={text => setPassword(text)}
             value={password}
             placeholderTextColor={COLORS.TEXTINPUT}
-            placeholder="Enter your password"
+            placeholder={t('Enter your password')}
           />
 
           <TouchableOpacity onPress={() => setPass(!pass)}>
@@ -81,11 +86,11 @@ const SignIn = ({navigation}) => {
                 <Image source={require(checkbox)} style={styles.checkbox} />
               )}
             </TouchableOpacity>
-            <Text style={styles.remember}>Remember me</Text>
+            <Text style={styles.remember}>{t('Remember me')}</Text>
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text style={styles.forgot}>Forgot password?</Text>
+            <Text style={styles.forgot}>{t('Forgot password')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -93,31 +98,31 @@ const SignIn = ({navigation}) => {
           onPress={() => navigation.navigate('TabsScreen')}
           activeOpacity={0.9}
           style={styles.button}>
-          <Text style={styles.text}>Sign In</Text>
+          <Text style={styles.text}>{t('Sign In')}</Text>
         </TouchableOpacity>
 
-        <Text style={styles.textOr}>Or</Text>
+        <Text style={styles.textOr}>{t('Or')}</Text>
         <View>
           <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
             <Image
               source={require('../../assets/icons/google.png')}
               style={styles.social}
             />
-            <Text style={styles.textSocial}>Sign in with Google</Text>
+            <Text style={styles.textSocial}>{t('Sign in with Google')}</Text>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
             <Image
               source={require('../../assets/icons/apple.png')}
               style={styles.social}
             />
-            <Text style={styles.textSocial}>Sign in with Apple</Text>
+            <Text style={styles.textSocial}>{t('Sign in with Apple')}</Text>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
             <Image
               source={require('../../assets/icons/facebook.png')}
               style={styles.social}
             />
-            <Text style={styles.textSocial}>Sign in with Facebook</Text>
+            <Text style={styles.textSocial}>{t('Sign in with Facebook')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -177,11 +182,18 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     paddingVertical: 12,
     borderRadius: 12,
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
-    elevation: 6,
+    borderColor: '#E7E4E4',
+    borderWidth: 0.4,
+    shadowRadius: 5,
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOpacity: 0.25,
+    elevation: 2,
     marginVertical: 10,
     flexDirection: 'row',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
   },
 
   textSocial: {

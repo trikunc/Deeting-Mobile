@@ -21,10 +21,11 @@
 	"Sign in with Apple":"Masuk dengan Apple",
 	"Sign in with Facebook":"Masuk dengan Facebook",
 
+	"titleForgot":"Lupa Kata Sandi",
 	"EnterEmail":"Masukkan email Anda untuk mendapatkan kata sandi",
 	"Submit":"Kirim",
-	"We have sent a password recovery":"Kami telah mengirim pemulihan kata sandi",
-	"instructions to your email":"petunjuk ke email Anda.",
+	"Check Your Email":"Periksa email Anda",
+	"We have sent a password recovery":"Kami telah mengirimkan instruksi pemulihan kata sandi ke email Anda.",
 	"Open Email App":"Buka Aplikasi Email",
 	"Reset Password":"Setel Ulang Kata Sandi",
 	"Create your a new password":"Buat kata sandi baru Anda",
@@ -49,6 +50,7 @@
 	// Sukses Register
 
 	"Verify Email":"Verifikasi email",
+	"Verify My Email":"Verifikasi Email Saya",
 	"textDescription":"Silakan klik tombol di bawah untuk mengonfirmasi alamat email Anda dan mengaktifkan akun Anda.",
 	"Go to Sign In":"Pergi ke Masuk"
 }
