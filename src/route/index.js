@@ -15,6 +15,7 @@ import SuccesSignUp from '../pages/Register/succesSignUp';
 import ChangePassword from '../pages/Home/ChangePass';
 import seeAllMeetings from '../pages/Home/Meetings/seeAllMeetings';
 import detailMeeting from '../pages/Home/Meetings/meetingDetail';
+import AddContact from '../pages/Home/Contact/AddContact';
 
 const Stack = createStackNavigator();
 
@@ -60,6 +61,7 @@ function AppNavigation() {
         component={detailMeeting}
         options={style}
       />
+      <Stack.Screen name="AddContact" component={AddContact} options={style} />
     </Stack.Navigator>
   );
 

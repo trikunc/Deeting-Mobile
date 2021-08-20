@@ -9,6 +9,7 @@ const COLORS = {
   DANGER: '#E64949',
   GRAY: '#707070',
   RED: '#FF5151',
+  ORANGE: '#F2994A',
 };
 
 export default COLORS;
