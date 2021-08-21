@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-
 import TabsScreen from './TabsScreen';
 
 import SplashScreen from '../pages/SplashScreen/index.js';
@@ -18,6 +17,7 @@ import ChangePassword from '../pages/Home/ChangePass';
 import seeAllMeetings from '../pages/Home/Meetings/seeAllMeetings';
 import detailMeeting from '../pages/Home/Meetings/meetingDetail';
 import AddContact from '../pages/Home/Contact/AddContact';
+import ContactDetail from '../pages/Home/Contact/ContactDetail';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +34,11 @@ function AppNavigation() {
         options={{headerShown: false}}
       />
 
-      <Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown: false}}/>
+      <Stack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen name="Landing" component={Landing} options={style} />
       <Stack.Screen name="SignIn" component={SignIn} options={style} />
       <Stack.Screen name="ForgotPassword" component={Forgot} options={style} />
@@ -62,6 +66,11 @@ function AppNavigation() {
       <Stack.Screen
         name="detailMeeting"
         component={detailMeeting}
+        options={style}
+      />
+      <Stack.Screen
+        name="ContactDetail"
+        component={ContactDetail}
         options={style}
       />
       <Stack.Screen name="AddContact" component={AddContact} options={style} />
