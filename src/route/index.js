@@ -16,6 +16,10 @@ import Register from '../pages/Register';
 import SuccesSignUp from '../pages/Register/succesSignUp';
 import ChangePassword from '../pages/Home/ChangePass';
 
+import JoinMeeting from '../pages/JoinMeeting/JoinMeeting';
+import WaitingRoom from '../pages/JoinMeeting/waitingRoom';
+import LoadingRoom from '../pages/JoinMeeting/loadingRoom';
+
 const Stack = createStackNavigator();
 
 function AppNavigation() {
@@ -49,6 +53,21 @@ function AppNavigation() {
       <Stack.Screen
         name="ChangePassword"
         component={ChangePassword}
+        options={style}
+      />
+      <Stack.Screen
+        name="JoinMeeting"
+        component={JoinMeeting}
+        options={style}
+      />
+      <Stack.Screen
+        name="WaitingRoom"
+        component={WaitingRoom}
+        options={style}
+      />
+      <Stack.Screen
+        name="LoadingRoom"
+        component={LoadingRoom}
         options={style}
       />
     </Stack.Navigator>

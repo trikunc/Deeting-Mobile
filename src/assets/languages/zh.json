@@ -52,5 +52,24 @@
 	"Verify Email":"验证邮件",
 	"Verify My Email":"验证我的电子邮件",
 	"textDescription":"请单击下面的按钮以确认您的电子邮件地址并激活您的帐户。",
-	"Go to Sign In":"去登录"
+	"Go to Sign In":"去登录",
+
+	// Join with Meeting ID
+	"Join with Meeting ID":"使用会议 ID 加入",
+	"Display Name":"显示名称",
+	"Join Options":"加入选项",
+	"Start with Camera":"从相机开始",
+	"DontConnectAudio":"不要连接到音频o",
+	"Join":"加入",
+
+	// waiting room
+
+	"Waiting Room":"候车室",
+	"People Waiting":"等待的人",
+	"placeHolderWaitingRoom":"在此处输入您的消息..",
+
+	// loading room
+	"Product Discussion":"产品讨论",
+	"Hi":"嗨,",
+	"please wait":"请稍等...",
 }
