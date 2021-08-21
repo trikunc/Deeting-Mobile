@@ -20,7 +20,7 @@ import  COLORS  from '../../utils/color';
 const ArrowDown = '../../assets/icons/ArrowDown.png';
 const ArrowUp = '../../assets/icons/ArrowUp.png';
 
-import { enGB, enUS, ina, checklist } from '../../assets/index';
+import { enGB, enUS, ina, zhCN, checklist } from '../../assets/index';
 
     
 const Landing  = ({navigation}) => {
@@ -69,7 +69,7 @@ const Landing  = ({navigation}) => {
                     
                     <TouchableOpacity ref={touchable} onPress={() => setShowPopover(!showPopover)} >
                     <View style={{ flexDirection: 'row', marginRight: 13.87 }} >
-                        <Image source={choose.code == 'id' ? ina : enGB} style={styles.flag} />
+                        <Image source={choose.code == 'id' ? ina : choose.code == 'en' ? enGB : zhCN} style={styles.flag} />
                         <Text style={{ ...styles.text, color: COLORS.PRIMARY, marginTop: '-10%' }} >{choose.text}</Text>
                     </View>
                     </TouchableOpacity>
@@ -106,7 +106,7 @@ const Landing  = ({navigation}) => {
                         {
                             language.map((row) => {
 
-                                const image = row.code == 'id' ? ina : enGB;
+                                const image = row.code == 'id' ? ina : row.code == 'en' ? enGB : zhCN ;
 
                                 if(row.code == choose.code) {
                                     return (
