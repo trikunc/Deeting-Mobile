@@ -12,6 +12,7 @@ import SectionListContacts from 'react-native-sectionlist-contacts';
 
 import RenderHeader from '../../components/Contact/RenderHeader';
 import {OnlineDevice} from '../../components/Contact/OnlineDevice';
+import {NoContact, NoGroup} from '../../components/NotFound/NotFoundComponent';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
@@ -22,18 +23,19 @@ import newSchedule from '../../assets/icons/newSchedule.png';
 import addIcon from '../../assets/icons/Add.png';
 import searchBar from '../../assets/icons/Search.png';
 
-import {contactList} from '../../dumyData';
+import {contactList, groupList} from '../../dumyData';
 
 const Contacts = ({navigation}) => {
   const [isContacts, setIsContacts] = useState(true);
   const [dataArray, setDataArray] = useState(contactList);
   const [dataFilter, setDataFilter] = useState(contactList);
+
+  const [dataArray2, setDataArray2] = useState(groupList);
+  const [dataFilter2, setDataFilter2] = useState(groupList);
+
   const [value, setValue] = useState();
 
-  RenderItem = (item, index, section) => {
-    // console.log('ITEM======>', item);
-    // if (item) console.log('empty');
-
+  RenderContacts = (item, index, section) => {
     return (
       <TouchableOpacity
         style={styles.contact_list}
@@ -55,13 +57,38 @@ const Contacts = ({navigation}) => {
     );
   };
 
-  const searchUser = text => {
-    console.log('====>', dataFilter.length);
-    setDataFilter(
-      dataArray.filter(item =>
-        item.name.toLowerCase().includes(text.toLowerCase()),
-      ),
+  RenderGroup = (item, index, section) => {
+    console.log('groubItem', item.name);
+    return (
+      <TouchableOpacity style={styles.contact_list}>
+        <View style={styles.contact_listHero}>
+          <View
+            style={{
+              ...styles.contact_profilPic,
+              backgroundColor: COLORS.ORANGE,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={{color: COLORS.WHITE}}>AT</Text>
+          </View>
+          <Text style={styles.contact_name}>{item.name}</Text>
+        </View>
+      </TouchableOpacity>
     );
+  };
+
+  const searchUser = text => {
+    isContacts
+      ? setDataFilter(
+          dataArray.filter(item =>
+            item.name.toLowerCase().includes(text.toLowerCase()),
+          ),
+        )
+      : setDataFilter2(
+          dataArray2.filter(item =>
+            item.name.toLowerCase().includes(text.toLowerCase()),
+          ),
+        );
   };
 
   return (
@@ -94,7 +121,9 @@ const Contacts = ({navigation}) => {
           <View style={styles.buttonContainer_left}>
             <TouchableOpacity
               style={isContacts ? styles.buttonOn : styles.buttonOff}
-              onPress={() => setIsContacts(true)}>
+              onPress={() => {
+                setIsContacts(true);
+              }}>
               <Text
                 style={
                   isContacts ? styles.buttonOn_text : styles.buttonOff_text
@@ -104,7 +133,9 @@ const Contacts = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={isContacts ? styles.buttonOff : styles.buttonOn}
-              onPress={() => setIsContacts(false)}>
+              onPress={() => {
+                setIsContacts(false);
+              }}>
               <Text
                 style={
                   isContacts ? styles.buttonOff_text : styles.buttonOn_text
@@ -135,9 +166,7 @@ const Contacts = ({navigation}) => {
 
         {isContacts ? (
           dataFilter.length < 1 ? (
-            <View>
-              <Text>NO USER</Text>
-            </View>
+            <NoContact />
           ) : (
             <View style={styles.contact_container}>
               <SectionListContacts
@@ -146,21 +175,28 @@ const Contacts = ({navigation}) => {
                 initialNumToRender={dataFilter.length}
                 otherAlphabet="#"
                 renderHeader={RenderHeader}
-                renderItem={RenderItem}
+                renderItem={RenderContacts}
                 letterViewStyle={styles.letterView}
                 letterTextStyle={styles.letterText}
                 showAlphabet={false}
               />
             </View>
           )
+        ) : dataFilter2.length < 1 ? (
+          <NoGroup />
         ) : (
-          <View style={styles.contact}>
-            <View style={styles.contact_container}>
-              <View style={styles.contact_alphabet}>
-                <Text style={styles.contact_title}>A</Text>
-              </View>
-              <GroubList nameOl="Alvaro Teams" />
-            </View>
+          <View style={styles.contact_container}>
+            <SectionListContacts
+              ref={s => (sectionList = s)}
+              sectionListData={dataFilter2}
+              initialNumToRender={dataFilter2.length}
+              otherAlphabet="#"
+              renderHeader={RenderHeader}
+              renderItem={RenderGroup}
+              letterViewStyle={styles.letterView}
+              letterTextStyle={styles.letterText}
+              showAlphabet={false}
+            />
           </View>
         )}
         <View
@@ -288,9 +324,11 @@ const styles = StyleSheet.create({
     paddingVertical: 12.5,
     paddingHorizontal: 9.88,
     marginHorizontal: 30,
+    overflow: 'hidden',
   },
   searchBar_textInput: {
     marginLeft: 9.87,
+    width: '90%',
   },
 
   //////// Contacts
@@ -316,7 +354,6 @@ const styles = StyleSheet.create({
     height: 28,
     width: 28,
     borderRadius: 14,
-    backgroundColor: 'yellow',
   },
   contact_name: {
     marginLeft: 20,

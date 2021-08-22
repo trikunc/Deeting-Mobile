@@ -63,3 +63,15 @@ export const contactList = [
   {name: '**&&&&', picture: Pic1, onlineStatus: 'desktop'},
   {name: '1122', picture: Pic1, onlineStatus: 'desktop'},
 ];
+
+export const groupList = [
+  {
+    name: 'Alvaro Teams',
+  },
+  {
+    name: 'Alvaro Teams2',
+  },
+  {
+    name: 'Alvaro Teams3',
+  },
+];
