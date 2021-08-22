@@ -7,22 +7,25 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 
-import SignOutModal from '../../components/Modal/SignOutModal';
-import QRCodeModal from '../../components/Modal/QRCodeModal';
-import {ButtonDanger} from '../../components/Button/ButtonComponent';
+import COLORS from '../../../utils/color';
+import {fonts} from '../../../utils/fonts';
+import {
+  ButtonPrimary,
+  ButtonBorder,
+} from '../../../components/Button/ButtonComponent';
 
-import COLORS from '../../utils/color';
-import {fonts} from '../../utils/fonts';
+import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
+import profilePic from '../../../assets/images/profile.png';
+import editPic from '../../../assets/icons/EditPhoto.png';
 
-import ArrowLeft from '../../assets/icons/ArrowLeft.png';
-import profilePic from '../../assets/images/profile.png';
-import editPic from '../../assets/icons/EditPhoto.png';
-
-const Profile = ({navigation}) => {
-  const [modal1, setModal1] = useState(false);
-  const [modal2, setModal2] = useState(false);
+const EditProfile = ({navigation}) => {
+  const [firstName, setFirstName] = useState('John');
+  const [lastName, setLastName] = useState('Doe');
+  const [displayName, setDisplayName] = useState('John Doe');
+  const [email, setEmail] = useState('johndoe@gmail.com');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -52,31 +55,42 @@ const Profile = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.personInfo}>
             <Text style={styles.personInfo_text}>Personal Information</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('EditProfile')}>
-              <Text style={styles.personInfo_edit}>Edit</Text>
-            </TouchableOpacity>
           </View>
           <View style={styles.profile}>
             <Text style={styles.profile_firstText}>First Name</Text>
             <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>John</Text>
+              <TextInput
+                style={styles.profile_secondText}
+                onChangeText={setFirstName}
+                value={firstName}
+              />
             </View>
           </View>
           <View style={styles.profile}>
             <Text style={styles.profile_firstText}>Last Name</Text>
             <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>Doe</Text>
+              <TextInput
+                style={styles.profile_secondText}
+                onChangeText={setLastName}
+                value={lastName}
+              />
             </View>
           </View>
           <View style={styles.profile}>
             <Text style={styles.profile_firstText}>Display Name</Text>
             <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>John Doe</Text>
+              <TextInput
+                style={styles.profile_secondText}
+                onChangeText={setDisplayName}
+                value={displayName}
+              />
             </View>
           </View>
           <View style={styles.profile}>
             <Text style={styles.profile_firstText}>Personal Meeting ID</Text>
+            <Text style={styles.profile_note}>
+              This information disable to change
+            </Text>
             <View
               style={{
                 ...styles.profile_wrapper,
@@ -88,26 +102,16 @@ const Profile = ({navigation}) => {
           <View style={styles.profile}>
             <Text style={styles.profile_firstText}>Email</Text>
             <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>johndoe@gmail.com</Text>
+              <TextInput
+                style={styles.profile_secondText}
+                onChangeText={setEmail}
+                value={email}
+              />
             </View>
           </View>
-          <View style={styles.profile}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ChangePassword')}>
-              <Text style={styles.profile_thirdText}>Change Password</Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setModal1(true)}>
-              <Text style={styles.profile_thirdText}>
-                See My Profile QR COde
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <ButtonDanger text="Sign Out" callBack={() => setModal2(true)} />
-
-          <QRCodeModal isVisible={modal1} callBack={() => setModal1(false)} />
-          <SignOutModal isVisible={modal2} callBack={() => setModal2(false)} />
+          <ButtonPrimary text="Save" />
+          <ButtonBorder text="Cancel" callBack={() => navigation.goBack()} />
 
           <View
             style={{
@@ -120,7 +124,7 @@ const Profile = ({navigation}) => {
   );
 };
 
-export default Profile;
+export default EditProfile;
 
 const styles = StyleSheet.create({
   container: {
@@ -220,6 +224,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
+  profile_note: {
+    fontFamily: fonts.NunitoSansReguler,
+    fontWeight: '300',
+    fontSize: 14,
+    lineHeight: 1.4 * 14,
+    marginTop: 4,
+  },
   profile_wrapper: {
     paddingVertical: 16,
     paddingHorizontal: 12,
@@ -235,6 +246,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NunitoSansReguler,
     fontWeight: '400',
     fontSize: 16,
+    width: '100%',
   },
   profile_langWrapper: {
     display: 'flex',
@@ -257,5 +269,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.SECONDARY,
     marginBottom: 12,
+  },
+  button_danger: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 28,
+    padding: 12,
+    height: 46,
+    borderRadius: 12,
+
+    backgroundColor: COLORS.DANGER,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+  },
+  button_primary: {
+    color: COLORS.WHITE,
+    fontFamily: fonts.NunitoSansReguler,
+    fontWeight: '600',
+    fontSize: 16,
   },
 });
