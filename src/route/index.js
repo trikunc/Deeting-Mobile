@@ -19,6 +19,7 @@ import detailMeeting from '../pages/Home/Meetings/meetingDetail';
 import AddContact from '../pages/Home/Contact/AddContact';
 import ContactDetail from '../pages/Home/Contact/ContactDetail';
 import EditProfile from '../pages/Home/Profile/EditProfile';
+import CreateGroup from '../pages/Home/Contact/CreateGroup';
 
 const Stack = createStackNavigator();
 
@@ -77,6 +78,11 @@ function AppNavigation() {
       <Stack.Screen
         name="EditProfile"
         component={EditProfile}
+        options={style}
+      />
+      <Stack.Screen
+        name="CreateGroup"
+        component={CreateGroup}
         options={style}
       />
       <Stack.Screen name="AddContact" component={AddContact} options={style} />
