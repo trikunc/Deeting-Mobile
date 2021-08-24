@@ -13,7 +13,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 
-import { send, fileOption } from '../../assets/index';
+import { send, plus } from '../../assets/index';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
@@ -23,6 +23,7 @@ const WaitingRoom = ({navigation}) => {
 	const { t, i18n } = useTranslation();
 
 	const [chat, setChat] = useState('');
+	const [is_admin, setAdmin] = useState(true);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -38,12 +39,23 @@ const WaitingRoom = ({navigation}) => {
 	      		</TouchableOpacity>
 
 	      		<Text style={styles.textTitle}>{t('Waiting Room')}</Text>
+
+	      		{
+	      			is_admin ? (
+	      				<TouchableOpacity  
+	      					style={styles.buttonStart}
+	      				>
+	      					<Text style={styles.fontStart} >{t('start')}</Text>
+	      				</TouchableOpacity>
+	      			) : null
+	      		}
+
 	      	</View>
 
 	      	<View style={styles.card}>
 	      		<View style={styles.topInfo} >
 	      			<Text style={styles.textInfo}>(3) {t('People Waiting')}</Text>
-	      		</View>
+	      	</View>
 
 	      	{/* content */}
 
@@ -107,8 +119,10 @@ const WaitingRoom = ({navigation}) => {
 			          value={chat}
 			          placeholder={t('placeHolderWaitingRoom')}
 			        />
-			        <TouchableOpacity>
-			        	<Image source={fileOption} style={styles.file} />
+			        <TouchableOpacity  
+			        	style={styles.buttonPlus}
+			        >
+			        	<Image source={plus} style={styles.file} />
 			        </TouchableOpacity>
 		        </View>
 		        <TouchableOpacity style={styles.button} >
@@ -150,6 +164,23 @@ const styles = StyleSheet.create({
 		fontFamily: fonts.NunitoSansBold,
 		color:COLORS.WHITE,
 		lineHeight: 27, 
+	},
+
+	buttonStart:{
+		backgroundColor: '#FF5151',
+		paddingVertical: 8,
+		paddingHorizontal: 12,
+		borderRadius: 8,
+		position: 'absolute',
+		right: 10,
+	},
+
+	fontStart:{
+		fontFamily: fonts.NunitoSansBold,
+		letterSpacing: 0.5,
+		color: COLORS.WHITE,
+		fontSize: 16,
+		lineHeight: 22.4,
 	},
 
 	card:{
@@ -245,10 +276,19 @@ const styles = StyleSheet.create({
 
   	},
 
+  	buttonPlus:{
+		height: 25,
+		width: 25,
+		backgroundColor: '#707070',
+		borderRadius: 50,
+		alignItems: 'center',
+		justifyContent: 'center', 
+		marginTop: 11, 
+	},
+
   	file:{ 
-  		width: 15.27, 
-  		height: 17.27, 
-  		marginTop: 15 
+  		width: 16, 
+  		height: 16, 
   	},
 
   	button:{

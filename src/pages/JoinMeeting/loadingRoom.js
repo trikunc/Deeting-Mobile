@@ -22,7 +22,7 @@ const LoadingRoom = ({navigation}) => {
 
 		setTimeout( () => {
 			navigation.replace('WaitingRoom');
-		}, 5000)
+		}, 2000)
 
 	}, [navigation]);
 
