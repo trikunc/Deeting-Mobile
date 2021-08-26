@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 
 import COLORS from '../../utils/color';
@@ -23,7 +24,12 @@ const seeAllMeetings = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
-        <Text style={styles.topView_Text}>Hi, John Doe</Text>
+        <Text style={styles.topView_View} >
+          <Text style={{...styles.topView_Text, fontFamily: fonts.NunitoSansReguler}}>Hi, {' '}</Text>
+          <Text style={styles.topView_Text}>
+            John Doe
+          </Text>
+        </Text>
       </View>
 
       <View style={styles.meetingNav}>
@@ -131,7 +137,7 @@ const seeAllMeetings = ({navigation}) => {
           </View>
           <View
             style={{
-              height: 250,
+               height: Platform.OS === 'ios' ? 250 : 150,
               display: 'flex',
             }}></View>
         </ScrollView>
@@ -145,22 +151,26 @@ export default seeAllMeetings;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.PRIMARY,
+    flex: Platform.OS === 'ios' ? 0 : 1,
   },
 
   topView: {
-    height: 115,
+    height: Platform.OS === 'ios' ? 115 : 150,
     display: 'flex',
     paddingHorizontal: 30,
+  },
+
+  topView_View: {
+    top: Platform.OS === 'ios' ? 23.5 : 40,
+    // marginLeft: 30,
   },
 
   topView_Text: {
     color: COLORS.WHITE,
     fontSize: 18,
     lineHeight: 27,
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
     fontSize: 18,
-    top: 23.5,
     letterSpacing: 0.5,
   },
   botView: {
@@ -301,7 +311,7 @@ const styles = StyleSheet.create({
   //////// Nav
   meetingNav: {
     position: 'absolute',
-    top: 110,
+    top: Platform.OS === 'ios' ? 110 : 90,
     width: '100%',
     // alignItems: 'center',
     zIndex: 100,
@@ -311,9 +321,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 116,
     marginHorizontal: 20,
-
+    elevation: Platform.OS === 'ios' ? 2 : 9,
     backgroundColor: COLORS.WHITE,
-    shadowColor: '#000',
+     shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOffset: {
       width: 0,
       height: 1,

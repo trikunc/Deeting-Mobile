@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.PRIMARY,
   },
   button_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
+    fontFamily: fonts.NunitoSansSemiBold,
+    letterSpacing: 0.5,
     fontSize: 16,
   },
 });

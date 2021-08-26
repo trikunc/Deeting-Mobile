@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Platform
 } from 'react-native';
 import SectionListContacts from 'react-native-sectionlist-contacts';
 
@@ -94,7 +95,12 @@ const Contacts = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
-        <Text style={styles.topView_Text}>Hi, John Doe</Text>
+        <Text style={styles.topView_View} >
+          <Text style={{...styles.topView_Text, fontFamily: fonts.NunitoSansReguler}}>Hi, {' '}</Text>
+          <Text style={styles.topView_Text}>
+            John Doe
+          </Text>
+        </Text>
       </View>
 
       <View style={styles.meetingNav}>
@@ -152,7 +158,7 @@ const Contacts = ({navigation}) => {
         </View>
 
         {/* // Search bar */}
-        <View style={styles.searchBar}>
+        <View style={Platform.OS === 'ios'? styles.searchBar : styles.searchBarAndroid}>
           <View>
             <Image source={searchBar} style={{height: 13, width: 16.25}} />
           </View>
@@ -201,7 +207,7 @@ const Contacts = ({navigation}) => {
         )}
         <View
           style={{
-            height: 170,
+            height: Platform.OS === 'ios' ? 170 : 250,
             display: 'flex',
           }}></View>
       </View>
@@ -236,20 +242,22 @@ const styles = StyleSheet.create({
   },
 
   topView: {
-    height: 115,
+    height: Platform.OS === 'ios' ? 115 : 150,
     display: 'flex',
+  },
+
+  topView_View: {
+    top: Platform.OS === 'ios' ? 23.5 : 40,
+    marginLeft: 30,
   },
 
   topView_Text: {
     color: COLORS.WHITE,
     fontSize: 18,
     lineHeight: 27,
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
     fontSize: 18,
-    top: 23.5,
     letterSpacing: 0.5,
-    paddingHorizontal: 30,
   },
   botView: {
     backgroundColor: COLORS.WHITE,
@@ -285,8 +293,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   buttonOn_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
+    letterSpacing: 0.5,
     fontSize: 16,
     lineHeight: 1.4 * 16,
     color: COLORS.WHITE,
@@ -301,8 +309,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   buttonOff_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
+    letterSpacing: 0.5,
     fontSize: 16,
     lineHeight: 1.4 * 16,
     color: '#999999',
@@ -326,6 +334,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     overflow: 'hidden',
   },
+
+  searchBarAndroid :{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+    backgroundColor: 'rgba(124, 120, 120, 0.1)',
+    borderRadius: 8,
+    marginTop: 24,
+    marginBottom: 20,
+    height: 54,
+    // paddingVertical: 12.5,
+    paddingHorizontal: 9.88,
+    marginHorizontal: 30,
+  },
+
   searchBar_textInput: {
     marginLeft: 9.87,
     width: '90%',
@@ -367,7 +391,7 @@ const styles = StyleSheet.create({
   //////// Nav
   meetingNav: {
     position: 'absolute',
-    top: 110,
+    top: Platform.OS === 'ios' ? 110 : 90,
     width: '100%',
     // alignItems: 'center',
     zIndex: 100,
@@ -377,9 +401,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 116,
     marginHorizontal: 20,
-
+    elevation: Platform.OS === 'ios' ? 2 : 9,
     backgroundColor: COLORS.WHITE,
-    shadowColor: '#000',
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOffset: {
       width: 0,
       height: 1,

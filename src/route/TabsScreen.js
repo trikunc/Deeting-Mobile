@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StyleSheet, Platform} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Profile from '../pages/Home/Profile';
@@ -7,6 +7,8 @@ import Meeting from '../pages/Home/Meetings';
 import Contacts from '../pages/Home/Contacts';
 
 import clockIcon from '../assets/icons/clock.png';
+import clockOn from '../assets/icons/clockOn.png';
+
 import clockIconFoc from '../assets/icons/clockFocused.png';
 import contactIcon from '../assets/icons/phoneBook.png';
 import contactIconFoc from '../assets/icons/phoneBookFocused.png';
@@ -22,7 +24,9 @@ const Tab = createBottomTabNavigator();
 const TabsScreen = ({navigation}) => (
   <Tab.Navigator
     initialRouteName="Profile"
-    screenOptions={{
+    screenOptions={
+      Platform.OS === 'ios' ?
+    {
       tabBarShowLabel: false,
       tabBarStyle: {
         backgroundColor: COLOR.PRIMARY,
@@ -30,22 +34,32 @@ const TabsScreen = ({navigation}) => (
         borderRadius: 12,
         paddingHorizontal: 30,
       },
-    }}>
+      
+    } : {
+      tabBarShowLabel: false,
+      tabBarStyle:{
+        backgroundColor: COLOR.PRIMARY,
+        paddingHorizontal: 30,
+        height: '9%',
+        borderTopRightRadius: 12,
+        borderTopLeftRadius: 12,
+
+      }
+    }}
+
+    >
     <Tab.Screen
       name="Meeting"
       component={Meeting}
       options={{
         tabBarIcon: ({focused}) => (
           <View
-            style={{alignItems: 'center', justifyContent: 'center', top: 15}}>
-            <Image source={focused ? clockIconFoc : clockIcon} />
+            style={styles.icons}>
+            <Image source={focused ? clockOn : clockIcon} 
+              style={{ height: 24, width: 25 }}
+            />
             <Text
-              style={{
-                fontFamily: fonts.NunitoSansReguler,
-                fontSize: 12,
-                marginTop: 4,
-                color: COLOR.WHITE,
-              }}>
+              style={focused ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold} : styles.text}>
               Meetings
             </Text>
           </View>
@@ -59,15 +73,10 @@ const TabsScreen = ({navigation}) => (
       options={{
         tabBarIcon: ({focused}) => (
           <View
-            style={{alignItems: 'center', justifyContent: 'center', top: 15}}>
+            style={styles.icons}>
             <Image source={focused ? contactIconFoc : contactIcon} />
             <Text
-              style={{
-                fontFamily: fonts.NunitoSansReguler,
-                fontSize: 12,
-                marginTop: 4,
-                color: COLOR.WHITE,
-              }}>
+              style={focused ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold} : styles.text}>
               Contacts
             </Text>
           </View>
@@ -81,15 +90,10 @@ const TabsScreen = ({navigation}) => (
       options={{
         tabBarIcon: ({focused}) => (
           <View
-            style={{alignItems: 'center', justifyContent: 'center', top: 15}}>
+            style={styles.icons}>
             <Image source={focused ? profileIconFoc : profileIcon} />
             <Text
-              style={{
-                fontFamily: fonts.NunitoSansReguler,
-                fontSize: 12,
-                marginTop: 4,
-                color: COLOR.WHITE,
-              }}>
+              style={focused ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold} : styles.text}>
               Profile
             </Text>
           </View>
@@ -99,5 +103,20 @@ const TabsScreen = ({navigation}) => (
     />
   </Tab.Navigator>
 );
+
+const styles= StyleSheet.create({
+  icons :{
+    alignItems: 'center', 
+    justifyContent: 'center',
+    marginTop: '2%' 
+  },
+  text:{
+    fontFamily: fonts.NunitoSansReguler,
+    fontSize: 12,
+    marginTop: '3%',
+    color: COLOR.WHITE,
+    letterSpacing: 0.5,
+  }
+});
 
 export default TabsScreen;
