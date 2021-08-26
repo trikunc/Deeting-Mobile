@@ -5,7 +5,8 @@ import {
 	View, 
 	Text, 
 	StyleSheet, 
-	Image 
+	Image,
+    StatusBar 
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -62,7 +63,7 @@ const Landing  = ({navigation}) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.WHITE }} >
-
+            <StatusBar  />
             <View style={{ alignItems: 'flex-end', marginTop: 50, marginRight: 37 }} >
                 
                 <View style={{ flexDirection: 'row' }} >
