@@ -31,13 +31,15 @@ const SplashScreen = ({navigation}) => {
 const styles = StyleSheet.create({
 	container : {
 		flex: 1,
+		// alignItems: 'center', 
+		// justifyContent: 'center',
 		backgroundColor: '#6C51E1',
 	},
 	block : {
 		alignItems: 'center' 
 	},
 	logo : {
-		marginTop: '54%',
+		marginTop: '60%',
 		width: 180,
 		height: 180,
 	},
