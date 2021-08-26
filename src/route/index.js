@@ -20,6 +20,10 @@ import AddContact from '../pages/Home/Contact/AddContact';
 import ContactDetail from '../pages/Home/Contact/ContactDetail';
 import EditProfile from '../pages/Home/Profile/EditProfile';
 
+import JoinMeeting from '../pages/JoinMeeting/JoinMeeting';
+import WaitingRoom from '../pages/JoinMeeting/waitingRoom';
+import LoadingRoom from '../pages/JoinMeeting/loadingRoom';
+
 const Stack = createStackNavigator();
 
 function AppNavigation() {
@@ -60,6 +64,21 @@ function AppNavigation() {
         options={style}
       />
       <Stack.Screen
+        name="JoinMeeting"
+        component={JoinMeeting}
+        options={style}
+      />
+      <Stack.Screen
+        name="WaitingRoom"
+        component={WaitingRoom}
+        options={style}
+      />
+      <Stack.Screen
+        name="LoadingRoom"
+        component={LoadingRoom}
+        options={style}
+      />
+      <Stack.Screen
         name="seeAllMeetings"
         component={seeAllMeetings}
         options={style}
@@ -80,6 +99,7 @@ function AppNavigation() {
         options={style}
       />
       <Stack.Screen name="AddContact" component={AddContact} options={style} />
+
     </Stack.Navigator>
   );
 

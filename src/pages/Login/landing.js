@@ -154,7 +154,11 @@ const Landing  = ({navigation}) => {
             </View>
 
             <View style={{ marginTop: 150}} >
-            	<TouchableOpacity activeOpacity={0.9} style={{...styles.button, backgroundColor: COLORS.GREEN}} >
+            	<TouchableOpacity 
+                    activeOpacity={0.9} 
+                    style={{...styles.button, backgroundColor: COLORS.GREEN}} 
+                    onPress={() => navigation.navigate('JoinMeeting')}
+                    >
             		<Text style={styles.text} >
                         {t('Join a Meeting')}
                     </Text>

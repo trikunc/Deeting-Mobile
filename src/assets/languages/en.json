@@ -53,5 +53,26 @@
 	"Verify Email":"Verify Email",
 	"Verify My Email":"Verify My Email",
 	"textDescription":"Please click the button bellow to confirm your email address and activate your account.",
-	"Go to Sign In":"Go to Sign In"
+	"Go to Sign In":"Go to Sign In",
+
+	// join meeting
+	"Join with Meeting ID":"Join with Meeting ID",
+	"Display Name":"Display Name",
+	"Join Options":"Join Options",
+	"Start with Camera":"Start with Camera",
+	"DontConnectAudio":"Don’t Connect to Audio",
+	"Join":"Join",
+
+	// waiting room
+
+	"Waiting Room":"Waiting Room",
+	"People Waiting":"People Waiting",
+	"placeHolderWaitingRoom":"Enter your message here ..",
+
+	// loading room
+	"Product Discussion":"Product Discussion",
+	"Hi":"Hi,",
+	"please wait":"please wait ...",
+	"start": "START",
+	
 }
