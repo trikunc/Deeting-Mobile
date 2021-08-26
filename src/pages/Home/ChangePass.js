@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
 
   topView: {
-    height: 115,
+    height: 96,
     display: 'flex',
     // paddingTop: 48.5,
     alignItems: 'center',

@@ -5,61 +5,49 @@ import {
   Text,
   Image,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 
-import COLORS from '../../utils/color';
-import {fonts} from '../../utils/fonts';
+import COLORS from '../../../utils/color';
+import {fonts} from '../../../utils/fonts';
 
-import meetingNow from '../../assets/icons/meetingNow.png';
-import joinMeeting from '../../assets/icons/joinMeeting.png';
-import newSchedule from '../../assets/icons/newSchedule.png';
-import arrowRight from '../../assets/icons/ArrowRightSecondary.png';
-import noMeeting from '../../assets/images/NoMeeting.png';
+import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
+import arrowRight from '../../../assets/icons/ArrowRightSecondary.png';
+import Refresh from '../../../assets/icons/Refresh.png';
 
 const seeAllMeetings = ({navigation}) => {
-  const [isMeeting, setIsMeeting] = useState({});
+  const [remember, setRemember] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
-        <Text style={styles.topView_Text}>Hi, John Doe</Text>
-      </View>
-
-      <View style={styles.meetingNav}>
-        <View style={styles.meetingNav_body}>
-          <View style={styles.meetingNav_wrapper}>
-            <View style={styles.meetingNav_icon}>
-              <Image source={meetingNow} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>Meeting Now</Text>
-            </View>
-            <View style={styles.meetingNav_icon}>
-              <Image source={joinMeeting} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>Join Meeting</Text>
-            </View>
-            <View style={styles.meetingNav_icon}>
-              <Image source={newSchedule} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>New Schedule</Text>
-            </View>
-          </View>
-        </View>
+        <TouchableOpacity
+          style={styles.topView_arrowLeft}
+          onPress={() => navigation.goBack()}>
+          <Image
+            style={{
+              width: 10.5,
+              height: 21,
+            }}
+            source={ArrowLeft}
+          />
+        </TouchableOpacity>
+        <Text style={styles.topView_Text}>Upcoming Meetings</Text>
+        <TouchableOpacity style={styles.topView_refresh}>
+          <Image
+            style={{
+              width: 24,
+              height: 24,
+            }}
+            source={Refresh}
+          />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.botView}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {!isMeeting && (
-            <View style={{alignItems: 'center'}}>
-              <Image source={noMeeting} style={styles.botView_img} />
-              <Text style={styles.botView_text}>No meeting</Text>
-              <Text style={styles.botView_desc}>
-                You currently doesn’t have meeting
-              </Text>
-            </View>
-          )}
-
           {/* //// Upcoming Meetings */}
           <View style={styles.upcomingMeet}>
-            <Text style={styles.upcomingMeet_title}>Upcoming Meetings</Text>
             <Text style={styles.upcomingMeet_date}>Today, 5 August 2021</Text>
             <View style={styles.meetingInfo}>
               <Text style={styles.meetingInfo_time}>09:00 AM</Text>
@@ -72,9 +60,7 @@ const seeAllMeetings = ({navigation}) => {
                 </Text>
               </View>
             </View>
-            <TouchableOpacity
-              style={styles.meetingInfo}
-              onPress={() => navigation.navigate('detailMeeting')}>
+            <View style={styles.meetingInfo}>
               <Text style={styles.meetingInfo_time}>03:00 PM</Text>
               <View style={styles.meetingInfo_textBody}>
                 <Text style={styles.meetingInfo_text}>Design Webinar</Text>
@@ -82,7 +68,7 @@ const seeAllMeetings = ({navigation}) => {
                   Meeting ID: 671-910-223
                 </Text>
               </View>
-            </TouchableOpacity>
+            </View>
             <Text style={styles.upcomingMeet_date}>
               Tomorrow, 6 August 2021
             </Text>
@@ -95,45 +81,28 @@ const seeAllMeetings = ({navigation}) => {
                 </Text>
               </View>
             </View>
-            <TouchableOpacity
-              style={styles.seeAll}
-              onPress={() => navigation.navigate('seeAllMeetings')}>
-              <View style={styles.seeAll_body}>
-                <Text style={styles.seeAll_text}>See all</Text>
-                <Image source={arrowRight} style={styles.seeAll_image} />
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          {/* ////Previous Meetings */}
-          <View style={styles.upcomingMeet}>
-            <Text style={styles.upcomingMeet_title}>Previous Meetings</Text>
-            <Text style={styles.upcomingMeet_date}>
-              Tuesday, 3 August 2021{' '}
-            </Text>
+            <Text style={styles.upcomingMeet_date}>Monday, 9 August 2021</Text>
             <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>09:00 AM</Text>
+              <Text style={styles.meetingInfo_time}>13:00 PM</Text>
+              <View style={styles.meetingInfo_textBody}>
+                <Text style={styles.meetingInfo_text}>Alex’s Meeting</Text>
+                <Text style={styles.meetingInfo_textId}>
+                  Meeting ID: 341-214-567
+                </Text>
+              </View>
+            </View>
+            <View style={styles.meetingInfo}>
+              <Text style={styles.meetingInfo_time}>19:00 PM</Text>
               <View style={styles.meetingInfo_textBody}>
                 <Text style={styles.meetingInfo_text}>
-                  Weekly Product Meeting
+                  Data Science Bootcamp
                 </Text>
                 <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 123-000-781
+                  Meeting ID: 900-123-456
                 </Text>
-              </View>
-            </View>
-            <View style={styles.seeAll}>
-              <View style={styles.seeAll_body}>
-                <Text style={styles.seeAll_text}>See all</Text>
-                <Image source={arrowRight} style={styles.seeAll_image} />
               </View>
             </View>
           </View>
-          <View
-            style={{
-              height: 250,
-              display: 'flex',
-            }}></View>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -148,9 +117,21 @@ const styles = StyleSheet.create({
   },
 
   topView: {
-    height: 115,
+    height: 96,
     display: 'flex',
-    paddingHorizontal: 30,
+    // paddingTop: 48.5,
+    alignItems: 'center',
+  },
+
+  topView_arrowLeft: {
+    position: 'absolute',
+    top: 23.5,
+    left: 27,
+  },
+  topView_refresh: {
+    position: 'absolute',
+    top: 23.5,
+    right: 27,
   },
 
   topView_Text: {
@@ -163,36 +144,14 @@ const styles = StyleSheet.create({
     top: 23.5,
     letterSpacing: 0.5,
   },
+
   botView: {
     backgroundColor: COLORS.WHITE,
     height: '100%',
-    paddingTop: 58,
+    paddingTop: 4,
     paddingBottom: 56,
     paddingHorizontal: 30,
-    // justifyContent: 'center',
   },
-  botView_img: {
-    marginTop: 125 - 58,
-  },
-  botView_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
-    fontSize: 24,
-    lineHeight: 1.4 * 24,
-    textAlign: 'center',
-    color: COLORS.NEUTRAL,
-    marginTop: 24,
-  },
-  botView_desc: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'normal',
-    fontSize: 16,
-    lineHeight: 1.4 * 16,
-    textAlign: 'center',
-    color: COLORS.GRAY,
-    marginTop: 6,
-  },
-
   /////// upcoming Meeting
   upcomingMeet: {
     marginTop: 84 - 58,
@@ -296,57 +255,5 @@ const styles = StyleSheet.create({
     lineHeight: 1.4 * 16,
     color: COLORS.GRAY,
     marginTop: 4,
-  },
-
-  //////// Nav
-  meetingNav: {
-    position: 'absolute',
-    top: 110,
-    width: '100%',
-    // alignItems: 'center',
-    zIndex: 100,
-  },
-  meetingNav_body: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 116,
-    marginHorizontal: 20,
-
-    backgroundColor: COLORS.WHITE,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    borderRadius: 10,
-  },
-  meetingNav_wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 0,
-    width: 223,
-    height: 88,
-  },
-  meetingNav_icon: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 0,
-    width: 50,
-    height: 88,
-  },
-
-  meetingNav_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'normal',
-    fontSize: 12,
-    lineHeight: 1.4 * 12,
-    marginTop: 4,
-    textAlign: 'center',
-    color: COLORS.BLACK,
   },
 });

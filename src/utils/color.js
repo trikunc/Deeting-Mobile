@@ -7,6 +7,9 @@ const COLORS = {
   NEUTRAL: '#4F4F4F',
   TEXTINPUT: '#908E8E',
   DANGER: '#E64949',
+  GRAY: '#707070',
+  RED: '#FF5151',
+  ORANGE: '#F2994A',
 };
 
 export default COLORS;
