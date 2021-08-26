@@ -7,7 +7,8 @@ import {
 	TouchableOpacity, 
 	StyleSheet,
 	TextInput,
-	Dimensions
+	Dimensions,
+	StatusBar,
 } from 'react-native';
 
 import Modal from 'react-native-modal';
@@ -40,8 +41,9 @@ const ResetPassword = ({navigation}) => {
 
    return(
      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.PRIMARY }}>
+     	<StatusBar backgroundColor={COLORS.PRIMARY}  />
         <TouchableOpacity 
-     		style={{ marginLeft: 27, marginTop: 50 }} 
+     		style={{ marginLeft: 27, marginTop: 40 }} 
      		onPress={() => navigation.goBack()}
      	>
      		<Image source={require('../../../assets/icons/ArrowLeft.png')} style={{ height: 21, width: 10.5 }} />

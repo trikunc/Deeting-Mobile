@@ -9,7 +9,8 @@ import {
 	TextInput,
 	KeyboardAvoidingView,
 	Platform,
-	Dimensions
+	Dimensions,
+	StatusBar
 } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
@@ -19,7 +20,6 @@ import COLORS from '../../../utils/color';
 import {fonts } from '../../../utils/fonts';
 
 const deviceHeight = Dimensions.get('window').height;
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -90;
 
 const Forgot = ({navigation}) => {
 
@@ -36,8 +36,9 @@ const Forgot = ({navigation}) => {
 
    return(
      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.PRIMARY }}>
+     	 <StatusBar backgroundColor={COLORS.PRIMARY}  />
         <TouchableOpacity 
-     		style={{ marginLeft: 27, marginTop: 50 }} 
+     		style={{ marginLeft: 27, marginTop: 40 }} 
      		onPress={() => navigation.goBack()}
      	>
      		<Image source={require('../../../assets/icons/ArrowLeft.png')} style={{ height: 21, width: 10.5 }} />
@@ -48,15 +49,18 @@ const Forgot = ({navigation}) => {
 		
 		{/*card*/}
      	 
+     	
      	<View style={styles.card} >
 
-     		<Text style={styles.forgotPassword} >{t('titleForgot')}</Text>
-     		<Text style={styles.text}>{t('EnterEmail')}</Text>
+     		<View  style={{ marginBottom: 36 }}>
+	     		<Text style={styles.forgotPassword} >{t('titleForgot')}</Text>
+	     		<Text style={styles.text}>{t('EnterEmail')}</Text>
+     		</View>
      	<KeyboardAvoidingView
-      		behavior="height"
-      		keyboardVerticalOffset={keyboardVerticalOffset}    	
-      	>
-     		<View style={{ marginTop: 36 }} >
+     		behavior={Platform.OS === "ios" ? "padding" : "height"}
+      		keyboardVerticalOffset={Platform.OS === "ios" ? 64 : -90}
+     	>
+     		<View >
 	     		<Text style={styles.label} >{t('Email')}</Text>
 	     		<TextInput
 			        style={styles.input}
@@ -65,8 +69,7 @@ const Forgot = ({navigation}) => {
 			        placeholder={t('Enter your email')}
 	      		/>
       		</View>
-
-     	</KeyboardAvoidingView>
+      	</KeyboardAvoidingView>
       		<TouchableOpacity activeOpacity={0.9} style={styles.button} 
       			onPress={() => setVisible(true) }
       		>
@@ -74,6 +77,8 @@ const Forgot = ({navigation}) => {
             </TouchableOpacity>
 
      	</View>
+
+    
 
      	<Modal
         	isVisible={visible}

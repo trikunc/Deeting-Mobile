@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  ScrollView,
+  StatusBar
 } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
@@ -32,8 +34,9 @@ const SignIn = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.PRIMARY}}>
+      <StatusBar backgroundColor={COLORS.PRIMARY}  />
       <TouchableOpacity
-        style={{marginLeft: 27, marginTop: 50}}
+        style={{marginLeft: 27, marginTop: 40}}
         onPress={() => navigation.popToTop()}>
         <Image
           source={require('../../assets/icons/ArrowLeft.png')}
@@ -124,6 +127,13 @@ const SignIn = ({navigation}) => {
             />
             <Text style={styles.textSocial}>{t('Sign in with Facebook')}</Text>
           </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
+            <Image
+              source={require('../../assets/icons/discord.png')}
+              style={styles.discord}
+            />
+            <Text style={styles.textSocial}>{t('Sign in with Discord')}</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -174,7 +184,8 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NunitoSansReguler,
     letterSpacing: 0.5,
     fontSize: 16,
-    marginVertical: 24,
+    marginTop: 24,
+    marginBottom: 15,
     textAlign: 'center',
   },
 
@@ -188,7 +199,7 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOpacity: 0.25,
     elevation: 2,
-    marginVertical: 10,
+    marginVertical: 9,
     flexDirection: 'row',
     shadowOffset: {
       width: 0,
@@ -207,6 +218,13 @@ const styles = StyleSheet.create({
     marginLeft: 36.5,
     marginRight: 20,
     height: 24,
+    width: 24,
+  },
+
+  discord:{
+    marginLeft: 36.5,
+    marginRight: 20,
+    height: 18.58,
     width: 24,
   },
 

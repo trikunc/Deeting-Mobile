@@ -21,7 +21,7 @@ const SplashScreen = ({navigation}) => {
               		source={require("../../assets/images/logoLarge.png")}
               		style={styles.logo}
             	/>
-            	<Text style={styles.text} >Simple is better</Text>
+            	<Text style={styles.text} >Zen of Meetings</Text>
             </View>
        	</SafeAreaView>
     )
