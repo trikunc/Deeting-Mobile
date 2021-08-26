@@ -22,12 +22,13 @@ const LoadingRoom = ({navigation}) => {
 
 		setTimeout( () => {
 			navigation.replace('WaitingRoom');
-		}, 2000)
+		}, 1000)
 
 	}, [navigation]);
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<StatusBar  backgroundColor={COLORS.PRIMARY} />
 			<View style={styles.topView}>
 				<TouchableOpacity
 	        		style={styles.backArrow}

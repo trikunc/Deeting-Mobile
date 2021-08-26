@@ -27,10 +27,11 @@ const WaitingRoom = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<StatusBar  backgroundColor={COLORS.PRIMARY} />
 			<View style={styles.topView}>
 				<TouchableOpacity
 	        		style={styles.backArrow}
-	        		onPress={() => navigation.goBack()}
+	        		onPress={() => navigation.navigate('JoinMeeting')}
 	        	>
 	        		<Image
 	          			source={require('../../assets/icons/ArrowLeft.png')}
