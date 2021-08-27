@@ -12,6 +12,7 @@ import {
 import SignOutModal from '../../components/Modal/SignOutModal';
 import QRCodeModal from '../../components/Modal/QRCodeModal';
 import {ButtonDanger} from '../../components/Button/ButtonComponent';
+import {TextDisplay} from '../../components/Input/TextInput';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
@@ -19,10 +20,19 @@ import {fonts} from '../../utils/fonts';
 import ArrowLeft from '../../assets/icons/ArrowLeft.png';
 import profilePic from '../../assets/images/profile.png';
 import editPic from '../../assets/icons/EditPhoto.png';
+import changePic from '../../assets/icons/Change.png';
+import trashPic from '../../assets/icons/Trash.png';
+import userNoPic from '../../assets/icons/userNoPic.png';
 
 const Profile = ({navigation}) => {
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
+  const [profilPic, setProfilPic] = useState(profilePic);
+  const [changePic, setChangePic] = useState(false);
+
+  const removePicture = () => {
+    setProfilPic(userNoPic);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -41,8 +51,10 @@ const Profile = ({navigation}) => {
       </View>
       <View style={styles.profile_picContainer}>
         <View style={styles.profile_picBorder}>
-          <Image source={profilePic} />
-          <TouchableOpacity style={styles.profile_picBadge}>
+          <Image source={profilPic} style={{height: 100, width: 100}} />
+          <TouchableOpacity
+            style={styles.profile_picBadge}
+            onPress={() => setChangePic(!changePic)}>
             <Image source={editPic} />
           </TouchableOpacity>
         </View>
@@ -57,48 +69,20 @@ const Profile = ({navigation}) => {
               <Text style={styles.personInfo_edit}>Edit</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>First Name</Text>
-            <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>John</Text>
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Last Name</Text>
-            <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>Doe</Text>
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Display Name</Text>
-            <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>John Doe</Text>
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Personal Meeting ID</Text>
-            <View
-              style={{
-                ...styles.profile_wrapper,
-                backgroundColor: 'rgba(134, 132, 132, 0.27)',
-              }}>
-              <Text style={styles.profile_secondText}>110-989-541</Text>
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Email</Text>
-            <View style={styles.profile_wrapper}>
-              <Text style={styles.profile_secondText}>johndoe@gmail.com</Text>
-            </View>
-          </View>
+
+          <TextDisplay title="First Name" text="John" />
+          <TextDisplay title="Last Name" text="Doe" />
+          <TextDisplay title="Display Name" text="John Doe" />
+          <TextDisplay title="Personal Meeting ID" text="110-989-541" bold />
+          <TextDisplay title="Email" text="johndoe@gmail.com" />
           <View style={styles.profile}>
             <TouchableOpacity
               onPress={() => navigation.navigate('ChangePassword')}>
-              <Text style={styles.profile_thirdText}>Change Password</Text>
+              <Text style={styles.profile_blueText}>Change Password</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setModal1(true)}>
-              <Text style={styles.profile_thirdText}>
+              <Text style={styles.profile_blueText}>
                 See My Profile QR COde
               </Text>
             </TouchableOpacity>
@@ -116,11 +100,81 @@ const Profile = ({navigation}) => {
             }}></View>
         </ScrollView>
       </View>
+      {changePic && <ChangePicPop removePic={() => setProfilPic(userNoPic)} />}
     </SafeAreaView>
   );
 };
 
 export default Profile;
+
+const ChangePicPop = ({removePic}) => {
+  return (
+    <View
+      style={{
+        position: 'absolute',
+        width: 185,
+        height: 104,
+        right: 30,
+        top: '27%',
+        backgroundColor: COLORS.WHITE,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.15,
+        borderRadius: 16,
+        padding: 20,
+        justifyContent: 'space-between',
+      }}>
+      <TouchableOpacity
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={changePic}
+          style={{height: 15, width: 14.27, marginRight: 14.5}}
+        />
+        <Text
+          style={{
+            fontFamily: fonts.NunitoSansReguler,
+            fontStyle: 'normal',
+            fontWeight: '600',
+            fontSize: 16,
+            lineHeight: 1.4 * 16,
+            color: COLORS.BLACK,
+          }}>
+          Change Picture
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+        onPress={() => removePic()}>
+        <Image
+          source={trashPic}
+          style={{height: 15, width: 14.27, marginRight: 14.5}}
+        />
+        <Text
+          style={{
+            fontFamily: fonts.NunitoSansReguler,
+            fontStyle: 'normal',
+            fontWeight: '600',
+            fontSize: 16,
+            lineHeight: 1.4 * 16,
+            color: COLORS.BLACK,
+          }}>
+          Remove
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -215,43 +269,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 4,
   },
-  profile_firstText: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  profile_wrapper: {
-    paddingVertical: 16,
-    paddingHorizontal: 12,
-    backgroundColor: 'rgba(124, 120, 120, 0.1)',
-    borderRadius: 12,
-    marginTop: 8,
-    paddingHorizontal: 12,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  profile_secondText: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '400',
-    fontSize: 16,
-  },
-  profile_langWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  profile_flag: {
-    width: 20,
-    height: 20,
-    marginRight: 12,
-  },
-  profile_arrowDown: {
-    width: 20,
-    height: 20,
-    marginRight: 12,
-  },
-
-  profile_thirdText: {
+  profile_blueText: {
     fontFamily: fonts.NunitoSans,
     fontWeight: '600',
     fontSize: 16,

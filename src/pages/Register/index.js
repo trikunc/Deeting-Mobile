@@ -7,6 +7,7 @@ import {
 	TouchableOpacity, 
 	Image,
 	TextInput,
+	StatusBar,
 } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
@@ -32,8 +33,9 @@ const Register = ({navigation}) => {
 
    return(
      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.PRIMARY }}>
+     	<StatusBar backgroundColor={COLORS.PRIMARY}  />
          <TouchableOpacity 
-     		style={{ marginLeft: 27, marginTop: 50 }} 
+     		style={{ marginLeft: 27, marginTop: 40 }} 
      		onPress={() => navigation.goBack()}
      	>
      		<Image source={require('../../assets/icons/ArrowLeft.png')} style={{ height: 21, width: 10.5 }} />

@@ -79,7 +79,7 @@ export const groupList = [
     name: 'Alvaro Teams',
   },
   {
-    name: 'Alvaro Teams2',
+    name: 'Blvaro Teams2',
   },
   {
     name: 'Alvaro Teams3',

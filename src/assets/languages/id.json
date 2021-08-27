@@ -20,6 +20,8 @@
 	"Sign in with Google":"Masuk dengan Google",
 	"Sign in with Apple":"Masuk dengan Apple",
 	"Sign in with Facebook":"Masuk dengan Facebook",
+	"Sign in with Discord":"Masuk dengan Discord",
+	
 
 	"titleForgot":"Lupa Kata Sandi",
 	"EnterEmail":"Masukkan email Anda untuk mendapatkan kata sandi",
@@ -52,5 +54,26 @@
 	"Verify Email":"Verifikasi email",
 	"Verify My Email":"Verifikasi Email Saya",
 	"textDescription":"Silakan klik tombol di bawah untuk mengonfirmasi alamat email Anda dan mengaktifkan akun Anda.",
-	"Go to Sign In":"Pergi ke Masuk"
+	"Go to Sign In":"Pergi ke Masuk",
+
+	// join meeting
+	"Join with Meeting ID":"Bergabunglah dengan ID Rapat",
+	"Display Name":"Nama tampilan",
+	"Join Options":"Gabung Opsi",
+	"Start with Camera":"Mulai dengan Kamera",
+	"DontConnectAudio":"Jangan Hubungkan ke Audio",
+	"Join":"Bergabung",
+
+	// waiting room
+
+	"Waiting Room":"Ruang tunggu",
+	"People Waiting":"Orang Menunggu",
+	"placeHolderWaitingRoom":"Masukkan pesan Anda di sini..",
+
+	// loading room
+	"Product Discussion":"Diskusi Produk",
+	"Hi":"Hai,",
+	"please wait":"Harap tunggu ...",
+	"start": "MULAI",
+
 }
