@@ -14,13 +14,11 @@ import SectionListContacts from 'react-native-sectionlist-contacts';
 import RenderHeader from '../../components/Contact/RenderHeader';
 import {OnlineDevice} from '../../components/Contact/OnlineDevice';
 import {NoContact, NoGroup} from '../../components/NotFound/NotFoundComponent';
+import HomeNav from '../../components/Navigation/HomeNav';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
-import meetingNow from '../../assets/icons/meetingNow.png';
-import joinMeeting from '../../assets/icons/joinMeeting.png';
-import newSchedule from '../../assets/icons/newSchedule.png';
 import addIcon from '../../assets/icons/Add.png';
 import searchBar from '../../assets/icons/Search.png';
 
@@ -103,24 +101,7 @@ const Contacts = ({navigation}) => {
         </Text>
       </View>
 
-      <View style={styles.meetingNav}>
-        <View style={styles.meetingNav_body}>
-          <View style={styles.meetingNav_wrapper}>
-            <View style={styles.meetingNav_icon}>
-              <Image source={meetingNow} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>Meeting Now</Text>
-            </View>
-            <View style={styles.meetingNav_icon}>
-              <Image source={joinMeeting} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>Join Meeting</Text>
-            </View>
-            <View style={styles.meetingNav_icon}>
-              <Image source={newSchedule} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>New Schedule</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+      <HomeNav navigation={navigation} />
 
       <View style={styles.botView}>
         <View style={styles.buttonContainer}>
@@ -152,7 +133,11 @@ const Contacts = ({navigation}) => {
           </View>
           <TouchableOpacity
             style={styles.buttonContainer_right}
-            onPress={() => navigation.navigate('AddContact')}>
+            onPress={() =>
+              isContacts
+                ? navigation.navigate('AddContact')
+                : navigation.navigate('CreateGroup')
+            }>
             <Image style={{height: 21, width: 21}} source={addIcon} />
           </TouchableOpacity>
         </View>
@@ -385,58 +370,6 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     fontSize: 16,
     lineHeight: 1.4 * 16,
-    color: COLORS.BLACK,
-  },
-
-  //////// Nav
-  meetingNav: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 110 : 90,
-    width: '100%',
-    // alignItems: 'center',
-    zIndex: 100,
-  },
-  meetingNav_body: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 116,
-    marginHorizontal: 20,
-    elevation: Platform.OS === 'ios' ? 2 : 9,
-    backgroundColor: COLORS.WHITE,
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    borderRadius: 10,
-  },
-  meetingNav_wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 0,
-    width: 223,
-    height: 88,
-  },
-  meetingNav_icon: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 0,
-    width: 50,
-    height: 88,
-  },
-
-  meetingNav_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'normal',
-    fontSize: 12,
-    lineHeight: 1.4 * 12,
-    marginTop: 4,
-    textAlign: 'center',
     color: COLORS.BLACK,
   },
 });

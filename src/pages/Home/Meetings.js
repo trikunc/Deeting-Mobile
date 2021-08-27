@@ -10,12 +10,11 @@ import {
   Platform
 } from 'react-native';
 
+import HomeNav from '../../components/Navigation/HomeNav';
+
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
-import meetingNow from '../../assets/icons/meetingNow.png';
-import joinMeeting from '../../assets/icons/joinMeeting.png';
-import newSchedule from '../../assets/icons/newSchedule.png';
 import arrowRight from '../../assets/icons/ArrowRightSecondary.png';
 import noMeeting from '../../assets/images/NoMeeting.png';
 
@@ -32,24 +31,7 @@ const seeAllMeetings = ({navigation}) => {
         </Text>
       </View>
 
-      <View style={styles.meetingNav}>
-        <View style={styles.meetingNav_body}>
-          <View style={styles.meetingNav_wrapper}>
-            <View style={styles.meetingNav_icon}>
-              <Image source={meetingNow} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>Meeting Now</Text>
-            </View>
-            <View style={styles.meetingNav_icon}>
-              <Image source={joinMeeting} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>Join Meeting</Text>
-            </View>
-            <View style={styles.meetingNav_icon}>
-              <Image source={newSchedule} style={styles.meetingNav_icon.img} />
-              <Text style={styles.meetingNav_text}>New Schedule</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+      <HomeNav navigation={navigation} />
 
       <View style={styles.botView}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -306,57 +288,5 @@ const styles = StyleSheet.create({
     lineHeight: 1.4 * 16,
     color: COLORS.GRAY,
     marginTop: 4,
-  },
-
-  //////// Nav
-  meetingNav: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 110 : 90,
-    width: '100%',
-    // alignItems: 'center',
-    zIndex: 100,
-  },
-  meetingNav_body: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 116,
-    marginHorizontal: 20,
-    elevation: Platform.OS === 'ios' ? 2 : 9,
-    backgroundColor: COLORS.WHITE,
-     shadowColor: 'rgba(0, 0, 0, 0.25)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    borderRadius: 10,
-  },
-  meetingNav_wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 0,
-    width: 223,
-    height: 88,
-  },
-  meetingNav_icon: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 0,
-    width: 50,
-    height: 88,
-  },
-
-  meetingNav_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'normal',
-    fontSize: 12,
-    lineHeight: 1.4 * 12,
-    marginTop: 4,
-    textAlign: 'center',
-    color: COLORS.BLACK,
   },
 });

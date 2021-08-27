@@ -1,0 +1,24 @@
+[
+	{
+		"id":"1",
+		"code":"en",
+		"name":"English",
+		"text":"en-GB",
+		"img":"enGB"
+	},
+	{
+		"id":"2",
+		"code":"zh",
+		"name":"中国",
+		"text":"zh-CN",
+		"img":"zhCN"
+	},
+	{
+		"id":"3",
+		"code":"id",
+		"name":"Indonesia",
+		"text":"id-ID",
+		"img":"ina"
+	},
+	
+]
