@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 
 import COLORS from '../../../utils/color';
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
 
   topView_arrowLeft: {
     position: 'absolute',
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     left: 27,
   },
 
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NunitoSansReguler,
     fontWeight: 'bold',
     fontSize: 18,
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     letterSpacing: 0.5,
   },
 

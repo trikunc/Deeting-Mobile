@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 
 import COLORS from '../../../utils/color';
@@ -88,14 +89,14 @@ const styles = StyleSheet.create({
   },
 
   topView: {
-    height: 115,
+    height: Platform.OS === 'ios' ? 115 : 150,
     display: 'flex',
     alignItems: 'center',
   },
 
   topView_arrowLeft: {
     position: 'absolute',
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     left: 27,
     width: 10.5,
     height: 21,
@@ -108,13 +109,13 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NunitoSansReguler,
     fontWeight: 'bold',
     fontSize: 18,
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     letterSpacing: 0.5,
   },
 
   profile_picContainer: {
     position: 'absolute',
-    top: 110,
+    top: Platform.OS === 'ios' ? 110 : 90,
     width: '100%',
     alignItems: 'center',
     zIndex: 100,
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFF9F9',
     borderRadius: 55,
+    elevation: Platform.OS === 'ios' ? 2 : 9,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 24,
     height: 24,
-    right: -8,
+    right: Platform.OS === 'ios' ? -8 : -6,
     bottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
   botView: {
     backgroundColor: COLORS.WHITE,
     height: '100%',
-    paddingTop: 70,
+    paddingTop: Platform.OS === 'ios' ? 70 : 65,
     paddingBottom: 56,
     paddingHorizontal: 30,
   },
@@ -161,6 +163,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.5 * 18,
     color: COLORS.BLACK,
     marginBottom: 19,
+    letterSpacing: 0.5,
   },
   detailInfo: {
     height: 60,
@@ -172,11 +175,11 @@ const styles = StyleSheet.create({
   },
   detailInfo_left: {},
   detailInfo_title: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
+    fontFamily: fonts.NunitoSansSemiBold,
     fontSize: 14,
     lineHeight: 1.4 * 14,
     color: COLORS.BLACK,
+    letterSpacing: 0.5,
   },
   detailInfo_text: {
     fontFamily: fonts.NunitoSansReguler,
@@ -185,6 +188,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.4 * 16,
     marginTop: 8,
     color: COLORS.BLACK,
+    letterSpacing: 0.5,
   },
   detailInfo_right: {
     flexDirection: 'row',

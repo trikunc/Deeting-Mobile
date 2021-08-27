@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 
 import SignOutModal from '../../components/Modal/SignOutModal';
@@ -82,8 +83,10 @@ const Profile = ({navigation}) => {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setModal1(true)}>
-              <Text style={styles.profile_blueText}>
-                See My Profile QR COde
+
+              <Text style={styles.profile_thirdText}>
+                See My Profile QR Code
+
               </Text>
             </TouchableOpacity>
           </View>
@@ -95,7 +98,7 @@ const Profile = ({navigation}) => {
 
           <View
             style={{
-              height: 250,
+              height: Platform.OS === 'ios' ? 250 : 150,
               display: 'flex',
             }}></View>
         </ScrollView>
@@ -179,17 +182,19 @@ const ChangePicPop = ({removePic}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.PRIMARY,
+    flex: Platform.OS === 'ios' ? 0 : 1,
   },
 
   topView: {
-    height: 115,
+    height: Platform.OS === 'ios' ? 115 : 150,
+    // height: '18%',
     display: 'flex',
     alignItems: 'center',
   },
 
   topView_arrowLeft: {
     position: 'absolute',
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     left: 27,
     width: 10.5,
     height: 21,
@@ -199,16 +204,15 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: 18,
     lineHeight: 27,
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
     fontSize: 18,
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     letterSpacing: 0.5,
   },
 
   profile_picContainer: {
     position: 'absolute',
-    top: 110,
+    top: Platform.OS === 'ios' ? 110 : 90,
     width: '100%',
     alignItems: 'center',
     zIndex: 100,
@@ -220,7 +224,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFF9F9',
     borderRadius: 55,
-
+    elevation: Platform.OS === 'ios' ? 2 : 9,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -250,15 +254,15 @@ const styles = StyleSheet.create({
     marginTop: 86 - 58,
   },
   personInfo_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
     fontSize: 18,
     lineHeight: 1.5 * 18,
     color: COLORS.BLACK,
+    letterSpacing: 0.5
   },
   personInfo_edit: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
+    letterSpacing: 0.5,
     fontSize: 16,
     lineHeight: 1.4 * 16,
     color: COLORS.SECONDARY,
@@ -269,6 +273,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 4,
   },
+
   profile_blueText: {
     fontFamily: fonts.NunitoSans,
     fontWeight: '600',

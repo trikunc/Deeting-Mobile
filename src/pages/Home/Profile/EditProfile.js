@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Platform
 } from 'react-native';
 
 import COLORS from '../../../utils/color';
@@ -22,10 +23,10 @@ import profilePic from '../../../assets/images/profile.png';
 import editPic from '../../../assets/icons/EditPhoto.png';
 
 const EditProfile = ({navigation}) => {
-  const [firstName, setFirstName] = useState('John');
-  const [lastName, setLastName] = useState('Doe');
-  const [displayName, setDisplayName] = useState('John Doe');
-  const [email, setEmail] = useState('johndoe@gmail.com');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -40,7 +41,7 @@ const EditProfile = ({navigation}) => {
             source={ArrowLeft}
           />
         </TouchableOpacity>
-        <Text style={styles.topView_Text}>Profile</Text>
+        <Text style={styles.topView_Text}>Edit My Profile</Text>
       </View>
       <View style={styles.profile_picContainer}>
         <View style={styles.profile_picBorder}>
@@ -63,6 +64,8 @@ const EditProfile = ({navigation}) => {
                 style={styles.profile_secondText}
                 onChangeText={setFirstName}
                 value={firstName}
+                placeholderTextColor={COLORS.TEXTINPUT}
+                placeholder="John"
               />
             </View>
           </View>
@@ -73,6 +76,8 @@ const EditProfile = ({navigation}) => {
                 style={styles.profile_secondText}
                 onChangeText={setLastName}
                 value={lastName}
+                placeholderTextColor={COLORS.TEXTINPUT}
+                placeholder="Doe"
               />
             </View>
           </View>
@@ -83,6 +88,8 @@ const EditProfile = ({navigation}) => {
                 style={styles.profile_secondText}
                 onChangeText={setDisplayName}
                 value={displayName}
+                placeholderTextColor={COLORS.TEXTINPUT}
+                placeholder="John Doe"
               />
             </View>
           </View>
@@ -96,7 +103,12 @@ const EditProfile = ({navigation}) => {
                 ...styles.profile_wrapper,
                 backgroundColor: 'rgba(134, 132, 132, 0.27)',
               }}>
-              <Text style={styles.profile_secondText}>110-989-541</Text>
+               <TextInput
+                editable={false} 
+                selectTextOnFocus={false}
+                style={styles.profile_secondText}
+                value={'110-989-541'}
+              />
             </View>
           </View>
           <View style={styles.profile}>
@@ -106,16 +118,19 @@ const EditProfile = ({navigation}) => {
                 style={styles.profile_secondText}
                 onChangeText={setEmail}
                 value={email}
+                placeholderTextColor={COLORS.TEXTINPUT}
+                placeholder="johndoe@gmail.com"
               />
             </View>
           </View>
 
-          <ButtonPrimary text="Save" />
-          <ButtonBorder text="Cancel" callBack={() => navigation.goBack()} />
-
+          <View style={{ marginTop: 30 }} >
+            <ButtonPrimary  text="Save" />
+            <ButtonBorder text="Cancel" callBack={() => navigation.goBack()} />
+          </View>
           <View
             style={{
-              height: 250,
+              height: Platform.OS === 'ios' ? 250 : 150,
               display: 'flex',
             }}></View>
         </ScrollView>
@@ -129,17 +144,19 @@ export default EditProfile;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.PRIMARY,
+    flex: Platform.OS === 'ios' ? 0 : 1,
   },
 
   topView: {
-    height: 115,
+    height: Platform.OS === 'ios' ? 115 : 150,
+    // height: '18%',
     display: 'flex',
     alignItems: 'center',
   },
 
   topView_arrowLeft: {
     position: 'absolute',
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     left: 27,
     width: 10.5,
     height: 21,
@@ -147,18 +164,16 @@ const styles = StyleSheet.create({
 
   topView_Text: {
     color: COLORS.WHITE,
-    fontSize: 18,
     lineHeight: 27,
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
     fontSize: 18,
-    top: 23.5,
+    top: Platform.OS === 'ios' ? 23.5 : 40,
     letterSpacing: 0.5,
   },
 
   profile_picContainer: {
     position: 'absolute',
-    top: 110,
+    top: Platform.OS === 'ios' ? 110 : 90,
     width: '100%',
     alignItems: 'center',
     zIndex: 100,
@@ -170,7 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFF9F9',
     borderRadius: 55,
-
+    elevation: Platform.OS === 'ios' ? 2 : 9,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -200,19 +215,13 @@ const styles = StyleSheet.create({
     marginTop: 86 - 58,
   },
   personInfo_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
+    fontFamily: fonts.NunitoSansBold,
     fontSize: 18,
     lineHeight: 1.5 * 18,
     color: COLORS.BLACK,
+    letterSpacing: 0.5
   },
-  personInfo_edit: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
-    fontSize: 16,
-    lineHeight: 1.4 * 16,
-    color: COLORS.SECONDARY,
-  },
+
   profile: {
     display: 'flex',
     flexDirection: 'column',
@@ -220,20 +229,20 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   profile_firstText: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
-    fontSize: 14,
+      fontFamily: fonts.NunitoSansSemiBold,
+      fontSize: 14,
+      letterSpacing: 0.5,
   },
   profile_note: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '300',
+    fontFamily: fonts.NunitoSansLight,
     fontSize: 14,
     lineHeight: 1.4 * 14,
     marginTop: 4,
+    letterSpacing: 0.5
   },
   profile_wrapper: {
-    paddingVertical: 16,
-    paddingHorizontal: 12,
+    paddingVertical: Platform.OS === 'ios' ? 16 : 0,
+    paddingHorizontal: Platform.OS === 'ios' ? 12 : 0,
     backgroundColor: 'rgba(124, 120, 120, 0.1)',
     borderRadius: 12,
     marginTop: 8,
@@ -244,9 +253,10 @@ const styles = StyleSheet.create({
   },
   profile_secondText: {
     fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '400',
+    letterSpacing: 0.5,
     fontSize: 16,
     width: '100%',
+    height: 54,
   },
   profile_langWrapper: {
     display: 'flex',
@@ -263,13 +273,6 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
 
-  profile_thirdText: {
-    fontFamily: fonts.NunitoSans,
-    fontWeight: '600',
-    fontSize: 16,
-    color: COLORS.SECONDARY,
-    marginBottom: 12,
-  },
   button_danger: {
     display: 'flex',
     flexDirection: 'row',
