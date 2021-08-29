@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,28 +7,131 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Platform
+  Platform,
 } from 'react-native';
+import moment from 'moment';
 
 import HomeNav from '../../components/Navigation/HomeNav';
+import MeetingCard from '../../components/Card/MeetingCard';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
 import arrowRight from '../../assets/icons/ArrowRightSecondary.png';
+import bellNotif from '../../assets/icons/bellNotif.png';
 import noMeeting from '../../assets/images/NoMeeting.png';
+
+import {meetingList} from '../../dumyData';
 
 const seeAllMeetings = ({navigation}) => {
   const [isMeeting, setIsMeeting] = useState({});
+  const [todayArr, setTodayArr] = useState([]);
+  const [tomorrowArr, setTomorrowArr] = useState([]);
+  const [beforeDayArr, setBeforeDayArr] = useState([]);
+  const [afterDayArr, setAfterDayArr] = useState([]);
+  const [newItemTest, setNewItemTest] = useState([]);
+  const [newArr1, setNewArr1] = useState([]);
+  const [newArr2, setNewArr2] = useState([]);
+
+  useEffect(() => {
+    meetingList.map(item => {
+      const date = moment(item.when);
+      let newItem;
+      date.calendar(null, {
+        sameDay: function () {
+          let check_arr = todayArr.filter(
+            check => check.meetingId === item.meetingId,
+          );
+          if (check_arr.length === 0) {
+            setTodayArr(todayArr => [...todayArr, item]);
+            setNewArr1(newArr1 => [...newArr1, item]);
+          }
+        },
+        nextDay: () => {
+          let check_arr = tomorrowArr.filter(
+            check => check.meetingId === item.meetingId,
+          );
+          if (check_arr.length === 0) {
+            setTomorrowArr(tomorrowArr => [...tomorrowArr, item]);
+            setNewArr1(newArr1 => [...newArr1, item]);
+          }
+        },
+        nextWeek: () => {
+          let check_arr = afterDayArr.filter(
+            check => check.meetingId === item.meetingId,
+          );
+          if (check_arr.length === 0) {
+            setAfterDayArr(afterDayArr => [...afterDayArr, item]);
+            setNewArr1(newArr1 => [...newArr1, item]);
+          }
+        },
+        lastDay: () => {
+          let check_arr = beforeDayArr.filter(
+            check => check.meetingId === item.meetingId,
+          );
+          if (check_arr.length === 0) {
+            setBeforeDayArr(beforeDayArr => [...beforeDayArr, item]);
+            setNewArr2(newArr2 => [...newArr2, item]);
+          }
+        },
+        lastWeek: () => {
+          let check_arr = beforeDayArr.filter(
+            check => check.meetingId === item.meetingId,
+          );
+          if (check_arr.length === 0) {
+            setBeforeDayArr(beforeDayArr => [...beforeDayArr, item]);
+            setNewArr2(newArr2 => [...newArr2, item]);
+          }
+        },
+        sameElse: () => {
+          // console.log(date.isBefore(moment()));
+          if (date.isBefore(moment())) {
+            let check_arr = beforeDayArr.filter(
+              check => check.meetingId === item.meetingId,
+            );
+            if (check_arr.length === 0) {
+              setBeforeDayArr(beforeDayArr => [...beforeDayArr, item]);
+              setNewArr2(newArr2 => [...newArr2, item]);
+            }
+          } else {
+            let check_arr = afterDayArr.filter(
+              check => check.meetingId === item.meetingId,
+            );
+            if (check_arr.length === 0) {
+              setAfterDayArr(afterDayArr => [...afterDayArr, item]);
+              setNewArr1(newArr1 => [...newArr1, item]);
+            }
+          }
+        },
+      });
+    });
+  }, []);
+
+  console.log('newArr1=>', newArr1);
+
+  const convertDate = item => {
+    return moment(item[0]['when']).format('DD MMMM YYYY');
+  };
+
+  console.log('======================================');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
-        <Text style={styles.topView_View} >
-          <Text style={{...styles.topView_Text, fontFamily: fonts.NunitoSansReguler}}>Hi, {' '}</Text>
-          <Text style={styles.topView_Text}>
-            John Doe
-          </Text>
-        </Text>
+        <View style={styles.topView_header}>
+          <View style={styles.topView_headerName}>
+            <Text
+              style={{
+                ...styles.topView_text,
+                fontFamily: fonts.NunitoSansReguler,
+              }}>
+              Hi,{' '}
+            </Text>
+            <Text style={styles.topView_text}>John Doe</Text>
+          </View>
+          <TouchableOpacity style={styles.topView_headerNotif}>
+            <Image source={bellNotif} style={{height: 24, width: 20}} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <HomeNav navigation={navigation} />
@@ -48,44 +151,54 @@ const seeAllMeetings = ({navigation}) => {
           {/* //// Upcoming Meetings */}
           <View style={styles.upcomingMeet}>
             <Text style={styles.upcomingMeet_title}>Upcoming Meetings</Text>
-            <Text style={styles.upcomingMeet_date}>Today, 5 August 2021</Text>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>09:00 AM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>
-                  Weekly Product Meeting
-                </Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 123-000-781
-                </Text>
-              </View>
-            </View>
-            <TouchableOpacity
-              style={styles.meetingInfo}
-              onPress={() => navigation.navigate('detailMeeting')}>
-              <Text style={styles.meetingInfo_time}>03:00 PM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>Design Webinar</Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 671-910-223
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <Text style={styles.upcomingMeet_date}>
-              Tomorrow, 6 August 2021
-            </Text>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>10:00 AM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>Website Discussion</Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 541-222-213
-                </Text>
-              </View>
-            </View>
+            {todayArr.length > 0 && (
+              <Text style={styles.upcomingMeet_date}>Today, test</Text>
+            )}
+
+            {todayArr.map(item => (
+              <MeetingCard
+                key={item.meetingId}
+                id={item.meetingId}
+                title={item.meeting_name}
+                colors="green"
+                callBack={() =>
+                  navigation.navigate('detailMeeting', {
+                    id: item.meetingId,
+                    title: item.meeting_name,
+                  })
+                }
+              />
+            ))}
+
+            {tomorrowArr.length > 0 && (
+              <Text style={styles.upcomingMeet_date}>
+                Tomorrow, {convertDate(tomorrowArr)}
+              </Text>
+            )}
+
+            {tomorrowArr.map(item => (
+              <MeetingCard
+                key={item.meetingId}
+                id={item.meetingId}
+                title={item.meeting_name}
+                colors="orange"
+                callBack={() =>
+                  navigation.navigate('detailMeeting', {
+                    id: item.meetingId,
+                    title: item.meeting_name,
+                  })
+                }
+              />
+            ))}
+
             <TouchableOpacity
               style={styles.seeAll}
-              onPress={() => navigation.navigate('seeAllMeetings')}>
+              onPress={() =>
+                navigation.navigate('seeAllMeetings', {
+                  data: newArr1,
+                  title: 'Upcoming Meetings',
+                })
+              }>
               <View style={styles.seeAll_body}>
                 <Text style={styles.seeAll_text}>See all</Text>
                 <Image source={arrowRight} style={styles.seeAll_image} />
@@ -96,30 +209,45 @@ const seeAllMeetings = ({navigation}) => {
           {/* ////Previous Meetings */}
           <View style={styles.upcomingMeet}>
             <Text style={styles.upcomingMeet_title}>Previous Meetings</Text>
-            <Text style={styles.upcomingMeet_date}>
-              Tuesday, 3 August 2021{' '}
-            </Text>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>09:00 AM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>
-                  Weekly Product Meeting
-                </Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 123-000-781
-                </Text>
-              </View>
-            </View>
-            <View style={styles.seeAll}>
+
+            {beforeDayArr.length > 0 && (
+              <Text style={styles.upcomingMeet_date}>
+                Tuesday, {convertDate(beforeDayArr)}
+              </Text>
+            )}
+
+            {beforeDayArr.map(item => (
+              <MeetingCard
+                key={item.meetingId}
+                id={item.meetingId}
+                title={item.meeting_name}
+                colors="gray"
+                callBack={() =>
+                  navigation.navigate('detailMeeting', {
+                    id: item.meetingId,
+                    title: item.meeting_name,
+                  })
+                }
+              />
+            ))}
+
+            <TouchableOpacity
+              style={styles.seeAll}
+              onPress={() =>
+                navigation.navigate('seeAllMeetings', {
+                  data: newArr2,
+                  title: 'Previous Meetings',
+                })
+              }>
               <View style={styles.seeAll_body}>
                 <Text style={styles.seeAll_text}>See all</Text>
                 <Image source={arrowRight} style={styles.seeAll_image} />
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
           <View
             style={{
-               height: Platform.OS === 'ios' ? 250 : 150,
+              height: Platform.OS === 'ios' ? 250 : 150,
               display: 'flex',
             }}></View>
         </ScrollView>
@@ -142,12 +270,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
 
-  topView_View: {
+  topView_header: {
     top: Platform.OS === 'ios' ? 23.5 : 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     // marginLeft: 30,
   },
+  topView_headerName: {
+    flexDirection: 'row',
+  },
 
-  topView_Text: {
+  topView_text: {
     color: COLORS.WHITE,
     fontSize: 18,
     lineHeight: 27,
@@ -240,13 +373,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 82,
     backgroundColor: COLORS.WHITE,
-    shadowColor: '#000',
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 8,
     },
     shadowOpacity: 0.25,
-    borderRadius: 10,
+    shadowRadius: 24,
+    elevation: 7,
+    borderRadius: 12,
 
     display: 'flex',
     flexDirection: 'row',
@@ -257,7 +392,7 @@ const styles = StyleSheet.create({
   meetingInfo_time: {
     width: 48,
     height: 54,
-    marginLeft: 12,
+    marginLeft: 4,
 
     fontFamily: fonts.NunitoSansReguler,
     fontWeight: '600',

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -8,6 +8,9 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import moment from 'moment';
+
+import MeetingCard from '../../../components/Card/MeetingCard';
 
 import COLORS from '../../../utils/color';
 import {fonts} from '../../../utils/fonts';
@@ -16,8 +19,60 @@ import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
 import arrowRight from '../../../assets/icons/ArrowRightSecondary.png';
 import Refresh from '../../../assets/icons/Refresh.png';
 
-const seeAllMeetings = ({navigation}) => {
+const seeAllMeetings = ({route, navigation}) => {
   const [remember, setRemember] = useState(false);
+  const [dateArr, setDateArr] = useState([]);
+  const {data, title} = route.params;
+
+  data.sort(function (a, b) {
+    let c = new Date(a.when);
+    let d = new Date(b.when);
+    return c - d;
+  });
+
+  const convertDate = date => {
+    let today = moment(date).isSame(moment(), 'day');
+    let tomorrow = moment(date).isSame(moment().add(1, 'days'), 'day');
+    // console.log('check', tomorrow);
+    if (today) {
+      return moment(date).format('[Today], DD MMMM YYYY');
+    } else if (tomorrow) {
+      return moment(date).format('[Tomrrow], DD MMMM YYYY');
+    }
+    return moment(date).format('dddd, DD MMMM YYYY');
+  };
+  const checkDate = date => {
+    let today = moment(date).isSame(moment(), 'day');
+    let tomorrow = moment(date).isSame(moment().add(1, 'days'), 'day');
+    if (title == 'Upcoming Meetings') {
+      if (today) {
+        return 'green';
+      } else {
+        return 'orange';
+      }
+    } else {
+      return 'gray';
+    }
+  };
+
+  const addDateArr = item => {
+    if (!dateArr.includes(item)) {
+      setDateArr([...dateArr, item]);
+    }
+  };
+
+  const MeetingDateFunc = ({dateCheck}) => {
+    const newDateCheck = convertDate(dateCheck);
+    console.log(dateArr);
+    console.log(dateArr.includes(newDateCheck));
+    if (dateArr.includes(dateCheck)) {
+      return <Text>Test</Text>;
+    } else {
+      // addDateArr(newDateCheck);
+      return <Text style={styles.upcomingMeet_date}>{newDateCheck}</Text>;
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -32,76 +87,41 @@ const seeAllMeetings = ({navigation}) => {
             source={ArrowLeft}
           />
         </TouchableOpacity>
-        <Text style={styles.topView_Text}>Upcoming Meetings</Text>
-        <TouchableOpacity style={styles.topView_refresh}>
-          <Image
-            style={{
-              width: 24,
-              height: 24,
-            }}
-            source={Refresh}
-          />
-        </TouchableOpacity>
+        <Text style={styles.topView_Text}>{title}</Text>
+        {title == 'Upcoming Meetings' && (
+          <TouchableOpacity style={styles.topView_refresh}>
+            <Image
+              style={{
+                width: 24,
+                height: 24,
+              }}
+              source={Refresh}
+            />
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={styles.botView}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* //// Upcoming Meetings */}
           <View style={styles.upcomingMeet}>
-            <Text style={styles.upcomingMeet_date}>Today, 5 August 2021</Text>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>09:00 AM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>
-                  Weekly Product Meeting
-                </Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 123-000-781
-                </Text>
+            {data.map(item => (
+              <View>
+                <MeetingDateFunc dateCheck={item.when} />
+                <MeetingCard
+                  key={item.meetingId}
+                  id={item.meetingId}
+                  title={item.meeting_name}
+                  colors={checkDate(item.when)}
+                  callBack={() =>
+                    navigation.navigate('detailMeeting', {
+                      id: item.meetingId,
+                      title: item.meeting_name,
+                    })
+                  }
+                />
               </View>
-            </View>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>03:00 PM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>Design Webinar</Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 671-910-223
-                </Text>
-              </View>
-            </View>
-            <Text style={styles.upcomingMeet_date}>
-              Tomorrow, 6 August 2021
-            </Text>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>10:00 AM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>Website Discussion</Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 541-222-213
-                </Text>
-              </View>
-            </View>
-            <Text style={styles.upcomingMeet_date}>Monday, 9 August 2021</Text>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>13:00 PM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>Alex’s Meeting</Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 341-214-567
-                </Text>
-              </View>
-            </View>
-            <View style={styles.meetingInfo}>
-              <Text style={styles.meetingInfo_time}>19:00 PM</Text>
-              <View style={styles.meetingInfo_textBody}>
-                <Text style={styles.meetingInfo_text}>
-                  Data Science Bootcamp
-                </Text>
-                <Text style={styles.meetingInfo_textId}>
-                  Meeting ID: 900-123-456
-                </Text>
-              </View>
-            </View>
+            ))}
           </View>
         </ScrollView>
       </View>
