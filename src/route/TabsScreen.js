@@ -25,41 +25,46 @@ const TabsScreen = ({navigation}) => (
   <Tab.Navigator
     initialRouteName="Profile"
     screenOptions={
-      Platform.OS === 'ios' ?
-    {
-      tabBarShowLabel: false,
-      tabBarStyle: {
-        backgroundColor: COLOR.PRIMARY,
-        color: COLOR.WHITE,
-        borderRadius: 12,
-        paddingHorizontal: 30,
-      },
-      
-    } : {
-      tabBarShowLabel: false,
-      tabBarStyle:{
-        backgroundColor: COLOR.PRIMARY,
-        paddingHorizontal: 30,
-        height: '9%',
-        borderTopRightRadius: 12,
-        borderTopLeftRadius: 12,
-
-      }
-    }}
-
-    >
+      Platform.OS === 'ios'
+        ? {
+            tabBarShowLabel: false,
+            tabBarStyle: {
+              backgroundColor: COLOR.PRIMARY,
+              color: COLOR.WHITE,
+              borderRadius: 12,
+              paddingHorizontal: 30,
+            },
+          }
+        : {
+            tabBarShowLabel: false,
+            tabBarStyle: {
+              backgroundColor: COLOR.PRIMARY,
+              paddingHorizontal: 30,
+              height: '9%',
+              borderTopRightRadius: 12,
+              borderTopLeftRadius: 12,
+            },
+          }
+    }>
     <Tab.Screen
       name="Meeting"
       component={Meeting}
       options={{
         tabBarIcon: ({focused}) => (
           <View
-            style={styles.icons}>
-            <Image source={focused ? clockOn : clockIcon} 
-              style={{ height: 24, width: 25 }}
+            style={
+              Platform.OS === 'ios' ? {...styles.icons, top: 15} : styles.icons
+            }>
+            <Image
+              source={focused ? clockOn : clockIcon}
+              style={{height: 24, width: 25}}
             />
             <Text
-              style={focused ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold} : styles.text}>
+              style={
+                focused
+                  ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold}
+                  : styles.text
+              }>
               Meetings
             </Text>
           </View>
@@ -73,10 +78,16 @@ const TabsScreen = ({navigation}) => (
       options={{
         tabBarIcon: ({focused}) => (
           <View
-            style={styles.icons}>
+            style={
+              Platform.OS === 'ios' ? {...styles.icons, top: 15} : styles.icons
+            }>
             <Image source={focused ? contactIconFoc : contactIcon} />
             <Text
-              style={focused ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold} : styles.text}>
+              style={
+                focused
+                  ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold}
+                  : styles.text
+              }>
               Contacts
             </Text>
           </View>
@@ -90,10 +101,16 @@ const TabsScreen = ({navigation}) => (
       options={{
         tabBarIcon: ({focused}) => (
           <View
-            style={styles.icons}>
+            style={
+              Platform.OS === 'ios' ? {...styles.icons, top: 15} : styles.icons
+            }>
             <Image source={focused ? profileIconFoc : profileIcon} />
             <Text
-              style={focused ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold} : styles.text}>
+              style={
+                focused
+                  ? {...styles.text, fontFamily: fonts.NunitoSansSemiBold}
+                  : styles.text
+              }>
               Profile
             </Text>
           </View>
@@ -104,19 +121,19 @@ const TabsScreen = ({navigation}) => (
   </Tab.Navigator>
 );
 
-const styles= StyleSheet.create({
-  icons :{
-    alignItems: 'center', 
+const styles = StyleSheet.create({
+  icons: {
+    alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '2%' 
+    marginTop: '2%',
   },
-  text:{
+  text: {
     fontFamily: fonts.NunitoSansReguler,
     fontSize: 12,
     marginTop: '3%',
     color: COLOR.WHITE,
     letterSpacing: 0.5,
-  }
+  },
 });
 
 export default TabsScreen;

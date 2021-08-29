@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Platform
+  Platform,
 } from 'react-native';
 import SectionListContacts from 'react-native-sectionlist-contacts';
 
@@ -35,6 +35,7 @@ const Contacts = ({navigation}) => {
   const [value, setValue] = useState();
 
   RenderContacts = (item, index, section) => {
+    console.log('section=>', section);
     return (
       <TouchableOpacity
         style={styles.contact_list}
@@ -93,11 +94,15 @@ const Contacts = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
-        <Text style={styles.topView_View} >
-          <Text style={{...styles.topView_Text, fontFamily: fonts.NunitoSansReguler}}>Hi, {' '}</Text>
-          <Text style={styles.topView_Text}>
-            John Doe
+        <Text style={styles.topView_View}>
+          <Text
+            style={{
+              ...styles.topView_Text,
+              fontFamily: fonts.NunitoSansReguler,
+            }}>
+            Hi,{' '}
           </Text>
+          <Text style={styles.topView_Text}>John Doe</Text>
         </Text>
       </View>
 
@@ -143,7 +148,10 @@ const Contacts = ({navigation}) => {
         </View>
 
         {/* // Search bar */}
-        <View style={Platform.OS === 'ios'? styles.searchBar : styles.searchBarAndroid}>
+        <View
+          style={
+            Platform.OS === 'ios' ? styles.searchBar : styles.searchBarAndroid
+          }>
           <View>
             <Image source={searchBar} style={{height: 13, width: 16.25}} />
           </View>
@@ -320,7 +328,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  searchBarAndroid :{
+  searchBarAndroid: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

@@ -23,8 +23,15 @@ import closeIcon from '../../../assets/icons/close.png';
 
 const deviceHeight = Dimensions.get('window').height;
 
-const meetingDetail = ({navigation}) => {
+const meetingDetail = ({route, navigation}) => {
+  const {id, title} = route.params;
   const [modal, setModal] = useState(false);
+
+  let str = title;
+  let matches = str.match(/\b(\w)/g);
+  let acronym = matches.join('');
+
+  console.log(acronym);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -46,11 +53,11 @@ const meetingDetail = ({navigation}) => {
         <View style={styles.title}>
           <View style={styles.title_photoBody}>
             <View style={styles.title_photoEllipse}>
-              <Text style={styles.title_photoText}>DW</Text>
+              <Text style={styles.title_photoText}>{acronym}</Text>
             </View>
           </View>
           <View style={styles.title_info}>
-            <Text style={styles.title_infoText}>Design Webinar</Text>
+            <Text style={styles.title_infoText}>{title}</Text>
             <View style={styles.title_infoIcon}>
               <Image
                 source={Share}
@@ -74,7 +81,7 @@ const meetingDetail = ({navigation}) => {
         </View>
         <View style={styles.infoCard}>
           <Text style={styles.infoCard_title}>Meeting ID</Text>
-          <Text style={styles.infoCard_text}>123-000-781</Text>
+          <Text style={styles.infoCard_text}>{id}</Text>
         </View>
         <View style={styles.infoCard}>
           <Text style={styles.infoCard_title}>Passcode</Text>
