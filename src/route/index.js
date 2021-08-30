@@ -25,6 +25,14 @@ import JoinMeeting from '../pages/JoinMeeting/JoinMeeting';
 import WaitingRoom from '../pages/JoinMeeting/waitingRoom';
 import LoadingRoom from '../pages/JoinMeeting/loadingRoom';
 
+// NavBar
+import MeetingNow from '../pages/NavBar/MeetingNow/MeetingNow';
+import NewSchedule from '../pages/NavBar/NewSchedule/NewSchedule';
+import MyRecordings from '../pages/NavBar/MyRecordings/MyRecordings';
+import WebinarList from '../pages/NavBar/WebinarList/WebinarList';
+import MyMessaging from '../pages/NavBar/MyMessaging/MyMessaging';
+import MeetingCalendar from '../pages/NavBar/MeetingCalendar/MeetingCalendar';
+
 const Stack = createStackNavigator();
 
 function AppNavigation() {
@@ -106,6 +114,33 @@ function AppNavigation() {
       />
       <Stack.Screen name="AddContact" component={AddContact} options={style} />
 
+      {/* Navbar */}
+      <Stack.Screen name="MeetingNow" component={MeetingNow} options={style} />
+      <Stack.Screen
+        name="NewSchedule"
+        component={NewSchedule}
+        options={style}
+      />
+      <Stack.Screen
+        name="MyRecordings"
+        component={MyRecordings}
+        options={style}
+      />
+      <Stack.Screen
+        name="WebinarList"
+        component={WebinarList}
+        options={style}
+      />
+      <Stack.Screen
+        name="MyMessaging"
+        component={MyMessaging}
+        options={style}
+      />
+      <Stack.Screen
+        name="MeetingCalendar"
+        component={MeetingCalendar}
+        options={style}
+      />
     </Stack.Navigator>
   );
 

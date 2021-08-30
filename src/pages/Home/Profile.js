@@ -7,13 +7,14 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Platform
+  Platform,
 } from 'react-native';
 
 import SignOutModal from '../../components/Modal/SignOutModal';
 import QRCodeModal from '../../components/Modal/QRCodeModal';
 import {ButtonDanger} from '../../components/Button/ButtonComponent';
 import {TextDisplay} from '../../components/Input/TextInput';
+import {ChangePicModal} from '../../components/Modal/PopUpModal';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
@@ -33,6 +34,11 @@ const Profile = ({navigation}) => {
 
   const removePicture = () => {
     setProfilPic(userNoPic);
+    setChangePic(false);
+  };
+  const addPicture = () => {
+    setProfilPic(profilePic);
+    setChangePic(false);
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -83,10 +89,8 @@ const Profile = ({navigation}) => {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setModal1(true)}>
-
               <Text style={styles.profile_thirdText}>
                 See My Profile QR Code
-
               </Text>
             </TouchableOpacity>
           </View>
@@ -103,81 +107,19 @@ const Profile = ({navigation}) => {
             }}></View>
         </ScrollView>
       </View>
-      {changePic && <ChangePicPop removePic={() => setProfilPic(userNoPic)} />}
+      {changePic && (
+        <View style={{position: 'absolute', right: 30, top: '27%'}}>
+          <ChangePicModal
+            callBack1={() => addPicture()}
+            callBack2={() => removePicture()}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
 
 export default Profile;
-
-const ChangePicPop = ({removePic}) => {
-  return (
-    <View
-      style={{
-        position: 'absolute',
-        width: 185,
-        height: 104,
-        right: 30,
-        top: '27%',
-        backgroundColor: COLORS.WHITE,
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.15,
-        borderRadius: 16,
-        padding: 20,
-        justifyContent: 'space-between',
-      }}>
-      <TouchableOpacity
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <Image
-          source={changePic}
-          style={{height: 15, width: 14.27, marginRight: 14.5}}
-        />
-        <Text
-          style={{
-            fontFamily: fonts.NunitoSansReguler,
-            fontStyle: 'normal',
-            fontWeight: '600',
-            fontSize: 16,
-            lineHeight: 1.4 * 16,
-            color: COLORS.BLACK,
-          }}>
-          Change Picture
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-        onPress={() => removePic()}>
-        <Image
-          source={trashPic}
-          style={{height: 15, width: 14.27, marginRight: 14.5}}
-        />
-        <Text
-          style={{
-            fontFamily: fonts.NunitoSansReguler,
-            fontStyle: 'normal',
-            fontWeight: '600',
-            fontSize: 16,
-            lineHeight: 1.4 * 16,
-            color: COLORS.BLACK,
-          }}>
-          Remove
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -258,7 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 1.5 * 18,
     color: COLORS.BLACK,
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
   personInfo_edit: {
     fontFamily: fonts.NunitoSansBold,

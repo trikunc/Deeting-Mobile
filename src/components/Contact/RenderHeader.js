@@ -4,11 +4,7 @@ import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
 const RenderHeader = params => {
-  return (
-    <View style={styles.contats_alphabet}>
-      <Text style={styles.contats_title}>{params.key}</Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 export default RenderHeader;

@@ -608,7 +608,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.deeting.dev;
 				PRODUCT_NAME = Deeting;
-				PROVISIONING_PROFILE_SPECIFIER = "Ios-Budi-George";
+				PROVISIONING_PROFILE_SPECIFIER = "Ios-distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Deeting-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -641,7 +641,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.deeting.dev;
 				PRODUCT_NAME = Deeting;
-				PROVISIONING_PROFILE_SPECIFIER = "Ios-Budi-George";
+				PROVISIONING_PROFILE_SPECIFIER = "Ios-distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Deeting-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
