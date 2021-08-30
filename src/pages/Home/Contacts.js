@@ -11,10 +11,11 @@ import {
 } from 'react-native';
 import SectionListContacts from 'react-native-sectionlist-contacts';
 
+import HomeNav from '../../components/Navigation/HomeNav';
 import RenderHeader from '../../components/Contact/RenderHeader';
 import {OnlineDevice} from '../../components/Contact/OnlineDevice';
 import {NoContact, NoGroup} from '../../components/NotFound/NotFoundComponent';
-import HomeNav from '../../components/Navigation/HomeNav';
+import {AddContactModal} from '../../components/Modal/PopUpModal';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
@@ -26,6 +27,7 @@ import {contactList, groupList} from '../../dumyData';
 
 const Contacts = ({navigation}) => {
   const [isContacts, setIsContacts] = useState(true);
+  const [addContact, setAddContact] = useState(false);
   const [dataArray, setDataArray] = useState(contactList);
   const [dataFilter, setDataFilter] = useState(contactList);
 
@@ -35,7 +37,8 @@ const Contacts = ({navigation}) => {
   const [value, setValue] = useState();
 
   RenderContacts = (item, index, section) => {
-    console.log('section=>', section);
+    console.log(section);
+
     return (
       <TouchableOpacity
         style={styles.contact_list}
@@ -80,14 +83,18 @@ const Contacts = ({navigation}) => {
   const searchUser = text => {
     isContacts
       ? setDataFilter(
-          dataArray.filter(item =>
-            item.name.toLowerCase().includes(text.toLowerCase()),
-          ),
+          dataArray
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .filter(item =>
+              item.name.toLowerCase().includes(text.toLowerCase()),
+            ),
         )
       : setDataFilter2(
-          dataArray2.filter(item =>
-            item.name.toLowerCase().includes(text.toLowerCase()),
-          ),
+          dataArray2
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .filter(item =>
+              item.name.toLowerCase().includes(text.toLowerCase()),
+            ),
         );
   };
 
@@ -140,7 +147,7 @@ const Contacts = ({navigation}) => {
             style={styles.buttonContainer_right}
             onPress={() =>
               isContacts
-                ? navigation.navigate('AddContact')
+                ? setAddContact(!addContact)
                 : navigation.navigate('CreateGroup')
             }>
             <Image style={{height: 21, width: 21}} source={addIcon} />
@@ -175,9 +182,10 @@ const Contacts = ({navigation}) => {
                 otherAlphabet="#"
                 renderHeader={RenderHeader}
                 renderItem={RenderContacts}
-                letterViewStyle={styles.letterView}
-                letterTextStyle={styles.letterText}
+                // letterViewStyle={styles.letterView}
+                // letterTextStyle={styles.letterText}
                 showAlphabet={false}
+                showsVerticalScrollIndicator={false}
               />
             </View>
           )
@@ -192,8 +200,8 @@ const Contacts = ({navigation}) => {
               otherAlphabet="#"
               renderHeader={RenderHeader}
               renderItem={RenderGroup}
-              letterViewStyle={styles.letterView}
-              letterTextStyle={styles.letterText}
+              // letterViewStyle={styles.letterView}
+              // letterTextStyle={styles.letterText}
               showAlphabet={false}
             />
           </View>
@@ -204,30 +212,19 @@ const Contacts = ({navigation}) => {
             display: 'flex',
           }}></View>
       </View>
+      {addContact && (
+        <View style={{position: 'absolute', right: 30, top: '35%'}}>
+          <AddContactModal
+            // callBack1={() => navigation.navigate('AddQR')}
+            callBack2={() => navigation.navigate('AddContact')}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
 
 export default Contacts;
-
-const GroubList = ({nameOl}) => {
-  return (
-    <View style={styles.contact_list}>
-      <View style={styles.contact_listHero}>
-        <View
-          style={{
-            ...styles.contact_profilPic,
-            backgroundColor: COLORS.ORANGE,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text style={{color: COLORS.WHITE}}>AT</Text>
-        </View>
-        <Text style={styles.contact_name}>{nameOl}</Text>
-      </View>
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -321,7 +318,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(124, 120, 120, 0.1)',
     borderRadius: 8,
     marginTop: 32,
-    marginBottom: 28,
+    marginBottom: 11.5,
     paddingVertical: 12.5,
     paddingHorizontal: 9.88,
     marginHorizontal: 30,
@@ -336,7 +333,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(124, 120, 120, 0.1)',
     borderRadius: 8,
     marginTop: 24,
-    marginBottom: 20,
+    marginBottom: 8.5,
     height: 54,
     // paddingVertical: 12.5,
     paddingHorizontal: 9.88,
@@ -351,7 +348,6 @@ const styles = StyleSheet.create({
   //////// Contacts
   contact_container: {
     flex: 1,
-    backgroundColor: COLORS.WHITE,
   },
   contact_list: {
     marginHorizontal: 30,
@@ -361,6 +357,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    borderBottomColor: COLORS.BORDER,
+    borderBottomWidth: 1,
   },
   contact_listHero: {
     display: 'flex',

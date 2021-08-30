@@ -1,5 +1,15 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import Carousel from 'react-native-snap-carousel';
+
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
@@ -10,50 +20,113 @@ import myRecordings from '../../assets/icons/myRecordings.png';
 import webinarList from '../../assets/icons/webinarList.png';
 import myMessaging from '../../assets/icons/myMessaging.png';
 import meetingCalendar from '../../assets/icons/meetingCalender.png';
+import Arrow from '../../assets/icons/ArrowBlack.png';
 
-const HomeNav = ({navigation}) => {
+// const SliderWidth = Dimensions.get('screen').width;
+
+export default function CustomNav({navigation}) {
+  const carouselRef = useRef(null);
+  const [activeIndex, setActivateIndex] = useState(0);
+  const [carouselState, setCarouselState] = useState([
+    {
+      title: meetingNow,
+      text: 'Meeting Now',
+      navigateTo: 'MeetingNow',
+    },
+    {
+      title: joinMeeting,
+      text: 'Join Meeting',
+      navigateTo: 'JoinMeeting',
+    },
+    {
+      title: newSchedule,
+      text: 'New Schedule',
+      navigateTo: 'NewSchedule',
+    },
+    {
+      title: myRecordings,
+      text: 'My Recordings',
+      navigateTo: 'MyRecordings',
+    },
+    {
+      title: webinarList,
+      text: 'Webinar List',
+      navigateTo: 'WebinarList',
+    },
+    {
+      title: myMessaging,
+      text: 'My Messaging',
+      navigateTo: 'MyMessaging',
+    },
+    {
+      title: meetingCalendar,
+      text: 'Meeting Calendar',
+      navigateTo: 'MeetingCalendar',
+    },
+  ]);
+
+  const _renderItem = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate(item.navigateTo)}
+        style={styles.meetingNav_icon}>
+        <Image source={item.title} style={{height: 50, width: 50}} />
+        <Text style={styles.meetingNav_text}>{item.text}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <View style={styles.meetingNav}>
+    <SafeAreaView style={styles.meetingNav}>
       <View style={styles.meetingNav_body}>
-        <ScrollView style={styles.meetingNav_wrapper} horizontal={true}>
-          <View style={styles.meetingNav_icon}>
-            <Image source={meetingNow} style={styles.meetingNav_icon.img} />
-            <Text style={styles.meetingNav_text}>Meeting Now</Text>
-          </View>
-          <View style={styles.meetingNav_icon}>
-            <Image source={joinMeeting} style={styles.meetingNav_icon.img} />
-            <Text style={styles.meetingNav_text}>Join Meeting</Text>
-          </View>
-          <View style={styles.meetingNav_icon}>
-            <Image source={newSchedule} style={styles.meetingNav_icon.img} />
-            <Text style={styles.meetingNav_text}>New Schedule</Text>
-          </View>
-          <View style={styles.meetingNav_icon}>
-            <Image source={myRecordings} style={styles.meetingNav_icon.img} />
-            <Text style={styles.meetingNav_text}>My Recordings</Text>
-          </View>
-          <View style={styles.meetingNav_icon}>
-            <Image source={webinarList} style={styles.meetingNav_icon.img} />
-            <Text style={styles.meetingNav_text}>Webinar List</Text>
-          </View>
-          <View style={styles.meetingNav_icon}>
-            <Image source={myMessaging} style={styles.meetingNav_icon.img} />
-            <Text style={styles.meetingNav_text}>My Messaging</Text>
-          </View>
-          <View style={styles.meetingNav_icon}>
+        {activeIndex > 0 && (
+          <TouchableOpacity
+            style={styles.meetingNav_arrowLeft}
+            onPress={() => {
+              this._carousel.snapToPrev();
+            }}>
+            <Image source={Arrow} style={{height: 14.89, width: 8.78}} />
+          </TouchableOpacity>
+        )}
+        {activeIndex < 4 && (
+          <TouchableOpacity
+            style={styles.meetingNav_arrowRight}
+            onPress={() => {
+              this._carousel.snapToNext();
+            }}>
             <Image
-              source={meetingCalendar}
-              style={styles.meetingNav_icon.img}
+              source={Arrow}
+              style={{
+                height: 14.89,
+                width: 8.78,
+                transform: [{rotate: '180deg'}],
+              }}
             />
-            <Text style={styles.meetingNav_text}>Meeting Calendar</Text>
-          </View>
-        </ScrollView>
-      </View>
-    </View>
-  );
-};
+          </TouchableOpacity>
+        )}
 
-export default HomeNav;
+        <View style={styles.meetingNav_wrapper}>
+          <Carousel
+            ref={c => {
+              this._carousel = c;
+            }}
+            data={carouselState}
+            inactiveSlideOpacity={1}
+            inactiveSlideScale={1}
+            sliderWidth={232}
+            itemWidth={85}
+            itemHeight={88}
+            renderItem={_renderItem}
+            activeSlideAlignment="start"
+            maxToRenderPerBatch={4}
+            onSnapToItem={index => setActivateIndex(index)}
+            useExperimentalSnap={true}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   //////// Nav
@@ -78,25 +151,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     borderRadius: 10,
   },
+  meetingNav_arrowLeft: {
+    position: 'absolute',
+    left: 23.2,
+  },
+  meetingNav_arrowRight: {
+    position: 'absolute',
+    right: 23.2,
+  },
   meetingNav_wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 24,
-    paddingVertical: 14,
-    // marginHorizontal: 100,
-    width: 300,
+    width: 232,
     height: 88,
   },
+
   meetingNav_icon: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
-    width: 61,
-    height: 88,
+    width: 63,
+    height: '100%',
     marginRight: 36,
   },
 

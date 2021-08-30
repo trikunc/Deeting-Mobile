@@ -108,7 +108,7 @@ export const meetingList = [
   {
     meeting_name: 'Design Webinar',
     meetingId: '671-910-223',
-    when: '2021-08-29',
+    when: '2021-08-30',
     start: '09:00 AM',
     stop: '10:30 AM',
     duration: '90 minutes',

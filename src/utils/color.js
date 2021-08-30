@@ -11,6 +11,7 @@ const COLORS = {
   DARKGRAY: '#999999',
   RED: '#FF5151',
   ORANGE: '#F2994A',
+  BORDER: '#E7E4E4',
 };
 
 export default COLORS;
