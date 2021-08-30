@@ -3,13 +3,6 @@ import { CHOOSELANGUAGE, GET_LOCAL_LANGUAGE } from '../action/index';
 
 const lang = require('../assets/languages/list.json');
 
-// const dataChoose = {
-// 		"id":"3",
-// 		"code":"id",
-// 		"name":"Indonesia",
-// 		"text":"id-ID",
-// 		"img":"ina"
-// 	};
 
 
 const initialState = { language: lang, choose:{}, textTop:{} };

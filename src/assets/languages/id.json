@@ -33,7 +33,7 @@
 	"Create your a new password":"Buat kata sandi baru Anda",
 	"Create Password":"Buat Kata Sandi",
 	"createPasswordPlaceholder":"Min.6 karakter, 1 huruf kapital",
-	"Confirm Password":"konfirmasi sandi",
+	"Confirm Password":"Konfirmasi Sandi",
 	"Repeat your password":"Ulangi kata sandi Anda",
 	"Save":"Simpan",
 	"Password Changed Successfully":"Kata Sandi Berhasil Diubah!",
@@ -47,18 +47,22 @@
 	"Optional":"Opsional",
 	"Enter your nickname":"Masukkan nama panggilan Anda",
 	"placeHolderEmail":"Contoh: name@mail.com",
+	"required":"Bidang wajib diisi!",
+	"validEmail":"Bukan email yang valid!",
+	"validPassword":"Bukan kata sandi yang valid!",
+	"notCorrect":"Kata sandi tidak benar!",
 
 
 	// Sukses Register
 
-	"Verify Email":"Verifikasi email",
+	"Verify Email":"Verifikasi Email",
 	"Verify My Email":"Verifikasi Email Saya",
 	"textDescription":"Silakan klik tombol di bawah untuk mengonfirmasi alamat email Anda dan mengaktifkan akun Anda.",
 	"Go to Sign In":"Pergi ke Masuk",
 
 	// join meeting
 	"Join with Meeting ID":"Bergabunglah dengan ID Rapat",
-	"Display Name":"Nama tampilan",
+	"Display Name":"Nama Tampilan",
 	"Join Options":"Gabung Opsi",
 	"Start with Camera":"Mulai dengan Kamera",
 	"DontConnectAudio":"Jangan Hubungkan ke Audio",
