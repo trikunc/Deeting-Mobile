@@ -5,6 +5,7 @@ import COLORS from '../../utils/color';
 import { fonts } from '../../utils/fonts';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from "jwt-decode";
 import { login } from '../../action/index';
 
 const SplashScreen = ({navigation}) => {
@@ -25,7 +26,13 @@ const SplashScreen = ({navigation}) => {
      const value = await AsyncStorage.getItem('userToken');
 
      	if(value != null) {
-      		await dispatch(login(value));
+          const decoded = jwt_decode(value);
+          const userData = {
+            token:value,
+            user:decoded
+          };
+
+      		await dispatch(login(userData));
       		await timeOut('TabsScreen')
      	}else {
      		await timeOut('Landing')

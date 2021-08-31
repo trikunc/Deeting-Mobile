@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
+import jwt_decode from "jwt-decode";
 import {API_URL} from '@env';
 
 import { useDispatch } from 'react-redux';
@@ -55,7 +56,13 @@ const SignIn = ({navigation}) => {
 
       const jsonValue = JSON.stringify(response.data);
       await AsyncStorage.setItem('userToken', jsonValue);
-      await dispatch(login(response.data));
+      
+      const decoded = jwt_decode(response.data);
+      const userData = {
+        token:response.data,
+        user:decoded
+      };
+      await dispatch(login(userData));
       setLoading(false);
       
       navigation.reset({

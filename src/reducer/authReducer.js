@@ -1,6 +1,6 @@
 import { LOGIN, LOGOUT } from '../action/index';
 
-const initialState = { userToken: null, isLogin: false };
+const initialState = { userToken: null, isLogin: false, idUser:null };
 
 
 const authReducer = (state = initialState, action) => {
@@ -9,7 +9,8 @@ const authReducer = (state = initialState, action) => {
 
 		case LOGIN:
 
-			return {...state, userToken: action.data, isLogin:true};
+			return {...state, userToken: action.data.token, isLogin:true, idUser: action.data.user.id};
+			
 
 		case LOGOUT:
 
@@ -17,7 +18,7 @@ const authReducer = (state = initialState, action) => {
 
 		default:
 
-			return {...state, userToken: null, isLogin: false};
+			return {...state, userToken: null, isLogin: false, idUser:null};
 	}
 }
 
