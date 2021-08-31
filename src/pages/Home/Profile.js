@@ -94,7 +94,9 @@ const Profile = ({navigation}) => {
           <ButtonDanger text="Sign Out" callBack={() => setModal2(true)} />
 
           <QRCodeModal isVisible={modal1} callBack={() => setModal1(false)} />
-          <SignOutModal isVisible={modal2} callBack={() => setModal2(false)} />
+          <SignOutModal isVisible={modal2} callBack={() => setModal2(false)} 
+            navigation={navigation}
+          />
 
           <View
             style={{

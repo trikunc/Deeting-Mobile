@@ -9,7 +9,7 @@ const SuccesSignUp = ({navigation, route}) => {
 
 	const { t  } = useTranslation();
 
-	
+	console.log(route.params)
 
    return(
      <SafeAreaView style={styles.container}>

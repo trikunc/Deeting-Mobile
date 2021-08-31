@@ -47,7 +47,7 @@ const Landing  = ({navigation}) => {
     }, []);
     
 
-    const { language, choose }  = useSelector((state) => state);
+    const { language, choose }  = useSelector((state) => state.langReducer);
 
 
     const insets = useSafeAreaInsets();

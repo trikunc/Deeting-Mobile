@@ -9,7 +9,8 @@ import {
 	TextInput,
 	StatusBar,
 	ScrollView,
-	ActivityIndicator
+	ActivityIndicator,
+	Alert,
 } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
@@ -53,11 +54,12 @@ const Register = ({navigation}) => {
 
 		.then(response => {
 			setLoading(false);
-			navigation.navigate('SuccesSignUp',{email:email});
+			navigation.replace('SuccesSignUp',{email:email});
 		})
 
 		.catch(error => {
-			console.log(error)		
+			console.log(error)
+			Alert.alert('Sorry','Email already registered');	
 			setLoading(false);
 		})
 		
@@ -170,8 +172,8 @@ const Register = ({navigation}) => {
 				        rules={{
 				         required: true,
 				          pattern: {
-				          	value: /^(?=.*[A-Z]).{6,32}$/i,
-				          	message: t('validPassword'),
+				          	value: /^(?=.*[A-Z]).{8,32}$/i,
+				          	message: t('createPasswordPlaceholder'),
 				          },
 				        }}
 				        render={({ field: { onChange, onBlur, value } }) => (
@@ -223,7 +225,7 @@ const Register = ({navigation}) => {
 			        rules={{
 			         required: true,
 			          pattern: {
-			          	value: /^(?=.*[A-Z]).{6,32}$/i,
+			          	value: /^(?=.*[A-Z]).{8,32}$/i,
 			          	message: t('validPassword'),
 			          },
 			            validate: 

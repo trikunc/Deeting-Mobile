@@ -31,7 +31,7 @@
 	"Reset Password":"Reset Password",
 	"Create your a new password":"Create your a new password",
 	"Create Password":"Create Password",
-	"createPasswordPlaceholder":"Min.6 characters, 1 capital letter",
+	"createPasswordPlaceholder":"Min.8 characters, 1 capital letter",
 	"Confirm Password":"Confirm Password",
 	"Repeat your password":"Repeat your password",
 	"Save":"Save",
