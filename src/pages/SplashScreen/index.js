@@ -3,16 +3,54 @@ import { SafeAreaView, View, Text, StyleSheet, Image } from 'react-native';
 
 import COLORS from '../../utils/color';
 import { fonts } from '../../utils/fonts';
+import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from "jwt-decode";
+import { login } from '../../action/index';
 
 const SplashScreen = ({navigation}) => {
 
+	const { userToken, isLogin }  = useSelector((state) => state.authReducer);
+	const dispatch = useDispatch();
+
 	React.useEffect(() => {
 
-		setTimeout( () => {
-			navigation.replace('Landing');
-		}, 3000)
+		handleChekToken();
 
 	}, [navigation]);
+
+	const handleChekToken = async () => {
+
+    try{
+
+     const value = await AsyncStorage.getItem('userToken');
+
+     	if(value != null) {
+          const decoded = jwt_decode(value);
+          const userData = {
+            token:value,
+            user:decoded
+          };
+
+      		await dispatch(login(userData));
+      		await timeOut('TabsScreen')
+     	}else {
+     		await timeOut('Landing')
+     	}
+
+    	} catch (err) {
+    		await timeOut('Landing')
+      		console.log(error)
+   		}
+
+  	};
+
+  	const timeOut = (value) => {
+  		
+  		setTimeout( () => {
+  			navigation.replace(value);
+  		}, 2000)
+  	}
 
     return (
    		<SafeAreaView style={styles.container}>

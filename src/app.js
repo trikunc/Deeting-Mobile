@@ -20,7 +20,6 @@ export default class RouterApp extends Component {
   	try {
   		const jsonValue = JSON.stringify(value);
   		await AsyncStorage.setItem('chooseLang', jsonValue);
-
   	} catch {
   		console.log('error');
   	}

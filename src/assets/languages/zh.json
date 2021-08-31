@@ -32,12 +32,16 @@
 	"Reset Password":"重设密码",
 	"Create your a new password":"创建您的新密码",
 	"Create Password":"创建密码",
-	"createPasswordPlaceholder":"最少 6 个字符，1 个大写字母",
+	"createPasswordPlaceholder":"最少 8 个字符，1 个大写字母",
 	"Confirm Password":"确认密码",
 	"Repeat your password":"重复你的密码",
 	"Save":"节省",
 	"Password Changed Successfully":"密码修改成功！",
 	"Back to Sign In":"返回登录",
+	"validEmail":"不是有效的电子邮件！",
+	"validPassword":"不是有效密码！",
+	"notCorrect":"密码不正确！",
+	
 
 	// Register
 
@@ -47,6 +51,7 @@
 	"Optional":"可选的",
 	"Enter your nickname":"输入你的昵称",
 	"placeHolderEmail":"示例：name@mail.com",
+	"required":"字段为必填项！",
 
 
 	// Sukses Register
