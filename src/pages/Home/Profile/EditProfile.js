@@ -8,7 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Platform
+  Platform,
 } from 'react-native';
 
 import COLORS from '../../../utils/color';
@@ -103,8 +103,8 @@ const EditProfile = ({navigation}) => {
                 ...styles.profile_wrapper,
                 backgroundColor: 'rgba(134, 132, 132, 0.27)',
               }}>
-               <TextInput
-                editable={false} 
+              <TextInput
+                editable={false}
                 selectTextOnFocus={false}
                 style={styles.profile_secondText}
                 value={'110-989-541'}
@@ -124,8 +124,8 @@ const EditProfile = ({navigation}) => {
             </View>
           </View>
 
-          <View style={{ marginTop: 30 }} >
-            <ButtonPrimary  text="Save" />
+          <View style={{marginTop: 30}}>
+            <ButtonPrimary text="Save" />
             <ButtonBorder text="Cancel" callBack={() => navigation.goBack()} />
           </View>
           <View
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 1.5 * 18,
     color: COLORS.BLACK,
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 
   profile: {
@@ -229,16 +229,16 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   profile_firstText: {
-      fontFamily: fonts.NunitoSansSemiBold,
-      fontSize: 14,
-      letterSpacing: 0.5,
+    fontFamily: fonts.NunitoSansSemiBold,
+    fontSize: 14,
+    letterSpacing: 0.5,
   },
   profile_note: {
     fontFamily: fonts.NunitoSansLight,
     fontSize: 14,
     lineHeight: 1.4 * 14,
     marginTop: 4,
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
   profile_wrapper: {
     paddingVertical: Platform.OS === 'ios' ? 16 : 0,
@@ -250,13 +250,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    height: 54,
   },
   profile_secondText: {
     fontFamily: fonts.NunitoSansReguler,
     letterSpacing: 0.5,
     fontSize: 16,
     width: '100%',
-    height: 54,
   },
   profile_langWrapper: {
     display: 'flex',

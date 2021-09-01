@@ -20,6 +20,7 @@ import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
 import ClosePic from '../../../assets/icons/closeGray.png';
 import searchBar from '../../../assets/icons/Search.png';
 import ArrowRight from '../../../assets/icons/ArrowRightBG.png';
+import checklistPic from '../../../assets/icons/checklistContact.png';
 
 import {contactList} from '../../../dumyData';
 
@@ -29,7 +30,17 @@ const CreateGroup = ({navigation}) => {
   const [arrayPeople, setArrayPeople] = useState([]);
   const [refreshFlatlist, setRefreshFlatList] = useState(false);
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(); // text input
+
+  useEffect(() => {
+    let newDataArr = [];
+    dataFilter.map(data => {
+      let newData = {...data, value: false, test: false};
+      // console.log(newData);
+      newDataArr = [...newDataArr, newData];
+    });
+    setDataFilter(newDataArr);
+  }, []);
 
   const searchUser = text => {
     setDataFilter(
@@ -40,22 +51,70 @@ const CreateGroup = ({navigation}) => {
   };
 
   const addPeople = item => {
+    let newArr = [...dataFilter];
     for (let i = 0; i < arrayPeople.length; i++) {
       if (arrayPeople[i].id == item.id) {
         return;
       }
     }
-    setArrayPeople(arrayPeople => [...arrayPeople, item]);
-    console.log(arrayPeople);
+    console.log('addTest:', item);
+    let newItem = {...item, value: true};
+    setArrayPeople(arrayPeople => [...arrayPeople, newItem]);
+
+    for (let i = 0; i < dataFilter.length; i++) {
+      if (dataFilter[i].id == item.id) {
+        newArr[i].test = true;
+        // console.log('===>', newArr[i].value);
+      }
+    }
+    setDataFilter(newArr);
+    // console.log(arrayPeople);
   };
 
-  const deletePeople = index => {
-    arrayPeople.splice(index, 1);
+  const deletePeople = params => {
+    console.log('deletePeople:', params.item.name);
+    arrayPeople.splice(params.index, 1);
     setArrayPeople(arrayPeople);
     setRefreshFlatList(!refreshFlatlist);
+    let newArr = [...dataFilter];
+    for (let i = 0; i < dataFilter.length; i++) {
+      if (dataFilter[i].id == params.item.id) {
+        newArr[i].value = false;
+        newArr[i].test = false;
+        // console.log('===>', newArr[i].value);
+        console.log(newArr);
+      }
+    }
+    setDataFilter(newArr);
   };
 
-  const RenderContacts = (item, index, section) => {
+  const onChangeValue = (item, index) => {
+    const newData = dataFilter.map(newItem => {
+      if (newItem.id == item.id) {
+        return {
+          ...newItem,
+          value: true,
+        };
+      }
+      return {
+        ...newItem,
+        // value: false,
+      };
+    });
+    // console.log(newData);
+    setDataFilter(newData);
+  };
+
+  const handleValue = (item, index) => {
+    for (let i = 0; i < arrayPeople.length; i++) {
+      if (arrayPeople[i].id == item.id) {
+        return arrayPeople.value;
+      }
+      return false;
+    }
+  };
+
+  const RenderContacts = item => {
     return (
       <TouchableOpacity
         style={styles.contact_list}
@@ -65,6 +124,11 @@ const CreateGroup = ({navigation}) => {
         <View style={styles.contact_listHero}>
           <View style={styles.contact_profilPic}>
             <Image source={item.picture} style={{height: 28, width: 28}} />
+            {item.test && (
+              <View style={styles.checkbox}>
+                <Image source={checklistPic} style={{height: 16, width: 16}} />
+              </View>
+            )}
           </View>
           <Text style={styles.contact_name}>{item.name}</Text>
         </View>
@@ -73,11 +137,12 @@ const CreateGroup = ({navigation}) => {
   };
 
   const RenderPeople = params => {
+    console.log('renderPeople', params);
     return (
       <View style={styles.botView_peopleBody}>
         <View style={styles.botView_peoplePic}>
           <Image source={params.item.picture} style={{height: 44, width: 44}} />
-          <TouchableOpacity onPress={() => deletePeople(params.index)}>
+          <TouchableOpacity onPress={() => deletePeople(params)}>
             <Image source={ClosePic} style={styles.botView_closePic} />
           </TouchableOpacity>
         </View>
@@ -149,7 +214,13 @@ const CreateGroup = ({navigation}) => {
           />
         </View>
 
-        <TouchableOpacity style={styles.nextButton}>
+        <TouchableOpacity
+          style={styles.nextButton}
+          onPress={() =>
+            navigation.navigate('ValidationGroup', {
+              payload: arrayPeople,
+            })
+          }>
           <Image source={ArrowRight} style={{height: 48, width: 48}} />
         </TouchableOpacity>
 
@@ -217,7 +288,7 @@ const styles = StyleSheet.create({
     height: 65,
     width: '100%',
     marginTop: 12,
-    paddingHorizontal: 30,
+    paddingLeft: 30,
   },
   botView_peopleBody: {
     alignItems: 'center',
@@ -299,38 +370,11 @@ const styles = StyleSheet.create({
     bottom: 102,
   },
 
-  // botView_email: {
-  //   height: 54,
-  //   padding: 18,
-  //   width: '100%',
-  //   borderRadius: 12,
-  //   backgroundColor: 'rgba(124, 120, 120, 0.1)',
-  //   marginBottom: 24,
-  // },
-  // button_submit: {
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  //   justifyContent: 'center',
-  //   alignItems: 'flex-start',
-  //   marginTop: 28,
-  //   padding: 12,
-  //   height: 46,
-  //   color: '#fff',
-  //   shadowColor: '#000',
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2,
-  //   },
-  //   shadowOpacity: 0.25,
-  //   borderRadius: 12,
-  // },
-  // button_cancel: {
-  //   borderWidth: 1,
-  //   borderColor: COLORS.PRIMARY,
-  // },
-  // button_text: {
-  //   fontFamily: fonts.NunitoSansReguler,
-  //   fontWeight: '600',
-  //   fontSize: 16,
-  // },
+  checkbox: {
+    position: 'absolute',
+    right: -8,
+    bottom: 0,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+  },
 });

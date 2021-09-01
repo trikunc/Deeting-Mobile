@@ -134,6 +134,7 @@ const Contacts = ({navigation}) => {
               style={isContacts ? styles.buttonOff : styles.buttonOn}
               onPress={() => {
                 setIsContacts(false);
+                setAddContact(false);
               }}>
               <Text
                 style={
@@ -215,7 +216,7 @@ const Contacts = ({navigation}) => {
       {addContact && (
         <View style={{position: 'absolute', right: 30, top: '35%'}}>
           <AddContactModal
-            // callBack1={() => navigation.navigate('AddQR')}
+            callBack1={() => navigation.navigate('ScanQRcode')}
             callBack2={() => navigation.navigate('AddContact')}
           />
         </View>

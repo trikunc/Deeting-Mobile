@@ -21,6 +21,8 @@ import AddContact from '../pages/Home/Contact/AddContact';
 import ContactDetail from '../pages/Home/Contact/ContactDetail';
 import EditProfile from '../pages/Home/Profile/EditProfile';
 import CreateGroup from '../pages/Home/Contact/CreateGroup';
+import ValidationGroup from '../pages/Home/Contact/ValidationGroup';
+import ScanQRcode from '../pages/Home/Contact/ScanQRcode';
 
 import JoinMeeting from '../pages/JoinMeeting/JoinMeeting';
 import WaitingRoom from '../pages/JoinMeeting/waitingRoom';
@@ -113,6 +115,12 @@ function AppNavigation() {
         component={CreateGroup}
         options={style}
       />
+      <Stack.Screen
+        name="ValidationGroup"
+        component={ValidationGroup}
+        options={style}
+      />
+      <Stack.Screen name="ScanQRcode" component={ScanQRcode} options={style} />
       <Stack.Screen name="AddContact" component={AddContact} options={style} />
 
       {/* Navbar */}
