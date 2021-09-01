@@ -27,10 +27,7 @@ export const ChangePicModal = ({callBack1, callBack2}) => {
 export const AddContactModal = ({callBack1, callBack2}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.wrapper}
-        // onPress={() => callBack1()}
-      >
+      <TouchableOpacity style={styles.wrapper} onPress={() => callBack1()}>
         <Image source={qrPic} style={styles.icon} />
         <Text style={styles.text}>Add by QR code</Text>
       </TouchableOpacity>
