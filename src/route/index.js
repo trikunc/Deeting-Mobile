@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+
 import TabsScreen from './TabsScreen';
 
 import SplashScreen from '../pages/SplashScreen/index.js';
@@ -151,6 +152,8 @@ function AppNavigation() {
       />
     </Stack.Navigator>
   );
+
+
 
   return (
     <NavigationContainer>

@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import  COLORS  from '../../utils/color';
 import { fonts } from '../../utils/fonts';
 
-const SuccesSignUp = ({navigation}) => {
+const SuccesSignUp = ({navigation, route}) => {
 
 	const { t  } = useTranslation();
+
+	console.log(route.params)
 
    return(
      <SafeAreaView style={styles.container}>

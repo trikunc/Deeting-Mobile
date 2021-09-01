@@ -9,6 +9,10 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 
+import { useDispatch } from 'react-redux';
+import { logout } from '../../action/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import closeIcon from '../../assets/icons/close.png';
 
 import COLORS from '../../utils/color';
@@ -16,7 +20,29 @@ import {fonts} from '../../utils/fonts';
 
 const deviceHeight = Dimensions.get('window').height;
 
-const SignOutModal = ({isVisible, callBack}) => {
+const SignOutModal = ({isVisible, callBack, navigation}) => {
+
+  const dispatch = useDispatch();
+
+
+
+  const handleLogout = async () => {
+
+    try {
+      await AsyncStorage.removeItem('userToken');
+      await dispatch(logout());
+      callBack(false);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'SplashScreen' }],
+      });
+
+    } catch (err) { 
+      console.log(err)
+    }
+
+  }
+
   return (
     <Modal
       isVisible={isVisible}
@@ -36,7 +62,9 @@ const SignOutModal = ({isVisible, callBack}) => {
             Are you sure want to sign out?
           </Text>
           <View style={styles.modal_buttonWrapper}>
-            <TouchableOpacity style={{...styles.button_danger, width: 76}}>
+            <TouchableOpacity style={{...styles.button_danger, width: 76}}
+              onPress={() => handleLogout()}
+            >
               <Text style={styles.button_primary}>Yes</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -50,6 +78,8 @@ const SignOutModal = ({isVisible, callBack}) => {
     </Modal>
   );
 };
+
+
 
 export default SignOutModal;
 
