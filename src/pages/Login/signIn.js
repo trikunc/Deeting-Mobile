@@ -49,17 +49,20 @@ const SignIn = ({navigation}) => {
     axios.defaults.headers.post['Content-Type'] ='application/json';
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
+
     try {
       const response = await axios.post(`${API_URL}/login`, {
         email:email, password:password
       });
 
-      const jsonValue = JSON.stringify(response.data);
+      
+
+      const jsonValue = JSON.stringify(response.data.data.authToken);
       await AsyncStorage.setItem('userToken', jsonValue);
       
-      const decoded = jwt_decode(response.data);
+      const decoded = jwt_decode(response.data.data.authToken);
       const userData = {
-        token:response.data,
+        token:response.data.data.authToken,
         user:decoded
       };
       await dispatch(login(userData));
