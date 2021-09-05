@@ -105,11 +105,11 @@ const seeAllMeetings = ({route, navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* //// Upcoming Meetings */}
           <View style={styles.upcomingMeet}>
-            {data.map(item => (
+            {data.map((item, index) => (
               <View>
                 <MeetingDateFunc dateCheck={item.when} />
                 <MeetingCard
-                  key={item.meetingId}
+                  key={index}
                   id={item.meetingId}
                   title={item.meeting_name}
                   colors={checkDate(item.when)}

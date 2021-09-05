@@ -21,12 +21,25 @@ import {
 import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
 import profilePic from '../../../assets/images/profile.png';
 import editPic from '../../../assets/icons/EditPhoto.png';
+import {TextInp} from '../../../components/Input/TextInput';
 
 const EditProfile = ({navigation}) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('John');
+  const [lastName, setLastName] = useState('Doe');
+  const [displayName, setDisplayName] = useState('John Doe');
+  const [email, setEmail] = useState('johndoe@gmail.com');
+  const [id, setId] = useState('110-989-541');
+
+  // const [state, setState] = useState({
+  //   firstName: 'John',
+  //   lastName: 'Doe',
+  //   displayName: 'John Doe',
+  //   email: 'john.doe@test.com',
+  // });
+
+  // const handleChange = e => {
+  //   setState(state => ({...state, [e.target.name]: e.target.value}));
+  // };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -57,72 +70,39 @@ const EditProfile = ({navigation}) => {
           <View style={styles.personInfo}>
             <Text style={styles.personInfo_text}>Personal Information</Text>
           </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>First Name</Text>
-            <View style={styles.profile_wrapper}>
-              <TextInput
-                style={styles.profile_secondText}
-                onChangeText={setFirstName}
-                value={firstName}
-                placeholderTextColor={COLORS.TEXTINPUT}
-                placeholder="John"
-              />
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Last Name</Text>
-            <View style={styles.profile_wrapper}>
-              <TextInput
-                style={styles.profile_secondText}
-                onChangeText={setLastName}
-                value={lastName}
-                placeholderTextColor={COLORS.TEXTINPUT}
-                placeholder="Doe"
-              />
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Display Name</Text>
-            <View style={styles.profile_wrapper}>
-              <TextInput
-                style={styles.profile_secondText}
-                onChangeText={setDisplayName}
-                value={displayName}
-                placeholderTextColor={COLORS.TEXTINPUT}
-                placeholder="John Doe"
-              />
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Personal Meeting ID</Text>
-            <Text style={styles.profile_note}>
-              This information disable to change
-            </Text>
-            <View
-              style={{
-                ...styles.profile_wrapper,
-                backgroundColor: 'rgba(134, 132, 132, 0.27)',
-              }}>
-              <TextInput
-                editable={false}
-                selectTextOnFocus={false}
-                style={styles.profile_secondText}
-                value={'110-989-541'}
-              />
-            </View>
-          </View>
-          <View style={styles.profile}>
-            <Text style={styles.profile_firstText}>Email</Text>
-            <View style={styles.profile_wrapper}>
-              <TextInput
-                style={styles.profile_secondText}
-                onChangeText={setEmail}
-                value={email}
-                placeholderTextColor={COLORS.TEXTINPUT}
-                placeholder="johndoe@gmail.com"
-              />
-            </View>
-          </View>
+
+          <TextInp
+            title="First Name"
+            text={firstName}
+            onChangeText={firstName => setFirstName(firstName)}
+            editable={true}
+          />
+          <TextInp
+            title="Last Name"
+            text={lastName}
+            onChangeText={lastName => setLastName(lastName)}
+            editable={true}
+          />
+          <TextInp
+            title="Display Name"
+            text={displayName}
+            onChangeText={displayName => setDisplayName(displayName)}
+            editable={true}
+          />
+
+          <TextInp
+            title="Personal Meeting ID"
+            text={id}
+            // onChangeText={id => setId(id)}
+            editable={false}
+          />
+
+          <TextInp
+            title="Email"
+            text={email}
+            onChangeText={email => setEmail(email)}
+            editable={true}
+          />
 
           <View style={{marginTop: 30}}>
             <ButtonPrimary text="Save" />

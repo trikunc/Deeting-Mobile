@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator();
 
 const TabsScreen = ({navigation}) => (
   <Tab.Navigator
-    initialRouteName="Profile"
+    initialRouteName="Meeting"
     screenOptions={
       Platform.OS === 'ios'
         ? {
