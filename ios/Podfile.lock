@@ -409,15 +409,17 @@ PODS:
     - React-cxxreact (= 0.64.2)
     - React-jsi (= 0.64.2)
     - React-perflogger (= 0.64.2)
-  - RNCAsyncStorage (1.15.7):
+  - RNCAsyncStorage (1.15.6):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
+  - RNCPicker (1.16.7):
+    - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
   - RNLocalize (2.1.1):
     - React-Core
-  - RNScreens (3.6.0):
+  - RNScreens (3.5.0):
     - React-Core
     - React-RCTImage
   - Yoga (1.14.0)
@@ -478,6 +480,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -570,6 +573,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNLocalize:
@@ -584,7 +589,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: 33307dc68965f5f4f95b3f5a1731d835bbfeb14c
+  FBReactNativeSpec: 9721686cfa0f486c0cd404dcf47f9501ae4c6621
   Firebase: 21ac9f28b09a8bdfc005f34c984fca84e7e8786d
   FirebaseAnalytics: 8f32ae54ad42754f503354782575c4ddfc1425c3
   FirebaseCore: 620b677f70f5470a8e59cb77f3ddc666f6f09785
@@ -630,11 +635,12 @@ SPEC CHECKSUMS:
   React-RCTVibration: 24600e3b1aaa77126989bc58b6747509a1ba14f3
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
-  RNCAsyncStorage: 7102fe8985f889579a3ae148d957bbb3f308122b
+  RNCAsyncStorage: b7c6564ce662366dd44d0189456183ef7eda2d4d
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+  RNCPicker: 9865e85857650bbc553c660acc580ff86abd056a
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNLocalize: 82a569022724d35461e2dc5b5d015a13c3ca995b
-  RNScreens: eb0dfb2d6b21d2d7f980ad46b14eb306d2f1062e
+  RNScreens: 01ab149b5dd5c27f5ff26741b1d2bdf2cee1af35
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
