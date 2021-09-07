@@ -69,6 +69,7 @@ const MeetingModeModal = ({isVisible, callBack, callBack2}) => {
         swipeDirection={['down']}
         style={{
           height: deviceHeight,
+          margin: 0,
         }}>
         <View style={styles.modalContainer}>
           <View style={styles.modalBody}>
@@ -95,14 +96,10 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'flex-end',
-    // alignItems: 'center',
-    // backgroundColor: 'yellow',
-    // marginHorizontal: 0,
   },
   modalBody: {
-    // borderTopRightRadius: 20,
-    // borderTopLeftRadius: 20,
-    borderRadius: 20,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
     backgroundColor: COLORS.WHITE,
     width: '100%',
     height: 693,
