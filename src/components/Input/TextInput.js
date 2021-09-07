@@ -7,6 +7,7 @@ import {
   Image,
   Switch,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {fonts} from '../../utils/fonts';
 import COLORS from '../../utils/color';
@@ -14,6 +15,23 @@ import moment from 'moment';
 
 import calendarPic from '../../assets/icons/calendar.png';
 import arrowRightPic from '../../assets/icons/arrowRightBlk.png';
+import closePic from '../../assets/icons/closeBlack.png';
+
+const windowWidth = Dimensions.get('window').width;
+
+export const TextHeader = ({title, count}) => {
+  return (
+    <View
+      style={{
+        ...styles.profile,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      }}>
+      <Text style={styles.profile_firstText}>{title}</Text>
+      <Text style={styles.profile_countText}>({count})</Text>
+    </View>
+  );
+};
 
 export const TextDisplay = ({title, text, bold}) => {
   return (
@@ -34,7 +52,16 @@ export const TextDisplay = ({title, text, bold}) => {
   );
 };
 
-export const TextInp = ({title, text, onChangeText, editable, placeholder}) => {
+export const TextInp = ({
+  title,
+  text,
+  onChangeText,
+  editable,
+  placeholder,
+  data,
+  callBack,
+}) => {
+  console.log('dataTextInp:', data);
   return (
     <View style={styles.profile}>
       <Text style={styles.profile_firstText}>{title}</Text>
@@ -42,6 +69,48 @@ export const TextInp = ({title, text, onChangeText, editable, placeholder}) => {
         <Text style={styles.profile_note}>
           This information disable to change
         </Text>
+      )}
+      {data && (
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            // paddingVertical: 9,
+            // paddingHorizontal: 7,
+            flexWrap: 'wrap',
+          }}>
+          {data.map(item => (
+            <View
+              key={item.id}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 8,
+                borderRadius: 8,
+                backgroundColor: '#D3ECFB',
+                marginTop: 8,
+                marginBottom: 4,
+                marginHorizontal: 5,
+                width: windowWidth / 2 - 40,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Image source={item.picture} style={{height: 32, width: 32}} />
+                <Text style={{marginLeft: 8}}>{item.name}</Text>
+              </View>
+              <TouchableOpacity onPress={params => callBack(params)}>
+                <Image
+                  source={closePic}
+                  style={{
+                    height: 21,
+                    width: 21,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
       )}
       <View
         style={
@@ -54,7 +123,10 @@ export const TextInp = ({title, text, onChangeText, editable, placeholder}) => {
         }>
         <TextInput
           style={{...styles.profile_secondText, width: '100%'}}
-          onChangeText={value => onChangeText(value)}
+          onChangeText={value => {
+            console.log(value);
+            onChangeText(value);
+          }}
           value={text}
           placeholderTextColor={COLORS.TEXTINPUT}
           placeholder={placeholder}
@@ -225,29 +297,31 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     // height: 54,
   },
+  profile_countText: {
+    fontFamily: fonts.NunitoSansLight,
+    fontSize: 14,
+    lineHeight: 1.4 * 14,
+    textAlign: 'center',
+    color: COLORS.BLACK,
+  },
   profile_firstText: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
+    fontFamily: fonts.NunitoSansBold,
     fontSize: 14,
   },
   profile_secondText: {
     fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'normal',
     fontSize: 16,
     color: COLORS.NEUTRAL,
     // width: '90%',
   },
   profile_thirdText: {
     fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'normal',
     fontSize: 16,
     lineHeight: 1.4 * 16,
     color: COLORS.GRAY,
     marginTop: 10,
   },
   image: {
-    // marginRight: 40,
-    // paddingRight: 20,
     height: 20,
     width: 20,
   },

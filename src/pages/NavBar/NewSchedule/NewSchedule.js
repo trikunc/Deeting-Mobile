@@ -1,17 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
   Text,
   Image,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import moment from 'moment';
-import {Calendar} from 'react-native-calendars';
-import {TimePicker} from 'react-native-simple-time-picker';
 
 import {
   TextInp,
@@ -19,6 +17,7 @@ import {
   BtnInputTime,
   BtnInputOption,
   TogleInput,
+  TextHeader,
 } from '../../../components/Input/TextInput';
 import {
   ButtonPrimary,
@@ -27,24 +26,18 @@ import {
 
 import TimezoneModal from '../../../components/Modal/TimezoneModal';
 import MeetingModeModal from '../../../components/Modal/MeetingModeModal';
+import AddContactModal from '../../../components/Modal/AddContactModal';
+import AddEmailModal from '../../../components/Modal/AddEmailModal';
 
 import COLORS from '../../../utils/color';
 import {fonts} from '../../../utils/fonts';
 
 import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
-import {RadioButton} from '../../../components/Button/RadioButton';
 
-const windowWidth = Dimensions.get('window').width;
+import {RenderEmail, RenderContact} from './Render';
+import {RepeatMode, ShowCalendar, TimePick} from './Show';
 
 const NewSchedule = ({navigation}) => {
-  // const [state, setState] = useState({
-  //   firstName: 'John',
-  //   lastName: 'Doe',
-  //   displayName: 'John Doe',
-  //   email: 'john.doe@test.com',
-  // });
-
-  // let {firstName, lastName, displayName, email} = state;
   const [roomName, setRoomName] = useState('');
   const [dateMeet, setDateMeet] = useState(moment().format('YYYY-MM-DD'));
   const [selectedHours1, setSelectedHours1] = useState(0);
@@ -56,6 +49,8 @@ const NewSchedule = ({navigation}) => {
   );
   const [meetingMode, setMeetingMode] = useState('Regular Meeting');
   const [repeatMode, setRepeatMode] = useState('Never');
+  const [addContact, setAddContact] = useState([]);
+  const [addEmail, setAddEmail] = useState([]);
 
   const [showDate, setShowDate] = useState(false);
   const [showTime1, setShowTime1] = useState(false);
@@ -63,6 +58,8 @@ const NewSchedule = ({navigation}) => {
   const [showTimezone, setShowTimezone] = useState(false);
   const [showMode, setShowMode] = useState(false);
   const [showRepeat, setShowRepeat] = useState(false);
+  const [showAddEmail, setShowAddEmail] = useState(false);
+  const [showAddContact, setShowAddContact] = useState(false);
 
   const radioData = [
     {
@@ -84,10 +81,26 @@ const NewSchedule = ({navigation}) => {
   ];
 
   const handleDateMeet = day => {
-    // console.log(day.dateString);
-    // console.log(dateMeet);
     setDateMeet(day.dateString);
     setShowDate(!showDate);
+  };
+
+  const deleteEmail = index => {
+    console.log('deleteEmail:', index);
+    addEmail.splice(index, 1);
+    let newArr = addEmail;
+    console.log('newArr==>', newArr);
+    setAddEmail([...newArr]);
+    console.log('addContact:', addEmail);
+  };
+
+  const deleteContact = index => {
+    console.log('deletePeople:', index);
+    addContact.splice(index, 1);
+    let newArr = addContact;
+    console.log('newArr==>', newArr);
+    setAddContact([...newArr]);
+    console.log('addContact:', addContact);
   };
 
   return (
@@ -127,67 +140,7 @@ const NewSchedule = ({navigation}) => {
             />
           </View>
 
-          {showDate && (
-            <View
-              style={{
-                position: 'absolute',
-                top: 220,
-                alignSelf: 'center',
-                zIndex: 10,
-              }}>
-              <Calendar
-                onDayPress={day => handleDateMeet(day)}
-                monthFormat={'MMMM'}
-                onMonthChange={month => {
-                  console.log('month changed', month);
-                }}
-                onPressArrowLeft={subtractMonth => subtractMonth()}
-                onPressArrowRight={addMonth => addMonth()}
-                disableAllTouchEventsForDisabledDays={false}
-                enableSwipeMonths={true}
-                style={{
-                  marginTop: 5,
-
-                  borderRadius: 12,
-                  height: 362,
-                  width: windowWidth - 60,
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 6,
-                  },
-                  shadowOpacity: 0.25,
-                  elevation: -1,
-                }}
-                theme={{
-                  backgroundColor: '#ffffff',
-                  calendarBackground: '#ffffff',
-                  textSectionTitleColor: COLORS.BLACK,
-                  textSectionTitleDisabledColor: '#d9e1e8',
-                  selectedDayBackgroundColor: '#00adf5',
-                  selectedDayTextColor: '#ffffff',
-                  todayTextColor: '#00adf5',
-                  dayTextColor: '#2d4150',
-                  textDisabledColor: '#d9e1e8',
-                  dotColor: '#00adf5',
-                  selectedDotColor: '#ffffff',
-                  arrowColor: COLORS.NEUTRAL,
-                  disabledArrowColor: '#d9e1e8',
-                  monthTextColor: COLORS.BLACK,
-                  indicatorColor: 'blue',
-                  textDayFontFamily: fonts.NunitoSansReguler,
-                  textDayHeaderFontFamily: fonts.NunitoSansReguler,
-                  textMonthFontFamily: fonts.NunitoSansBold,
-                  textDayFontWeight: 'normal',
-                  textDayHeaderFontWeight: 'normal',
-                  textMonthFontWeight: '600',
-                  textDayFontSize: 16,
-                  textDayHeaderFontSize: 12,
-                  textMonthFontSize: 18,
-                }}
-              />
-            </View>
-          )}
+          {showDate && <ShowCalendar callBack={day => handleDateMeet(day)} />}
 
           <View
             style={{
@@ -204,62 +157,21 @@ const NewSchedule = ({navigation}) => {
           </View>
 
           {showTime1 && (
-            <View
-              style={{
-                position: 'absolute',
-                left: 30,
-                top: 330,
-                backgroundColor: COLORS.WHITE,
-                borderRadius: 12,
-                height: 240,
-                width: 147,
-
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 6,
-                },
-                shadowOpacity: 0.25,
-                zIndex: 10,
-              }}>
-              <TimePicker
-                selectedHours={selectedHours1}
-                selectedMinutes={selectedMinutes1}
-                onChange={hours => {
-                  setSelectedHours1(hours.hours);
-                  setSelectedMinutes1(hours.minutes);
-                }}
-              />
-            </View>
+            <TimePick
+              hour={selectedHours1}
+              minute={selectedMinutes1}
+              callBack1={hour => setSelectedHours1(hour)}
+              callBack2={minute => setSelectedMinutes1(minute)}
+              left
+            />
           )}
           {showTime2 && (
-            <View
-              style={{
-                position: 'absolute',
-                right: 30,
-                top: 330,
-                backgroundColor: COLORS.WHITE,
-                borderRadius: 12,
-                height: 240,
-                width: 147,
-
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 6,
-                },
-                shadowOpacity: 0.25,
-                zIndex: 10,
-              }}>
-              <TimePicker
-                selectedHours={selectedHours2}
-                selectedMinutes={selectedMinutes2}
-                onChange={hours => {
-                  setSelectedHours2(hours.hours);
-                  setSelectedMinutes2(hours.minutes);
-                }}
-              />
-            </View>
+            <TimePick
+              hour={selectedHours2}
+              minute={selectedMinutes2}
+              callBack1={hour => setSelectedHours2(hour)}
+              callBack2={minute => setSelectedMinutes2(minute)}
+            />
           )}
 
           <View
@@ -302,31 +214,11 @@ const NewSchedule = ({navigation}) => {
             />
           </View>
           {showRepeat && (
-            <View
-              style={{
-                position: 'absolute',
-                top: 680,
-                // right: '1%',
-                backgroundColor: COLORS.WHITE,
-                borderRadius: 12,
-                alignSelf: 'center',
-                width: windowWidth - 60,
-                padding: 38,
-
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 6,
-                },
-                shadowOpacity: 0.25,
-                zIndex: 10,
-              }}>
-              <RadioButton
-                props={radioData}
-                initial={radioData[0].key}
-                callBack={repeat => setRepeatMode(repeat)}
-              />
-            </View>
+            <RepeatMode
+              data={radioData}
+              firstData={radioData[0].key}
+              callBack={repeat => setRepeatMode(repeat)}
+            />
           )}
 
           <View
@@ -345,14 +237,45 @@ const NewSchedule = ({navigation}) => {
               //  callBack={() => setShowTime1(!showTime1)}
             />
 
-            <TextInp
+            {/* Invite Participants */}
+            <TextHeader
               title="Invite Participants"
-              text={roomName}
-              onChangeText={roomName => setRoomName(roomName)}
-              editable={true}
-              placeholder="Enter participant email"
+              count={addEmail.length + addContact.length}
             />
-            <TouchableOpacity>
+
+            <View>
+              <RenderEmail
+                addEmail={addEmail}
+                callBack={index => deleteEmail(index)}
+              />
+            </View>
+
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+              }}>
+              <RenderContact
+                addContact={addContact}
+                callBack={index => deleteContact(index)}
+              />
+            </View>
+
+            <TouchableOpacity onPress={() => setShowAddEmail(true)}>
+              <Text
+                style={{
+                  fontFamily: fonts.NunitoSansBold,
+                  fontSize: 16,
+                  color: COLORS.SECONDARY,
+                  marginTop: 8,
+                }}>
+                + Add with email
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => setShowAddContact(true)}>
               <Text
                 style={{
                   fontFamily: fonts.NunitoSansBold,
@@ -363,6 +286,19 @@ const NewSchedule = ({navigation}) => {
                 + Add from contacts
               </Text>
             </TouchableOpacity>
+
+            <AddEmailModal
+              isVisible={showAddEmail}
+              callBack={() => setShowAddEmail(false)}
+              callBack2={email => setAddEmail(email)}
+            />
+
+            <AddContactModal
+              isVisible={showAddContact}
+              callBack={() => setShowAddContact(false)}
+              callBack2={contact => setAddContact(contact)}
+            />
+
             <TogleInput
               title="Add to Calendar"
               // value="xaeh4Tg"
@@ -397,7 +333,6 @@ const styles = StyleSheet.create({
   topView: {
     height: 96,
     display: 'flex',
-    // paddingTop: 48.5,
     alignItems: 'center',
   },
 
@@ -423,6 +358,5 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 4,
     paddingBottom: 56,
-    // paddingHorizontal: 30,
   },
 });

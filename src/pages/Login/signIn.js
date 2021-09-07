@@ -14,14 +14,14 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTranslation } from 'react-i18next';
-import { useForm, Controller } from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
+import {useForm, Controller} from 'react-hook-form';
 import axios from 'axios';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import {API_URL} from '@env';
 
-import { useDispatch } from 'react-redux';
-import { login } from '../../action/index';
+import {useDispatch} from 'react-redux';
+import {login} from '../../action/index';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
@@ -33,56 +33,56 @@ const checkboxFill = '../../assets/icons/checkbokFill.png';
 const checkbox = '../../assets/icons/checkbok.png';
 
 const SignIn = ({navigation}) => {
-
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
   const dispatch = useDispatch();
 
-  const { control, handleSubmit, formState: { errors, isValid }, getValues } = useForm({mode: 'onSubmit'});
-  
+  const {
+    control,
+    handleSubmit,
+    formState: {errors, isValid},
+    getValues,
+  } = useForm({mode: 'onSubmit'});
 
   const [pass, setPass] = useState(true);
   const [remember, setRemember] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
-  const onSubmit = async({email, password}) => {
+  const onSubmit = async ({email, password}) => {
     setLoading(true);
-    axios.defaults.headers.post['Content-Type'] ='application/json';
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
 
     try {
       const response = await axios.post(`${API_URL}/login`, {
-        email:email, password:password
+        email: email,
+        password: password,
       });
-
-      
 
       const jsonValue = JSON.stringify(response.data.data.authToken);
       await AsyncStorage.setItem('userToken', jsonValue);
-      
+
       const decoded = jwt_decode(response.data.data.authToken);
       const userData = {
-        token:response.data.data.authToken,
-        user:decoded
+        token: response.data.data.authToken,
+        user: decoded,
       };
       await dispatch(login(userData));
       setLoading(false);
-      
+
       navigation.reset({
         index: 0,
-        routes: [{ name: 'TabsScreen' }],
+        routes: [{name: 'TabsScreen'}],
       });
-
     } catch (err) {
       console.log(err);
-      Alert.alert('Sorry', "Password Not Match")
+      Alert.alert('Sorry', 'Password Not Match');
       setLoading(false);
     }
   };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.PRIMARY}}>
-      <StatusBar backgroundColor={COLORS.PRIMARY}  />
+      <StatusBar backgroundColor={COLORS.PRIMARY} />
       <TouchableOpacity
         style={{marginLeft: 27, marginTop: 40}}
         onPress={() => navigation.popToTop()}>
@@ -96,71 +96,78 @@ const SignIn = ({navigation}) => {
         <Text style={styles.label}>{t('Email')}</Text>
 
         <Controller
-              control={control}
-              rules={{
-               required: true,
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: t('validEmail'),
-                },
-                  
-              }}
-              render={({ field: { onChange, onBlur, value} }) => (
-                <TextInput
-                  style={
-                    errors.email ? 
-                    {...styles.input, borderColor: COLORS.DANGER,borderWidth: 1} 
-                    : {...styles.input, marginBottom: 5} 
-                  }
-                  onChangeText={onChange}
-                  value={value}
-                  placeholder={t('Enter your email')}
-                />
-
-              )}
-
-              name="email"
-              defaultValue=""
+          control={control}
+          rules={{
+            required: true,
+            pattern: {
+              value: /^\S+@\S+$/i,
+              message: t('validEmail'),
+            },
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              style={
+                errors.email
+                  ? {
+                      ...styles.input,
+                      borderColor: COLORS.DANGER,
+                      borderWidth: 1,
+                    }
+                  : {...styles.input, marginBottom: 5}
+              }
+              onChangeText={onChange}
+              value={value}
+              placeholder={t('Enter your email')}
+            />
+          )}
+          name="email"
+          defaultValue=""
         />
 
-        <View style={styles.errorView} >
-            {errors.email && (
-              <Text style={styles.errorMessage} >
-              {errors.email?.type === 'required' ? t('required'): errors.email.message}
-              </Text>)}
+        <View style={styles.errorView}>
+          {errors.email && (
+            <Text style={styles.errorMessage}>
+              {errors.email?.type === 'required'
+                ? t('required')
+                : errors.email.message}
+            </Text>
+          )}
         </View>
 
         <Text style={styles.label}>{t('Password')}</Text>
-        <View style={
-          errors.password ? {
-                ...styles.password, borderColor: COLORS.DANGER, borderWidth: 1
-              } : {...styles.password, marginBottom: 5} 
-        }>
-
-        <Controller
-          control={control}
-          rules={{
-           required: true,
-            pattern: {
-              value: /^(?=.*[A-Z]).{6,32}$/i,
-              message: t('validPassword'),
-            },
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              autoCapitalize="none"
-              secureTextEntry={pass}
-              style={{width: 220, height: 54}}
-              onChangeText={onChange}
-              value={value}
-              placeholderTextColor={COLORS.TEXTINPUT}
-              placeholder={t('Enter your password')}
-            />
-          )}
-
-          name="password"
-          defaultValue=""
-        />
+        <View
+          style={
+            errors.password
+              ? {
+                  ...styles.password,
+                  borderColor: COLORS.DANGER,
+                  borderWidth: 1,
+                }
+              : {...styles.password, marginBottom: 5}
+          }>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+              pattern: {
+                value: /^(?=.*[A-Z]).{6,32}$/i,
+                message: t('validPassword'),
+              },
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                autoCapitalize="none"
+                secureTextEntry={pass}
+                style={{width: 220, height: 54}}
+                onChangeText={onChange}
+                value={value}
+                placeholderTextColor={COLORS.TEXTINPUT}
+                placeholder={t('Enter your password')}
+              />
+            )}
+            name="password"
+            defaultValue=""
+          />
 
           <TouchableOpacity onPress={() => setPass(!pass)}>
             {pass ? (
@@ -177,13 +184,15 @@ const SignIn = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.errorView} >
-            {errors.password && (
-              <Text style={styles.errorMessage} >
-              {errors.password?.type === 'required' ? t('required'):errors.password.message}
-              </Text>
-              )}
-          </View>
+        <View style={styles.errorView}>
+          {errors.password && (
+            <Text style={styles.errorMessage}>
+              {errors.password?.type === 'required'
+                ? t('required')
+                : errors.password.message}
+            </Text>
+          )}
+        </View>
 
         <View style={styles.boxBottomText}>
           <View style={{flexDirection: 'row'}}>
@@ -202,26 +211,22 @@ const SignIn = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        
-      { 
-        isLoading
-        ?
-        (
-          <View style={{...styles.button, backgroundColor: 'rgba(124, 120, 120, 0.1)'}}>
-              <ActivityIndicator size="small" color={COLORS.BLACK} />
+        {isLoading ? (
+          <View
+            style={{
+              ...styles.button,
+              backgroundColor: 'rgba(124, 120, 120, 0.1)',
+            }}>
+            <ActivityIndicator size="small" color={COLORS.BLACK} />
           </View>
-        )
-        :(
+        ) : (
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
             activeOpacity={0.9}
-            style={styles.button}
-          >
+            style={styles.button}>
             <Text style={styles.text}>{t('Sign In')}</Text>
           </TouchableOpacity>
-        )
-      }
-
+        )}
 
         <Text style={styles.textOr}>{t('Or')}</Text>
         <View>
@@ -255,7 +260,6 @@ const SignIn = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
     </SafeAreaView>
   );
 };
@@ -339,7 +343,7 @@ const styles = StyleSheet.create({
     width: 24,
   },
 
-  discord:{
+  discord: {
     marginLeft: 36.5,
     marginRight: 20,
     height: 18.58,
@@ -386,20 +390,20 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
 
-  errorView:{
+  errorView: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginTop: 5,
-    marginBottom: 10, 
-    marginRight: 3, 
+    marginBottom: 10,
+    marginRight: 3,
   },
 
-  errorMessage:{
+  errorMessage: {
     color: COLORS.DANGER,
     fontFamily: fonts.NunitoSansReguler,
     letterSpacing: 0.5,
     fontSize: 12,
-  }
+  },
 });
 
 export default SignIn;
