@@ -220,7 +220,7 @@ dependencies {
       exclude group: 'com.facebook.react',module:'react-native-locale-detector'
       // exclude group: 'com.facebook.react',module:'react-native-vector-icons'
       // Un-comment below if using hermes
-      // exclude group: 'com.facebook',module:'hermes'
+      exclude group: 'com.facebook',module:'hermes'
       // Un-comment any packages below that you have added to your project to prevent `duplicate_classes` errors
       // exclude group: 'com.facebook.react',module:'react-native-google-signin'
       exclude group: 'com.facebook.react',module:'react-native-community-async-storage'
