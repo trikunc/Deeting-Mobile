@@ -1,4 +1,4 @@
-package com.deeting;
+package com.deeting.dev;
 
 import com.facebook.react.ReactActivity;
 

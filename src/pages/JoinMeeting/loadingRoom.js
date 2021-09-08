@@ -14,17 +14,18 @@ import { loadingLarge } from '../../assets/index';
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
-const LoadingRoom = ({navigation}) => {
+const LoadingRoom = ({navigation, route}) => {
 
 	const { t } = useTranslation();
 
 	useEffect(() => {
 
 		setTimeout( () => {
-			navigation.replace('WaitingRoom');
+			navigation.replace('WaitingRoom', {data: route.params});
 		}, 1000)
 
 	}, [navigation]);
+
 
 	return (
 		<SafeAreaView style={styles.container}>

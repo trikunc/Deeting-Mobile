@@ -18,7 +18,7 @@ import { send, plus } from '../../assets/index';
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
-const WaitingRoom = ({navigation}) => {
+const WaitingRoom = ({navigation, route}) => {
 
 	const { t, i18n } = useTranslation();
 
@@ -44,6 +44,18 @@ const WaitingRoom = ({navigation}) => {
 	      		{
 	      			is_admin ? (
 	      				<TouchableOpacity  
+	      					onPress={() => 
+
+	      						navigation.reset({
+							        index: 0,
+							        routes: [
+							        	{ 
+							        		name: 'JitsiView', 
+							        		params:{data:route.params.data} 
+							        	}
+							        ],
+					      		})
+	      					}
 	      					style={styles.buttonStart}
 	      				>
 	      					<Text style={styles.fontStart} >{t('start')}</Text>

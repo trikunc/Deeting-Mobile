@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import {useTranslation} from 'react-i18next';
-
+import { useForm, Controller } from 'react-hook-form';
 import {offSwitch, onSwitch} from '../../assets/index';
 
 import COLORS from '../../utils/color';
@@ -19,11 +19,16 @@ import {fonts} from '../../utils/fonts';
 
 const JoinMeeting = ({navigation}) => {
   const {t, i18n} = useTranslation();
-  const [joinId, setJoinID] = useState('');
-  const [name, setName] = useState('');
 
   const [camera, setCamera] = useState(true);
   const [audio, setAudio] = useState(true);
+
+  const { control, handleSubmit, formState: { errors, isValid }, getValues } = useForm({mode: 'onSubmit'});
+
+  const onSubmit = async(users) => {
+    const OnlyAudio ={camera:camera, audio:audio};
+    navigation.navigate('LoadingRoom', {data: users, audio: OnlyAudio});
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -43,20 +48,67 @@ const JoinMeeting = ({navigation}) => {
 
       <View style={styles.card}>
         <Text style={styles.label}>{t('Join with Meeting ID')}</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setJoinID(text)}
-          value={joinId}
-          placeholder={`${t('Ex: 129-992-912')}`}
+
+        <Controller
+          control={control}
+          rules={{
+           required: true,
+              
+          }}
+          render={({ field: { onChange, onBlur, value} }) => (
+            <TextInput
+              style={
+                errors.joinId ? 
+                    {...styles.input, borderColor: COLORS.DANGER,borderWidth: 1} 
+                    : {...styles.input, marginBottom: 10} 
+              }
+              onChangeText={onChange}
+              value={value}
+              placeholder={`${t('Ex: 129-992-912')}`}
+            />
+          )}
+
+          name="joinId"
+          defaultValue=""
         />
 
+        <View style={styles.errorView} >
+            {errors.joinId && (
+              <Text style={styles.errorMessage} >
+              {errors.joinId?.type === 'required' ? t('required'): ''}
+              </Text>)}
+        </View>
+
         <Text style={styles.label}>{t('Display Name')}</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setName(text)}
-          value={name}
-          placeholder="John Doe"
+
+        <Controller
+          control={control}
+          rules={{
+           required: true,   
+          }}
+          render={({ field: { onChange, onBlur, value} }) => (
+            <TextInput
+              style={
+                errors.name ? 
+                    {...styles.input, borderColor: COLORS.DANGER,borderWidth: 1} 
+                    : {...styles.input, marginBottom: 10} 
+              }
+              onChangeText={onChange}
+              value={value}
+              placeholder="John Doe"
+            />
+            )}
+
+          name="name"
+          defaultValue=""
         />
+
+        <View style={styles.errorView} >
+            {errors.name && (
+              <Text style={styles.errorMessage} >
+              {errors.name?.type === 'required' ? t('required'): ''}
+              </Text>)}
+        </View>
 
         <Text style={styles.textOption}>{t('Join Options')}</Text>
 
@@ -89,7 +141,7 @@ const JoinMeeting = ({navigation}) => {
         <TouchableOpacity
           activeOpacity={0.9}
           style={styles.button}
-          onPress={() => navigation.navigate('LoadingRoom')}>
+          onPress={handleSubmit(onSubmit)}>
           <Text style={styles.buttonText}>{t('Join')}</Text>
         </TouchableOpacity>
       </View>
@@ -153,7 +205,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     // color: COLORS.TEXTINPUT,
     backgroundColor: 'rgba(124, 120, 120, 0.1)',
-    marginBottom: 24,
   },
 
   textOption: {
@@ -197,6 +248,22 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     letterSpacing: 0.5,
   },
+
+  errorView:{
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 5,
+    marginBottom: 10, 
+    marginRight: 3, 
+  },
+
+  errorMessage:{
+    color: COLORS.DANGER,
+    fontFamily: fonts.NunitoSansReguler,
+    letterSpacing: 0.5,
+    fontSize: 12,
+  }
+
 });
 
 export default JoinMeeting;
