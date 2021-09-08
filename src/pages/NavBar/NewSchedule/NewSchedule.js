@@ -86,21 +86,21 @@ const NewSchedule = ({navigation}) => {
   };
 
   const deleteEmail = index => {
-    console.log('deleteEmail:', index);
+    // console.log('deleteEmail:', index);
     addEmail.splice(index, 1);
     let newArr = addEmail;
-    console.log('newArr==>', newArr);
+    // console.log('newArr==>', newArr);
     setAddEmail([...newArr]);
-    console.log('addContact:', addEmail);
+    // console.log('addContact:', addEmail);
   };
 
   const deleteContact = index => {
-    console.log('deletePeople:', index);
+    // console.log('deletePeople:', index);
     addContact.splice(index, 1);
     let newArr = addContact;
-    console.log('newArr==>', newArr);
+    // console.log('newArr==>', newArr);
     setAddContact([...newArr]);
-    console.log('addContact:', addContact);
+    // console.log('addContact:', addContact);
   };
 
   return (
@@ -197,7 +197,7 @@ const NewSchedule = ({navigation}) => {
             style={{
               paddingHorizontal: 30,
             }}>
-            <BtnInputOption
+            {/* <BtnInputOption
               title="Mode"
               value={meetingMode}
               callBack={() => setShowMode(true)}
@@ -206,7 +206,7 @@ const NewSchedule = ({navigation}) => {
               isVisible={showMode}
               callBack={() => setShowMode(false)}
               callBack2={mode => setMeetingMode(mode)}
-            />
+            /> */}
             <BtnInputOption
               title="Repeat"
               value={repeatMode}

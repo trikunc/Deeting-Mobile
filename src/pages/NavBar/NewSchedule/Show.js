@@ -99,7 +99,7 @@ export const RepeatMode = ({data, firstData, callBack}) => {
     <View
       style={{
         position: 'absolute',
-        top: 680,
+        top: 570,
         // right: '1%',
         backgroundColor: COLORS.WHITE,
         borderRadius: 12,
