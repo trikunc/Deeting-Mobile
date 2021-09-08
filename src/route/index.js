@@ -36,6 +36,11 @@ import WebinarList from '../pages/NavBar/WebinarList/WebinarList';
 import MyMessaging from '../pages/NavBar/MyMessaging/MyMessaging';
 import MeetingCalendar from '../pages/NavBar/MeetingCalendar/MeetingCalendar';
 
+
+// Jitsi View
+
+import Jitsi from '../pages/JoinMeeting/jitsiView';
+
 const Stack = createStackNavigator();
 
 function AppNavigation() {
@@ -88,6 +93,11 @@ function AppNavigation() {
       <Stack.Screen
         name="LoadingRoom"
         component={LoadingRoom}
+        options={style}
+      />
+      <Stack.Screen
+        name="JitsiView"
+        component={Jitsi}
         options={style}
       />
       <Stack.Screen
