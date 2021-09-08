@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 
   modalOption: {
     position: 'absolute',
-    top: 440,
+    top: 460,
     // right: '1%',
     backgroundColor: COLORS.WHITE,
     borderRadius: 12,
