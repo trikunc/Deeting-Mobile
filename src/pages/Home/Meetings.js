@@ -28,24 +28,89 @@ const seeAllMeetings = ({navigation}) => {
   const [todayArr, setTodayArr] = useState([]);
   const [tomorrowArr, setTomorrowArr] = useState([]);
   const [beforeDayArr, setBeforeDayArr] = useState([]);
-  const [afterDayArr, setAfterDayArr] = useState([]);
-  const [newItemTest, setNewItemTest] = useState([]);
-  const [newArr1, setNewArr1] = useState([]);
-  const [newArr2, setNewArr2] = useState([]);
+  const [afterDayArr, setAfterDayArr] = useState([]); // All next meeting except today & tomorrow
+  const [newArr1, setNewArr1] = useState([]); // Next Meetings (todayArr + tomorrowArr + afterDayArr)
+  const [newArr2, setNewArr2] = useState([]); // Previous Meeting
+
+  const [testArr, setTestArr] = useState([
+    // {
+    //   date: '2021-09-01',
+    //   data: [],
+    // },
+    // {
+    //   date: '2021-09-09',
+    //   data: [],
+    // },
+  ]);
 
   useEffect(() => {
     meetingList.map(item => {
       const date = moment(item.when);
-      let newItem;
       date.calendar(null, {
         sameDay: function () {
           let check_arr = todayArr.filter(
             check => check.meetingId === item.meetingId,
           );
+          console.log('check_arr!!!:', check_arr);
           if (check_arr.length === 0) {
             setTodayArr(todayArr => [...todayArr, item]);
             setNewArr1(newArr1 => [...newArr1, item]);
           }
+
+          // test Arr for SectionList
+          // let check_arrDate = testArr.filter(check => check.date === item.when);
+          // console.log('check_arrDate:', check_arrDate);
+          // if (check_arrDate.length === 0) {
+          //   let newArr = [...testArr];
+          //   let newObj = {
+          //     date: item.when,
+          //     data: [],
+          //   };
+
+          //   console.log('OBJ===>', newObj);
+          //   // newObj.data = [...newObj.data, item];
+          //   // newObj.data.push(item);
+          //   newArr = [...newArr, newObj];
+          //   setTestArr([...newArr]);
+          // }
+
+          // let ct_a = 0;
+          // let ct = 0;
+          // let newArr = [...testArr];
+
+          // for (let i = 0; i < newArr.length; i++) {
+          //   if (newArr[i].date === item.when) {
+          //     ct_a = ct_a + 1;
+          //     console.log('_', newArr[i].data);
+          //   }
+          // }
+          // if (ct_a === 0) {
+          //   console.log('0000');
+          //   let newObj = {
+          //     date: item.when,
+          //     data: [],
+          //   };
+          //   newArr = [...newArr, newObj];
+          // }
+
+          // for (let i = 0; i < newArr.length; i++) {
+          //   if (newArr[i].date === item.when) {
+          //     console.log('_', newArr[i].data);
+          //     for (let j = 0; j < newArr[i].data; j++) {
+          //       console.log('id1==>', newArr[i].data[j]);
+          //       // console.log('id2==>', item.meetingId);
+          //       if (newArr[i].data[j].meetingId === item.meetingId) {
+          //         ct = ct + 1;
+          //       }
+          //     }
+          //     console.log('ct=', ct);
+          //     if (ct === 0) {
+          //       newArr[i].data.push(item);
+          //     }
+          //   }
+          // }
+          // console.log('newArr==>', newArr);
+          // setTestArr([...newArr]);
         },
         nextDay: () => {
           let check_arr = tomorrowArr.filter(
@@ -107,7 +172,10 @@ const seeAllMeetings = ({navigation}) => {
     });
   }, []);
 
-  console.log('newArr1=>', newArr1);
+
+  // console.log('newArr1=>', newArr1);
+  console.log('testArr:', testArr);
+  // console.log('testArr[]:', testArr[0]);
 
   const convertDate = item => {
     return moment(item[0]['when']).format('DD MMMM YYYY');

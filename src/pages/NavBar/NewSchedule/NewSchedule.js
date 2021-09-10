@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import moment from 'moment';
 
@@ -121,83 +122,87 @@ const NewSchedule = ({navigation}) => {
       </View>
 
       <View style={styles.botView}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              paddingHorizontal: 30,
-            }}>
-            <TextInp
-              title="Room’s Name"
-              text={roomName}
-              onChangeText={roomName => setRoomName(roomName)}
-              editable={true}
-              placeholder="John Doe’s Meeting"
-            />
-            <BtnInputDate
-              title="Date"
-              value={dateMeet}
-              callBack={() => setShowDate(!showDate)}
-            />
-          </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+          style={{height: '100%'}}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View
+              style={{
+                paddingHorizontal: 30,
+              }}>
+              <TextInp
+                title="Room’s Name"
+                text={roomName}
+                onChangeText={roomName => setRoomName(roomName)}
+                editable={true}
+                placeholder="John Doe’s Meeting"
+              />
+              <BtnInputDate
+                title="Date"
+                value={dateMeet}
+                callBack={() => setShowDate(!showDate)}
+              />
+            </View>
 
-          {showDate && <ShowCalendar callBack={day => handleDateMeet(day)} />}
+            {showDate && <ShowCalendar callBack={day => handleDateMeet(day)} />}
 
-          <View
-            style={{
-              paddingHorizontal: 30,
-            }}>
-            <BtnInputTime
-              title1="From"
-              value1={`${selectedHours1}:${selectedMinutes1}`}
-              callBack1={() => setShowTime1(!showTime1)}
-              title2="To"
-              value2={`${selectedHours2}:${selectedMinutes2}`}
-              callBack2={() => setShowTime2(!showTime2)}
-            />
-          </View>
+            <View
+              style={{
+                paddingHorizontal: 30,
+              }}>
+              <BtnInputTime
+                title1="From"
+                value1={`${selectedHours1}:${selectedMinutes1}`}
+                callBack1={() => setShowTime1(!showTime1)}
+                title2="To"
+                value2={`${selectedHours2}:${selectedMinutes2}`}
+                callBack2={() => setShowTime2(!showTime2)}
+              />
+            </View>
 
-          {showTime1 && (
-            <TimePick
-              hour={selectedHours1}
-              minute={selectedMinutes1}
-              callBack1={hour => setSelectedHours1(hour)}
-              callBack2={minute => setSelectedMinutes1(minute)}
-              left
-            />
-          )}
-          {showTime2 && (
-            <TimePick
-              hour={selectedHours2}
-              minute={selectedMinutes2}
-              callBack1={hour => setSelectedHours2(hour)}
-              callBack2={minute => setSelectedMinutes2(minute)}
-            />
-          )}
+            {showTime1 && (
+              <TimePick
+                hour={selectedHours1}
+                minute={selectedMinutes1}
+                callBack1={hour => setSelectedHours1(hour)}
+                callBack2={minute => setSelectedMinutes1(minute)}
+                left
+              />
+            )}
+            {showTime2 && (
+              <TimePick
+                hour={selectedHours2}
+                minute={selectedMinutes2}
+                callBack1={hour => setSelectedHours2(hour)}
+                callBack2={minute => setSelectedMinutes2(minute)}
+              />
+            )}
 
-          <View
-            style={{
-              paddingHorizontal: 30,
-            }}>
-            <BtnInputOption
-              title="Time Zone"
-              value={timezoneMode}
-              callBack={() => setShowTimezone(!showTimezone)}
-            />
-          </View>
+            <View
+              style={{
+                paddingHorizontal: 30,
+              }}>
+              <BtnInputOption
+                title="Time Zone"
+                value={timezoneMode}
+                callBack={() => setShowTimezone(!showTimezone)}
+              />
+            </View>
 
-          {showTimezone && (
-            <TimezoneModal
-              isVisible={showTimezone}
-              callBack={() => setShowTimezone(false)}
-              callBack2={mode => setTimezoneMode(mode)}
-            />
-          )}
+            {showTimezone && (
+              <TimezoneModal
+                isVisible={showTimezone}
+                callBack={() => setShowTimezone(false)}
+                callBack2={mode => setTimezoneMode(mode)}
+              />
+            )}
 
-          <View
-            style={{
-              paddingHorizontal: 30,
-            }}>
-            {/* <BtnInputOption
+            <View
+              style={{
+                paddingHorizontal: 30,
+              }}>
+              {/* <BtnInputOption
               title="Mode"
               value={meetingMode}
               callBack={() => setShowMode(true)}
@@ -207,116 +212,120 @@ const NewSchedule = ({navigation}) => {
               callBack={() => setShowMode(false)}
               callBack2={mode => setMeetingMode(mode)}
             /> */}
-            <BtnInputOption
-              title="Repeat"
-              value={repeatMode}
-              callBack={() => setShowRepeat(!showRepeat)}
-            />
-          </View>
-          {showRepeat && (
-            <RepeatMode
-              data={radioData}
-              firstData={radioData[0].key}
-              callBack={repeat => setRepeatMode(repeat)}
-            />
-          )}
-
-          <View
-            style={{
-              paddingHorizontal: 30,
-            }}>
-            <TogleInput
-              title="Use Personal Meeting ID"
-              value="110-989-541"
-              //  callBack={() => setShowTime1(!showTime1)}
-            />
-            <TogleInput
-              title="Use Passode"
-              value="xaeh4Tg"
-              wrap={true}
-              //  callBack={() => setShowTime1(!showTime1)}
-            />
-
-            {/* Invite Participants */}
-            <TextHeader
-              title="Invite Participants"
-              count={addEmail.length + addContact.length}
-            />
-
-            <View>
-              <RenderEmail
-                addEmail={addEmail}
-                callBack={index => deleteEmail(index)}
+              <BtnInputOption
+                title="Repeat"
+                value={repeatMode}
+                callBack={() => setShowRepeat(!showRepeat)}
               />
             </View>
+            {showRepeat && (
+              <RepeatMode
+                data={radioData}
+                firstData={radioData[0].key}
+                callBack={repeat => setRepeatMode(repeat)}
+              />
+            )}
 
             <View
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
+                paddingHorizontal: 30,
               }}>
-              <RenderContact
-                addContact={addContact}
-                callBack={index => deleteContact(index)}
+              <TogleInput
+                title="Use Personal Meeting ID"
+                value="110-989-541"
+                //  callBack={() => setShowTime1(!showTime1)}
+              />
+              <TogleInput
+                title="Use Passode"
+                value="xaeh4Tg"
+                wrap={true}
+                //  callBack={() => setShowTime1(!showTime1)}
+              />
+
+              {/* Invite Participants */}
+              <TextHeader
+                title="Invite Participants"
+                count={addEmail.length + addContact.length}
+              />
+
+              <View>
+                <RenderEmail
+                  addEmail={addEmail}
+                  callBack={index => deleteEmail(index)}
+                />
+              </View>
+
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                }}>
+                <RenderContact
+                  addContact={addContact}
+                  callBack={index => deleteContact(index)}
+                />
+              </View>
+
+              <TouchableOpacity onPress={() => setShowAddEmail(true)}>
+                <Text
+                  style={{
+                    fontFamily: fonts.NunitoSansBold,
+                    fontSize: 16,
+                    color: COLORS.SECONDARY,
+                    marginTop: 8,
+                  }}>
+                  + Add with email
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => setShowAddContact(true)}>
+                <Text
+                  style={{
+                    fontFamily: fonts.NunitoSansBold,
+                    fontSize: 16,
+                    color: COLORS.SECONDARY,
+                    marginTop: 8,
+                  }}>
+                  + Add from contacts
+                </Text>
+              </TouchableOpacity>
+
+              <AddEmailModal
+                isVisible={showAddEmail}
+                callBack={() => setShowAddEmail(false)}
+                callBack2={email => setAddEmail(email)}
+              />
+
+              <AddContactModal
+                isVisible={showAddContact}
+                callBack={() => setShowAddContact(false)}
+                callBack2={contact => setAddContact(contact)}
+              />
+
+              <TogleInput
+                title="Add to Calendar"
+                // value="xaeh4Tg"
+                // wrap={true}
+                //  callBack={() => setShowTime1(!showTime1)}
               />
             </View>
 
-            <TouchableOpacity onPress={() => setShowAddEmail(true)}>
-              <Text
-                style={{
-                  fontFamily: fonts.NunitoSansBold,
-                  fontSize: 16,
-                  color: COLORS.SECONDARY,
-                  marginTop: 8,
-                }}>
-                + Add with email
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setShowAddContact(true)}>
-              <Text
-                style={{
-                  fontFamily: fonts.NunitoSansBold,
-                  fontSize: 16,
-                  color: COLORS.SECONDARY,
-                  marginTop: 8,
-                }}>
-                + Add from contacts
-              </Text>
-            </TouchableOpacity>
-
-            <AddEmailModal
-              isVisible={showAddEmail}
-              callBack={() => setShowAddEmail(false)}
-              callBack2={email => setAddEmail(email)}
-            />
-
-            <AddContactModal
-              isVisible={showAddContact}
-              callBack={() => setShowAddContact(false)}
-              callBack2={contact => setAddContact(contact)}
-            />
-
-            <TogleInput
-              title="Add to Calendar"
-              // value="xaeh4Tg"
-              // wrap={true}
-              //  callBack={() => setShowTime1(!showTime1)}
-            />
-          </View>
-
-          <View style={{marginTop: 30, paddingHorizontal: 30}}>
-            <ButtonPrimary text="Done" />
-            <ButtonBorder text="Cancel" callBack={() => navigation.goBack()} />
-          </View>
-          <View
-            style={{
-              height: Platform.OS === 'ios' ? 100 : 0,
-              display: 'flex',
-            }}></View>
-        </ScrollView>
+            <View style={{marginTop: 30, paddingHorizontal: 30}}>
+              <ButtonPrimary text="Done" />
+              <ButtonBorder
+                text="Cancel"
+                callBack={() => navigation.goBack()}
+              />
+            </View>
+            <View
+              style={{
+                height: Platform.OS === 'ios' ? 100 : 0,
+                display: 'flex',
+              }}></View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
   );
@@ -355,8 +364,7 @@ const styles = StyleSheet.create({
 
   botView: {
     backgroundColor: COLORS.WHITE,
-    height: '100%',
     paddingTop: 4,
-    paddingBottom: 56,
+    paddingBottom: 100,
   },
 });

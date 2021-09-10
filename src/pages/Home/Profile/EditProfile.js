@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import COLORS from '../../../utils/color';
@@ -66,54 +67,62 @@ const EditProfile = ({navigation}) => {
       </View>
 
       <View style={styles.botView}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.personInfo}>
-            <Text style={styles.personInfo_text}>Personal Information</Text>
-          </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+          style={{height: '100%'}}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.personInfo}>
+              <Text style={styles.personInfo_text}>Personal Information</Text>
+            </View>
 
-          <TextInp
-            title="First Name"
-            text={firstName}
-            onChangeText={firstName => setFirstName(firstName)}
-            editable={true}
-          />
-          <TextInp
-            title="Last Name"
-            text={lastName}
-            onChangeText={lastName => setLastName(lastName)}
-            editable={true}
-          />
-          <TextInp
-            title="Display Name"
-            text={displayName}
-            onChangeText={displayName => setDisplayName(displayName)}
-            editable={true}
-          />
+            <TextInp
+              title="First Name"
+              text={firstName}
+              onChangeText={firstName => setFirstName(firstName)}
+              editable={true}
+            />
+            <TextInp
+              title="Last Name"
+              text={lastName}
+              onChangeText={lastName => setLastName(lastName)}
+              editable={true}
+            />
+            <TextInp
+              title="Display Name"
+              text={displayName}
+              onChangeText={displayName => setDisplayName(displayName)}
+              editable={true}
+            />
 
-          <TextInp
-            title="Personal Meeting ID"
-            text={id}
-            // onChangeText={id => setId(id)}
-            editable={false}
-          />
+            <TextInp
+              title="Personal Meeting ID"
+              text={id}
+              // onChangeText={id => setId(id)}
+              editable={false}
+            />
 
-          <TextInp
-            title="Email"
-            text={email}
-            onChangeText={email => setEmail(email)}
-            editable={true}
-          />
+            <TextInp
+              title="Email"
+              text={email}
+              onChangeText={email => setEmail(email)}
+              editable={true}
+            />
 
-          <View style={{marginTop: 30}}>
-            <ButtonPrimary text="Save" />
-            <ButtonBorder text="Cancel" callBack={() => navigation.goBack()} />
-          </View>
-          <View
-            style={{
-              height: Platform.OS === 'ios' ? 250 : 150,
-              display: 'flex',
-            }}></View>
-        </ScrollView>
+            <View style={{marginTop: 30}}>
+              <ButtonPrimary text="Save" />
+              <ButtonBorder
+                text="Cancel"
+                callBack={() => navigation.goBack()}
+              />
+            </View>
+            <View
+              style={{
+                height: Platform.OS === 'ios' ? 250 : 150,
+                display: 'flex',
+              }}></View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
   );
