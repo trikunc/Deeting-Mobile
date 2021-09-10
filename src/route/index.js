@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-
 import TabsScreen from './TabsScreen';
 
 import SplashScreen from '../pages/SplashScreen/index.js';
@@ -35,7 +34,6 @@ import MyRecordings from '../pages/NavBar/MyRecordings/MyRecordings';
 import WebinarList from '../pages/NavBar/WebinarList/WebinarList';
 import MyMessaging from '../pages/NavBar/MyMessaging/MyMessaging';
 import MeetingCalendar from '../pages/NavBar/MeetingCalendar/MeetingCalendar';
-
 
 // Jitsi View
 
@@ -95,11 +93,7 @@ function AppNavigation() {
         component={LoadingRoom}
         options={style}
       />
-      <Stack.Screen
-        name="JitsiView"
-        component={Jitsi}
-        options={style}
-      />
+      <Stack.Screen name="JitsiView" component={Jitsi} options={style} />
       <Stack.Screen
         name="seeAllMeetings"
         component={seeAllMeetings}
@@ -162,8 +156,6 @@ function AppNavigation() {
       />
     </Stack.Navigator>
   );
-
-
 
   return (
     <NavigationContainer>

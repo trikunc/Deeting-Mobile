@@ -11,6 +11,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -92,174 +93,184 @@ const SignIn = ({navigation}) => {
         />
       </TouchableOpacity>
 
-      <ScrollView style={styles.card}>
-        <Text style={styles.label}>{t('Email')}</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+        style={{height: '100%'}}>
+        <ScrollView style={styles.card}>
+          <Text style={styles.label}>{t('Email')}</Text>
 
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-            pattern: {
-              value: /^\S+@\S+$/i,
-              message: t('validEmail'),
-            },
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              style={
-                errors.email
-                  ? {
-                      ...styles.input,
-                      borderColor: COLORS.DANGER,
-                      borderWidth: 1,
-                    }
-                  : {...styles.input, marginBottom: 5}
-              }
-              onChangeText={onChange}
-              value={value}
-              placeholder={t('Enter your email')}
-            />
-          )}
-          name="email"
-          defaultValue=""
-        />
-
-        <View style={styles.errorView}>
-          {errors.email && (
-            <Text style={styles.errorMessage}>
-              {errors.email?.type === 'required'
-                ? t('required')
-                : errors.email.message}
-            </Text>
-          )}
-        </View>
-
-        <Text style={styles.label}>{t('Password')}</Text>
-        <View
-          style={
-            errors.password
-              ? {
-                  ...styles.password,
-                  borderColor: COLORS.DANGER,
-                  borderWidth: 1,
-                }
-              : {...styles.password, marginBottom: 5}
-          }>
           <Controller
             control={control}
             rules={{
               required: true,
               pattern: {
-                value: /^(?=.*[A-Z]).{6,32}$/i,
-                message: t('validPassword'),
+                value: /^\S+@\S+$/i,
+                message: t('validEmail'),
               },
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
-                autoCapitalize="none"
-                secureTextEntry={pass}
-                style={{width: 220, height: 54}}
+                style={
+                  errors.email
+                    ? {
+                        ...styles.input,
+                        borderColor: COLORS.DANGER,
+                        borderWidth: 1,
+                      }
+                    : {...styles.input, marginBottom: 5}
+                }
                 onChangeText={onChange}
                 value={value}
-                placeholderTextColor={COLORS.TEXTINPUT}
-                placeholder={t('Enter your password')}
+                placeholder={t('Enter your email')}
               />
             )}
-            name="password"
+            name="email"
             defaultValue=""
           />
 
-          <TouchableOpacity onPress={() => setPass(!pass)}>
-            {pass ? (
-              <Image
-                source={require(eyeHide)}
-                style={{width: 17.98, height: 12}}
-              />
-            ) : (
-              <Image
-                source={require(eyeShow)}
-                style={{width: 16.67, height: 13.42}}
-              />
+          <View style={styles.errorView}>
+            {errors.email && (
+              <Text style={styles.errorMessage}>
+                {errors.email?.type === 'required'
+                  ? t('required')
+                  : errors.email.message}
+              </Text>
             )}
-          </TouchableOpacity>
-        </View>
+          </View>
 
-        <View style={styles.errorView}>
-          {errors.password && (
-            <Text style={styles.errorMessage}>
-              {errors.password?.type === 'required'
-                ? t('required')
-                : errors.password.message}
-            </Text>
-          )}
-        </View>
+          <Text style={styles.label}>{t('Password')}</Text>
+          <View
+            style={
+              errors.password
+                ? {
+                    ...styles.password,
+                    borderColor: COLORS.DANGER,
+                    borderWidth: 1,
+                  }
+                : {...styles.password, marginBottom: 5}
+            }>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+                pattern: {
+                  value: /^(?=.*[A-Z]).{6,32}$/i,
+                  message: t('validPassword'),
+                },
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <TextInput
+                  autoCapitalize="none"
+                  secureTextEntry={pass}
+                  style={{width: 220, height: 54}}
+                  onChangeText={onChange}
+                  value={value}
+                  placeholderTextColor={COLORS.TEXTINPUT}
+                  placeholder={t('Enter your password')}
+                />
+              )}
+              name="password"
+              defaultValue=""
+            />
 
-        <View style={styles.boxBottomText}>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity onPress={() => setRemember(!remember)}>
-              {remember ? (
-                <Image source={require(checkboxFill)} style={styles.checkbox} />
+            <TouchableOpacity onPress={() => setPass(!pass)}>
+              {pass ? (
+                <Image
+                  source={require(eyeHide)}
+                  style={{width: 17.98, height: 12}}
+                />
               ) : (
-                <Image source={require(checkbox)} style={styles.checkbox} />
+                <Image
+                  source={require(eyeShow)}
+                  style={{width: 16.67, height: 13.42}}
+                />
               )}
             </TouchableOpacity>
-            <Text style={styles.remember}>{t('Remember me')}</Text>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text style={styles.forgot}>{t('Forgot password')}</Text>
-          </TouchableOpacity>
-        </View>
 
-        {isLoading ? (
-          <View
-            style={{
-              ...styles.button,
-              backgroundColor: 'rgba(124, 120, 120, 0.1)',
-            }}>
-            <ActivityIndicator size="small" color={COLORS.BLACK} />
+          <View style={styles.errorView}>
+            {errors.password && (
+              <Text style={styles.errorMessage}>
+                {errors.password?.type === 'required'
+                  ? t('required')
+                  : errors.password.message}
+              </Text>
+            )}
           </View>
-        ) : (
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            activeOpacity={0.9}
-            style={styles.button}>
-            <Text style={styles.text}>{t('Sign In')}</Text>
-          </TouchableOpacity>
-        )}
 
-        <Text style={styles.textOr}>{t('Or')}</Text>
-        <View>
-          <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
-            <Image
-              source={require('../../assets/icons/google.png')}
-              style={styles.social}
-            />
-            <Text style={styles.textSocial}>{t('Sign in with Google')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
-            <Image
-              source={require('../../assets/icons/apple.png')}
-              style={styles.social}
-            />
-            <Text style={styles.textSocial}>{t('Sign in with Apple')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
-            <Image
-              source={require('../../assets/icons/facebook.png')}
-              style={styles.social}
-            />
-            <Text style={styles.textSocial}>{t('Sign in with Facebook')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
-            <Image
-              source={require('../../assets/icons/discord.png')}
-              style={styles.discord}
-            />
-            <Text style={styles.textSocial}>{t('Sign in with Discord')}</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <View style={styles.boxBottomText}>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity onPress={() => setRemember(!remember)}>
+                {remember ? (
+                  <Image
+                    source={require(checkboxFill)}
+                    style={styles.checkbox}
+                  />
+                ) : (
+                  <Image source={require(checkbox)} style={styles.checkbox} />
+                )}
+              </TouchableOpacity>
+              <Text style={styles.remember}>{t('Remember me')}</Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ForgotPassword')}>
+              <Text style={styles.forgot}>{t('Forgot password')}</Text>
+            </TouchableOpacity>
+          </View>
+
+          {isLoading ? (
+            <View
+              style={{
+                ...styles.button,
+                backgroundColor: 'rgba(124, 120, 120, 0.1)',
+              }}>
+              <ActivityIndicator size="small" color={COLORS.BLACK} />
+            </View>
+          ) : (
+            <TouchableOpacity
+              onPress={handleSubmit(onSubmit)}
+              activeOpacity={0.9}
+              style={styles.button}>
+              <Text style={styles.text}>{t('Sign In')}</Text>
+            </TouchableOpacity>
+          )}
+
+          <Text style={styles.textOr}>{t('Or')}</Text>
+          <View>
+            <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
+              <Image
+                source={require('../../assets/icons/google.png')}
+                style={styles.social}
+              />
+              <Text style={styles.textSocial}>{t('Sign in with Google')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
+              <Image
+                source={require('../../assets/icons/apple.png')}
+                style={styles.social}
+              />
+              <Text style={styles.textSocial}>{t('Sign in with Apple')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
+              <Image
+                source={require('../../assets/icons/facebook.png')}
+                style={styles.social}
+              />
+              <Text style={styles.textSocial}>
+                {t('Sign in with Facebook')}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.9} style={styles.buttonSocial}>
+              <Image
+                source={require('../../assets/icons/discord.png')}
+                style={styles.discord}
+              />
+              <Text style={styles.textSocial}>{t('Sign in with Discord')}</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

@@ -7,6 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
+  SectionList,
 } from 'react-native';
 import moment from 'moment';
 
@@ -19,10 +21,53 @@ import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
 import arrowRight from '../../../assets/icons/ArrowRightSecondary.png';
 import Refresh from '../../../assets/icons/Refresh.png';
 
+const windowHeight = Dimensions.get('window').height;
+
 const seeAllMeetings = ({route, navigation}) => {
   const [remember, setRemember] = useState(false);
   const [dateArr, setDateArr] = useState([]);
+  const [testData, setTestData] = useState([]);
   const {data, title} = route.params;
+
+  // ///////////////
+  // ///////////////
+  // ///////////////
+
+  useEffect(() => {
+    let newArrObj = [];
+    console.log('test data: ', data);
+
+    for (let i = 0; i < data.length; i++) {
+      const sectionExists = newArrObj.some(
+        section => section.date === data[i].when,
+      );
+      console.log(`${data[i].when}`, sectionExists);
+      if (sectionExists === false) {
+        let newObj = {
+          date: data[i].when,
+          data: [data[i]],
+        };
+        newArrObj.push(newObj);
+      }
+      if (sectionExists === true) {
+        for (let j = 0; j < newArrObj.length; j++) {
+          if (newArrObj[j].date === data[i].when) {
+            console.log(`${newArrObj[j].date} must change`);
+            newArrObj[j].data.push(data[i]);
+          }
+        }
+      }
+    }
+
+    setTestData([...newArrObj]);
+    console.log('newArrObj:', newArrObj);
+  }, []);
+
+  // ///////////////
+  // ///////////////
+  // ///////////////
+
+  console.log(testData);
 
   data.sort(function (a, b) {
     let c = new Date(a.when);
@@ -102,28 +147,31 @@ const seeAllMeetings = ({route, navigation}) => {
       </View>
 
       <View style={styles.botView}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {/* //// Upcoming Meetings */}
-          <View style={styles.upcomingMeet}>
-            {data.map((item, index) => (
-              <View>
-                <MeetingDateFunc dateCheck={item.when} />
-                <MeetingCard
-                  key={index}
-                  id={item.meetingId}
-                  title={item.meeting_name}
-                  colors={checkDate(item.when)}
-                  callBack={() =>
-                    navigation.navigate('detailMeeting', {
-                      id: item.meetingId,
-                      title: item.meeting_name,
-                    })
-                  }
-                />
-              </View>
-            ))}
-          </View>
-        </ScrollView>
+        {/* //// Upcoming Meetings */}
+        {/* <View style={styles.upcomingMeet}> */}
+        <SectionList
+          sections={testData}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({item}) => (
+            <MeetingCard
+              id={item.meetingId}
+              title={item.meeting_name}
+              colors={checkDate(item.when)}
+              callBack={() =>
+                navigation.navigate('detailMeeting', {
+                  id: item.meetingId,
+                  title: item.meeting_name,
+                })
+              }
+            />
+          )}
+          renderSectionHeader={({section: {date}}) => (
+            <MeetingDateFunc dateCheck={date} />
+          )}
+          stickySectionHeadersEnabled={false}
+          showsVerticalScrollIndicator={false}
+        />
+        {/* </View> */}
       </View>
     </SafeAreaView>
   );
@@ -167,14 +215,14 @@ const styles = StyleSheet.create({
 
   botView: {
     backgroundColor: COLORS.WHITE,
-    height: '100%',
-    paddingTop: 4,
+    height: windowHeight - 90,
+    // paddingTop: 4,
     paddingBottom: 56,
     paddingHorizontal: 30,
   },
   /////// upcoming Meeting
   upcomingMeet: {
-    marginTop: 84 - 58,
+    // marginTop: 84 - 58,
   },
   upcomingMeet_title: {
     fontFamily: fonts.NunitoSansBold,

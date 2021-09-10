@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  SectionList,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment';
@@ -71,6 +72,78 @@ const config = {
     },
   },
 };
+
+const meetingCalendar = [
+  {
+    date: '2021-09-05',
+    data: [
+      {
+        name: 'Weekly Product Meeting',
+        id: '123-000-781',
+        start: '09:00',
+        stop: '10:30',
+        color: '#219653',
+      },
+      {
+        name: 'Design Webinar',
+        id: '671-910-223',
+        start: '15:00',
+        stop: '17:00',
+        color: '#219653',
+      },
+    ],
+  },
+  {
+    date: '2021-09-06',
+    data: [
+      {
+        name: 'Website Discussion',
+        id: '541- 222-213',
+        start: '10:00',
+        stop: '12:00',
+        color: '#F2994A',
+      },
+    ],
+  },
+  {
+    date: '2021-09-09',
+    data: [
+      {
+        name: 'Alex’s Meeting',
+        id: '341- 212-567',
+        start: '13:00',
+        stop: '15:00',
+        color: '#F2994A',
+      },
+      {
+        name: 'Data Science Bootcamp',
+        id: '900-1230456',
+        start: '19:00',
+        stop: '20:30',
+        color: '#F2994A',
+      },
+    ],
+  },
+  {
+    date: '2021-09-11',
+    data: [
+      {
+        name: 'Alex’s Meeting',
+        id: '341- 212-567',
+        start: '13:00',
+        stop: '15:00',
+        color: '#F2994A',
+      },
+      {
+        name: 'Data Science Bootcamp',
+        id: '900-1230456',
+        start: '19:00',
+        stop: '20:30',
+        color: '#F2994A',
+      },
+    ],
+  },
+];
 
 const MeetingCalendar = ({navigation}) => {
   const [openCalendar, setOpenCalendar] = useState(true);
@@ -158,153 +231,129 @@ const MeetingCalendar = ({navigation}) => {
       </View>
 
       <View style={styles.botView}>
-        <ScrollView>
-          <View
-            style={
-              openCalendar
-                ? {backgroundColor: '#F9F8FC'}
-                : {backgroundColor: '#FFFFFF'}
-            }>
-            <View style={styles.calendarHeader}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.calendarTitle}>
-                  {handleMonth(monthNow)} {yearNow}
-                </Text>
-                <TouchableOpacity
-                  style={styles.calendarArrowWrap}
-                  onPress={() => setOpenCalendar(!openCalendar)}>
-                  <Image
-                    source={ArrowBlk}
-                    style={
-                      openCalendar
-                        ? styles.calendarArrowPic
-                        : {
-                            ...styles.calendarArrowPic,
-                            transform: [{rotate: '-90deg'}],
-                          }
-                    }
-                  />
-                </TouchableOpacity>
-              </View>
+        <View
+          style={
+            openCalendar
+              ? {backgroundColor: '#F9F8FC'}
+              : {backgroundColor: '#FFFFFF'}
+          }>
+          <View style={styles.calendarHeader}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.calendarTitle}>
+                {handleMonth(monthNow)} {yearNow}
+              </Text>
               <TouchableOpacity
-                style={{
-                  height: 28,
-                  width: 28,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 14,
-                  backgroundColor: COLORS.PRIMARY,
-                }}>
-                <Image source={PlusWht} style={{height: 16.3, width: 16.3}} />
+                style={styles.calendarArrowWrap}
+                onPress={() => setOpenCalendar(!openCalendar)}>
+                <Image
+                  source={ArrowBlk}
+                  style={
+                    openCalendar
+                      ? styles.calendarArrowPic
+                      : {
+                          ...styles.calendarArrowPic,
+                          transform: [{rotate: '-90deg'}],
+                        }
+                  }
+                />
               </TouchableOpacity>
             </View>
-            <View
+            <TouchableOpacity
               style={{
-                // position: 'absolute',
-                // top: 120,
-                alignSelf: 'center',
-                zIndex: 10,
+                height: 28,
+                width: 28,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 14,
+                backgroundColor: COLORS.PRIMARY,
               }}>
-              {openCalendar && (
-                <Calendar
-                  onDayPress={day => console.log(day)}
-                  monthFormat={'MMMM'}
-                  onMonthChange={date => {
-                    setYearNow(date.year);
-                    setMonthNow(date.month);
-                    setDayNow(date.day);
-                    console.log('month changed', date.month);
-                  }}
-                  hideArrows={true}
-                  // onPressArrowLeft={subtractMonth => subtractMonth()}
-                  // onPressArrowRight={addMonth => addMonth()}
-                  disableAllTouchEventsForDisabledDays={false}
-                  enableSwipeMonths={true}
-                  renderHeader={date => {
-                    /*Return JSX*/
-                  }}
-                  style={{
-                    marginTop: 24,
-                    borderRadius: 12,
-                    height: 330,
-                    width: windowWidth - 60,
-                    backgroundColor: '#F9F8FC',
-                  }}
-                  markingType={'custom'}
-                  markedDates={config}
-                  theme={{
-                    backgroundColor: '#F9F8FC',
-                    calendarBackground: '#F9F8FC',
-                    textSectionTitleColor: COLORS.BLACK,
-                    textSectionTitleDisabledColor: '#d9e1e8',
-                    selectedDayBackgroundColor: '#00adf5',
-                    selectedDayTextColor: '#F9F8FC',
-                    todayTextColor: '#00adf5',
-                    dayTextColor: '#2d4150',
-                    textDisabledColor: '#d9e1e8',
-                    dotColor: '#00adf5',
-                    selectedDotColor: '#F9F8FC',
-                    arrowColor: COLORS.NEUTRAL,
-                    disabledArrowColor: '#d9e1e8',
-                    monthTextColor: COLORS.BLACK,
-                    indicatorColor: 'blue',
-                    textDayFontFamily: fonts.NunitoSansReguler,
-                    textDayHeaderFontFamily: fonts.NunitoSansReguler,
-                    textMonthFontFamily: fonts.NunitoSansBold,
-                    textDayFontWeight: 'normal',
-                    textDayHeaderFontWeight: 'normal',
-                    textMonthFontWeight: '600',
-                    textDayFontSize: 16,
-                    textDayHeaderFontSize: 12,
-                    textMonthFontSize: 18,
-                  }}
-                />
-              )}
-            </View>
+              <Image source={PlusWht} style={{height: 16.3, width: 16.3}} />
+            </TouchableOpacity>
           </View>
-
-          <View style={{marginBottom: 26, marginLeft: 30}}>
-            <Text style={styles.headertext}>Thursday 5</Text>
-            <MeetingCalendarCard
-              title="Weekly Product Meeting"
-              id="123-000-781"
-              start="09:00"
-              stop="10:30"
-              color="#219653"
-            />
-            <MeetingCalendarCard
-              title="Design Webinar"
-              id="671-910-223"
-              start="15:00"
-              stop="17:00"
-              color="#219653"
-            />
-            <Text style={styles.headertext}>Friday 6</Text>
-            <MeetingCalendarCard
-              title="Website Discussion"
-              id="541- 222-213"
-              start="10:00"
-              stop="12:00"
-              color="#F2994A"
-            />
-
-            <Text style={styles.headertext}>Friday 9</Text>
-            <MeetingCalendarCard
-              title="Alex’s Meeting"
-              id="341- 212-567"
-              start="13:00"
-              stop="15:00"
-              color="#F2994A"
-            />
-            <MeetingCalendarCard
-              title="Data Science Bootcamp"
-              id="900-1230456"
-              start="19:00"
-              stop="20:30"
-              color="#F2994A"
-            />
+          <View
+            style={{
+              // position: 'absolute',
+              // top: 120,
+              alignSelf: 'center',
+              zIndex: 10,
+            }}>
+            {openCalendar && (
+              <Calendar
+                onDayPress={day => console.log(day)}
+                monthFormat={'MMMM'}
+                onMonthChange={date => {
+                  setYearNow(date.year);
+                  setMonthNow(date.month);
+                  setDayNow(date.day);
+                  console.log('month changed', date.month);
+                }}
+                hideArrows={true}
+                // onPressArrowLeft={subtractMonth => subtractMonth()}
+                // onPressArrowRight={addMonth => addMonth()}
+                disableAllTouchEventsForDisabledDays={false}
+                enableSwipeMonths={true}
+                renderHeader={date => {
+                  /*Return JSX*/
+                }}
+                style={{
+                  marginTop: 24,
+                  borderRadius: 12,
+                  height: 330,
+                  width: windowWidth - 60,
+                  backgroundColor: '#F9F8FC',
+                }}
+                markingType={'custom'}
+                markedDates={config}
+                theme={{
+                  backgroundColor: '#F9F8FC',
+                  calendarBackground: '#F9F8FC',
+                  textSectionTitleColor: COLORS.BLACK,
+                  textSectionTitleDisabledColor: '#d9e1e8',
+                  selectedDayBackgroundColor: '#00adf5',
+                  selectedDayTextColor: '#F9F8FC',
+                  todayTextColor: '#00adf5',
+                  dayTextColor: '#2d4150',
+                  textDisabledColor: '#d9e1e8',
+                  dotColor: '#00adf5',
+                  selectedDotColor: '#F9F8FC',
+                  arrowColor: COLORS.NEUTRAL,
+                  disabledArrowColor: '#d9e1e8',
+                  monthTextColor: COLORS.BLACK,
+                  indicatorColor: 'blue',
+                  textDayFontFamily: fonts.NunitoSansReguler,
+                  textDayHeaderFontFamily: fonts.NunitoSansReguler,
+                  textMonthFontFamily: fonts.NunitoSansBold,
+                  textDayFontWeight: 'normal',
+                  textDayHeaderFontWeight: 'normal',
+                  textMonthFontWeight: '600',
+                  textDayFontSize: 16,
+                  textDayHeaderFontSize: 12,
+                  textMonthFontSize: 18,
+                }}
+              />
+            )}
           </View>
-        </ScrollView>
+        </View>
+
+        <View style={{marginBottom: 26, marginLeft: 30, flex: 1}}>
+          <SectionList
+            sections={meetingCalendar}
+            keyExtractor={(item, index) => item.id + index}
+            renderItem={({item}) => (
+              <MeetingCalendarCard
+                title={item.name}
+                id={item.id}
+                start={item.start}
+                stop={item.stop}
+                color={item.color}
+              />
+            )}
+            renderSectionHeader={({section: {date}}) => (
+              <Text style={styles.headertext}>{date}</Text>
+            )}
+            stickySectionHeadersEnabled={false}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
