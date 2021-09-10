@@ -1,78 +1,88 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import {
 	View, 
-	Text, 
+	ActivityIndicator,
+	StyleSheet,
+	Alert,
 } from 'react-native';
 import JitsiMeet, { JitsiMeetView } from 'react-native-jitsi-meet';
 
-const Jitsi = ({navigation, route}) => {
 
-	const [loading, setLoading] = useState(true);
+export default class Jitsi extends Component {
 
-	const url = `https://dev.deeting.ai/${route.params.data.data.joinId}`;
-	const userInfo = {
-	    displayName: route.params.data.data.name,
-	    email: '',
-	    avatar: 'https:/gravatar.com/avatar/abc123',
-	};
+	constructor(props) {
+		super(props);
 
-	const onlyAudio = route.params.data.audio.camera;
+		const {data, audio} = props.route.params.data;
 
-	useEffect(() => {
-   
-  		setTimeout(() => {
+		this.state = {
+			userInfo:{
+				displayName:data.name,
+				email:'',
+				avatar:'https:/gravatar.com/avatar/abc123'
+			},
+			onlyAudio: audio.camera,
+			url:`https://dev.deeting.ai/${data.joinId}`,
+			loading:true
+		};
 
+
+	}
+
+	componentDidMount() {
+		const { userInfo, onlyAudio, url } = this.state;
+
+		setTimeout(() => {
 			if (!onlyAudio) {
 				JitsiMeet.audioCall(url, userInfo);
 			} else {
 				JitsiMeet.call(url, userInfo);
 			}
-		}, 1000);
 
-
-  	}, [])
-
-
-    function onConferenceTerminated() {
-    
-     	if(!loading){
-	    	console.log('its terminate')
-	    	JitsiMeet.endCall()
-	    	navigation.reset({
-		        index: 0,
-		        routes: [{ name: 'Landing' }],
-      		});
-     	}
-	    
-  	}
-
-
-	function onConferenceJoined() {
-	    /* Conference joined event */
-	    console.log('joined')
+		}, 100);
 	}
 
-  	function onConferenceWillJoin() {
-    /* Conference will join event */
-    	console.log('join')
-    	setLoading(false);
-  	}
-        
+	componentWillUnmount() {
+		JitsiMeet.endCall();
+	}
 
-	return(
-		<>
-			<JitsiMeetView
-	      		onConferenceTerminated={e => onConferenceTerminated(e)}
-	      		onConferenceJoined={e => onConferenceJoined(e)}
-	      		onConferenceWillJoin={e => onConferenceWillJoin(e)}
-			      style={{
-			        flex: 1,
-			        height: '50%',
-			        width: '100%',
-			      }}
-			/>
-		</>
-	);
+	onConferenceWillJoin = () => {
+		this.setState({ loading: false });
+	}
+
+	onConferenceJoined = () => {
+
+	}
+
+	onConferenceTerminated = () => {
+
+		if(!this.state.loading){
+			this.props.navigation.reset({
+	        	index: 0,
+	        	routes: [{ name: 'Landing' }],
+      		});
+		}
+	}
+
+	render() {
+
+		return(
+			<>
+				<JitsiMeetView
+		      		onConferenceTerminated={this.onConferenceTerminated}
+		      		onConferenceJoined={this.onConferenceJoined}
+		      		onConferenceWillJoin={this.onConferenceWillJoin}
+		      		style={StyleSheet.absoluteFill}
+				/>
+
+				{
+					this.state.loading ? 
+						<View style={{ flex: 1, justifyContent:'center', alignItems: 'center' }} >
+							<ActivityIndicator size="large" color='#000000' /> 
+						</View>
+					:null
+				}
+			</>
+		);
+	}
 }
-
-export default Jitsi;
