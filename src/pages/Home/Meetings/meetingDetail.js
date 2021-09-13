@@ -6,32 +6,37 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   Dimensions,
 } from 'react-native';
-import Modal from 'react-native-modal';
+
+import {TextDisplayLight} from '../../../components/Input/TextInput';
+import {
+  ButtonPrimary,
+  ButtonDanger,
+} from '../../../components/Button/ButtonComponent';
+import {DangerInfoModal} from '../../../components/Modal/InfoModal';
+import ShareMeetingModal from '../../../components/Modal/ShareMeetingModal';
+import InviteParticipantModal from '../../../components/Modal/InviteParticipantModal';
 
 import COLORS from '../../../utils/color';
 import {fonts} from '../../../utils/fonts';
 
 import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
-import arrowRight from '../../../assets/icons/ArrowRightSecondary.png';
-import Refresh from '../../../assets/icons/Refresh.png';
 import Share from '../../../assets/icons/Share.png';
 import Invite from '../../../assets/icons/Invite.png';
-import closeIcon from '../../../assets/icons/close.png';
 
 const deviceHeight = Dimensions.get('window').height;
 
 const meetingDetail = ({route, navigation}) => {
   const {id, title} = route.params;
-  const [modal, setModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [shareModal, setShareModal] = useState(false);
+  const [inviteModal, setInviteModal] = useState(false);
 
   let str = title;
   let matches = str.match(/\b(\w)/g);
-  let acronym = matches.join('');
+  let acronym = matches.join('').slice(0, 2);
 
-  console.log(acronym);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -59,80 +64,52 @@ const meetingDetail = ({route, navigation}) => {
           <View style={styles.title_info}>
             <Text style={styles.title_infoText}>{title}</Text>
             <View style={styles.title_infoIcon}>
-              <Image
-                source={Share}
-                style={{height: 28, width: 28, marginRight: 16}}
-              />
-              <Image source={Invite} style={{height: 28, width: 28}} />
+              <TouchableOpacity onPress={() => setShareModal(true)}>
+                <Image
+                  source={Share}
+                  style={{height: 28, width: 28, marginRight: 16}}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setInviteModal(true)}>
+                <Image source={Invite} style={{height: 28, width: 28}} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoCard_title}>When</Text>
-          <Text style={styles.infoCard_text}>Today, 5 August 2021</Text>
-        </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoCard_title}>Time</Text>
-          <Text style={styles.infoCard_text}>09:00 AM - 10:30 AM</Text>
-        </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoCard_title}>Duration</Text>
-          <Text style={styles.infoCard_text}>90 minutes</Text>
-        </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoCard_title}>Meeting ID</Text>
-          <Text style={styles.infoCard_text}>{id}</Text>
-        </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoCard_title}>Passcode</Text>
-          <Text style={styles.infoCard_text}>r8agtx</Text>
-        </View>
-        <TouchableOpacity
-          style={{...styles.button, backgroundColor: COLORS.PRIMARY}}>
-          <Text style={styles.button_text}>Start Meeting</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{...styles.button, backgroundColor: COLORS.RED}}
-          onPress={() => setModal(true)}>
-          <Text style={styles.button_text}>Delete Meeting</Text>
-        </TouchableOpacity>
+
+        <TextDisplayLight title="When" text="Today, 5 August 2021" />
+        <TextDisplayLight title="Time" text="09:00 AM - 10:30 AM" />
+        <TextDisplayLight title="Duration" text="90 minutes" />
+        <TextDisplayLight title="Meeting ID" text={id} />
+        <TextDisplayLight title="Passcode" text="r8agtx" />
+
+        <ButtonPrimary
+          text="Start Meeting"
+          callBack={() => alert('Start meeting')}
+        />
+        <ButtonDanger
+          text="Delete Meeting"
+          callBack={() => setDeleteModal(true)}
+          border={true}
+        />
       </View>
 
-      <Modal
-        isVisible={modal}
-        swipeDirection={['down']}
-        style={{
-          height: deviceHeight,
-        }}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modal2Body}>
-            <TouchableOpacity
-              style={{position: 'absolute', right: 10.3, top: 10.3}}
-              onPress={() => setModal(false)}>
-              <Image source={closeIcon} />
-            </TouchableOpacity>
-            <Text style={styles.modalTitle_text}>Delete Meeting</Text>
-            <Text style={styles.modalTitle_desc}>
-              Are you sure want to delete?
-            </Text>
-            <View style={styles.modal_buttonWrapper}>
-              <TouchableOpacity
-                style={{
-                  ...styles.button,
-                  width: 76,
-                  backgroundColor: COLORS.RED,
-                }}>
-                <Text style={styles.button_primary}>Yes</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{...styles.button, width: 76}}
-                onPress={() => setModal(false)}>
-                <Text style={styles.button_secondary}>No</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <DangerInfoModal
+        title="Delete Meeting"
+        text="Are you sure want to delete?"
+        isVisible={deleteModal}
+        callBack1={() => setDeleteModal(false)}
+        callBack2={() => alert('Delete Yes')}
+      />
+
+      <ShareMeetingModal
+        isVisible={shareModal}
+        callBack1={() => setShareModal(false)}
+      />
+      <InviteParticipantModal
+        isVisible={inviteModal}
+        callBack1={() => setInviteModal(false)}
+      />
     </SafeAreaView>
   );
 };
@@ -147,7 +124,6 @@ const styles = StyleSheet.create({
   topView: {
     height: 96,
     display: 'flex',
-    // paddingTop: 48.5,
     alignItems: 'center',
   },
 
@@ -226,94 +202,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginTop: 12,
-  },
-
-  //// Info Card
-  infoCard: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '100%',
-    height: 54,
-    marginBottom: 24,
-  },
-  infoCard_title: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'normal',
-    fontSize: 14,
-    lineHeight: 1.4 * 14,
-  },
-  infoCard_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
-    fontSize: 16,
-    lineHeight: 1.4 * 16,
-    marginTop: 8,
-  },
-
-  button: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 16,
-    padding: 12,
-    height: 46,
-    borderRadius: 12,
-  },
-  button_text: {
-    color: COLORS.WHITE,
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
-    fontSize: 16,
-  },
-
-  //// Modal
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 30,
-  },
-  modal2Body: {
-    borderRadius: 16,
-    backgroundColor: COLORS.WHITE,
-    width: '100%',
-    height: '26%',
-    alignItems: 'center',
-  },
-  modal_buttonWrapper: {
-    width: 76 * 2,
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  modalTitle_text: {
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: 'bold',
-    fontSize: 24,
-    letterSpacing: 0.5,
-    marginTop: 28,
-    lineHeight: 1.4 * 24,
-  },
-  modalTitle_desc: {
-    fontFamily: fonts.NunitoSansLight,
-    fontWeight: '300',
-    fontSize: 18,
-    letterSpacing: 0.5,
-    color: COLORS.BLACK,
-    marginTop: 4,
-    lineHeight: 1.5 * 18,
-  },
-  button_primary: {
-    color: COLORS.WHITE,
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
-    fontSize: 16,
-  },
-  button_secondary: {
-    color: COLORS.BLACK,
-    fontFamily: fonts.NunitoSansReguler,
-    fontWeight: '600',
-    fontSize: 16,
   },
 });

@@ -16,6 +16,7 @@ import moment from 'moment';
 import calendarPic from '../../assets/icons/calendar.png';
 import arrowRightPic from '../../assets/icons/arrowRightBlk.png';
 import closePic from '../../assets/icons/closeBlack.png';
+import searchBar from '../../assets/icons/Search.png';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -48,6 +49,15 @@ export const TextDisplay = ({title, text, bold}) => {
         }>
         <Text style={styles.profile_secondText}>{text}</Text>
       </View>
+    </View>
+  );
+};
+
+export const TextDisplayLight = ({title, text}) => {
+  return (
+    <View style={styles.infoCard}>
+      <Text style={styles.infoCard_title}>{title}</Text>
+      <Text style={styles.infoCard_text}>{text}</Text>
     </View>
   );
 };
@@ -271,6 +281,23 @@ export const TogleInput = ({title, value, wrap, callBack}) => {
   );
 };
 
+export const SearchInput = ({value, placeholder, callBack}) => {
+  return (
+    <View
+      style={
+        Platform.OS === 'ios' ? styles.searchBarIos : styles.searchBarAndroid
+      }>
+      <Image source={searchBar} style={{height: 20, width: 20}} />
+      <TextInput
+        value={value}
+        placeholder={placeholder}
+        style={styles.searchBar_textInput}
+        onChangeText={text => callBack(text)}
+      />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   profile: {
     display: 'flex',
@@ -324,5 +351,59 @@ const styles = StyleSheet.create({
   image: {
     height: 20,
     width: 20,
+  },
+
+  infoCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+    height: 54,
+    marginBottom: 24,
+  },
+  infoCard_title: {
+    fontFamily: fonts.NunitoSansReguler,
+    fontWeight: 'normal',
+    fontSize: 14,
+    lineHeight: 1.4 * 14,
+  },
+  infoCard_text: {
+    fontFamily: fonts.NunitoSansReguler,
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 1.4 * 16,
+    marginTop: 8,
+  },
+
+  //////// Search Bar
+  searchBarIos: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+    backgroundColor: 'rgba(124, 120, 120, 0.1)',
+    borderRadius: 8,
+    marginTop: 32,
+    marginBottom: 11.5,
+    paddingVertical: 12.5,
+    overflow: 'hidden',
+  },
+
+  searchBarAndroid: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+    backgroundColor: 'rgba(124, 120, 120, 0.1)',
+    borderRadius: 8,
+    marginTop: 24,
+    marginBottom: 8.5,
+    height: 54,
+    // paddingVertical: 12.5,
+  },
+
+  searchBar_textInput: {
+    marginLeft: 9.87,
+    width: '90%',
   },
 });

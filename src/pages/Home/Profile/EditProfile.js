@@ -14,10 +14,7 @@ import {
 
 import COLORS from '../../../utils/color';
 import {fonts} from '../../../utils/fonts';
-import {
-  ButtonPrimary,
-  ButtonBorder,
-} from '../../../components/Button/ButtonComponent';
+import {ButtonPrimary} from '../../../components/Button/ButtonComponent';
 
 import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
 import profilePic from '../../../assets/images/profile.png';
@@ -111,9 +108,10 @@ const EditProfile = ({navigation}) => {
 
             <View style={{marginTop: 30}}>
               <ButtonPrimary text="Save" />
-              <ButtonBorder
+              <ButtonPrimary
                 text="Cancel"
                 callBack={() => navigation.goBack()}
+                border={true}
               />
             </View>
             <View

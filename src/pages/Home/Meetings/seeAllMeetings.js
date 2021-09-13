@@ -35,13 +35,13 @@ const seeAllMeetings = ({route, navigation}) => {
 
   useEffect(() => {
     let newArrObj = [];
-    console.log('test data: ', data);
+    // console.log('test data: ', data);
 
     for (let i = 0; i < data.length; i++) {
       const sectionExists = newArrObj.some(
         section => section.date === data[i].when,
       );
-      console.log(`${data[i].when}`, sectionExists);
+      // console.log(`${data[i].when}`, sectionExists);
       if (sectionExists === false) {
         let newObj = {
           date: data[i].when,
@@ -52,7 +52,7 @@ const seeAllMeetings = ({route, navigation}) => {
       if (sectionExists === true) {
         for (let j = 0; j < newArrObj.length; j++) {
           if (newArrObj[j].date === data[i].when) {
-            console.log(`${newArrObj[j].date} must change`);
+            // console.log(`${newArrObj[j].date} must change`);
             newArrObj[j].data.push(data[i]);
           }
         }
@@ -60,14 +60,14 @@ const seeAllMeetings = ({route, navigation}) => {
     }
 
     setTestData([...newArrObj]);
-    console.log('newArrObj:', newArrObj);
+    // console.log('newArrObj:', newArrObj);
   }, []);
 
   // ///////////////
   // ///////////////
   // ///////////////
 
-  console.log(testData);
+  // console.log(testData);
 
   data.sort(function (a, b) {
     let c = new Date(a.when);
@@ -108,8 +108,8 @@ const seeAllMeetings = ({route, navigation}) => {
 
   const MeetingDateFunc = ({dateCheck}) => {
     const newDateCheck = convertDate(dateCheck);
-    console.log(dateArr);
-    console.log(dateArr.includes(newDateCheck));
+    // console.log(dateArr);
+    // console.log(dateArr.includes(newDateCheck));
     if (dateArr.includes(dateCheck)) {
       return <Text>Test</Text>;
     } else {

@@ -18,11 +18,11 @@ import {fonts} from '../../../utils/fonts';
 
 import ArrowLeft from '../../../assets/icons/ArrowLeft.png';
 import ClosePic from '../../../assets/icons/closeGray.png';
-import searchBar from '../../../assets/icons/Search.png';
 import ArrowRight from '../../../assets/icons/ArrowRightBG.png';
 import checklistPic from '../../../assets/icons/checklistContact.png';
 
 import {contactList} from '../../../dumyData';
+import {SearchInput} from '../../../components/Input/TextInput';
 
 const CreateGroup = ({navigation}) => {
   const [dataArray, setDataArray] = useState(contactList);
@@ -180,7 +180,7 @@ const CreateGroup = ({navigation}) => {
             <FlatList
               data={arrayPeople}
               renderItem={RenderPeople}
-              keyExtractor={item => item.id}
+              keyExtractor={item => item.id.toString()}
               horizontal={true}
               extraData={refreshFlatlist}
             />
@@ -188,15 +188,11 @@ const CreateGroup = ({navigation}) => {
         )}
 
         {/* // Search bar */}
-        <View style={styles.searchBar}>
-          <View>
-            <Image source={searchBar} style={{height: 13, width: 16.25}} />
-          </View>
-          <TextInput
+        <View style={{paddingHorizontal: 30}}>
+          <SearchInput
             value={value}
             placeholder="Search"
-            style={styles.searchBar_textInput}
-            onChangeText={text => searchUser(text)}
+            callBack={text => searchUser(text)}
           />
         </View>
 
@@ -308,26 +304,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 1.4 * 12,
     marginTop: 4,
-  },
-
-  //////// Search Bar
-  searchBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    backgroundColor: 'rgba(124, 120, 120, 0.1)',
-    borderRadius: 8,
-    marginTop: 32,
-    marginBottom: 28,
-    paddingVertical: 12.5,
-    paddingHorizontal: 9.88,
-    marginHorizontal: 30,
-    overflow: 'hidden',
-  },
-  searchBar_textInput: {
-    marginLeft: 9.87,
-    width: '90%',
   },
 
   //////// Contacts

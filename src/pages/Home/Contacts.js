@@ -16,12 +16,12 @@ import RenderHeader from '../../components/Contact/RenderHeader';
 import {OnlineDevice} from '../../components/Contact/OnlineDevice';
 import {NoContact, NoGroup} from '../../components/NotFound/NotFoundComponent';
 import {AddContactModal} from '../../components/Modal/PopUpModal';
+import {SearchInput} from '../../components/Input/TextInput';
 
 import COLORS from '../../utils/color';
 import {fonts} from '../../utils/fonts';
 
 import addIcon from '../../assets/icons/Add.png';
-import searchBar from '../../assets/icons/Search.png';
 
 import {contactList, groupList} from '../../dumyData';
 
@@ -156,18 +156,11 @@ const Contacts = ({navigation}) => {
         </View>
 
         {/* // Search bar */}
-        <View
-          style={
-            Platform.OS === 'ios' ? styles.searchBar : styles.searchBarAndroid
-          }>
-          <View>
-            <Image source={searchBar} style={{height: 13, width: 16.25}} />
-          </View>
-          <TextInput
+        <View style={{paddingHorizontal: 30}}>
+          <SearchInput
             value={value}
             placeholder="Search"
-            style={styles.searchBar_textInput}
-            onChangeText={text => searchUser(text)}
+            callBack={text => searchUser(text)}
           />
         </View>
 
@@ -308,42 +301,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer_right: {
     marginRight: 5,
-  },
-
-  //////// Search Bar
-  searchBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    backgroundColor: 'rgba(124, 120, 120, 0.1)',
-    borderRadius: 8,
-    marginTop: 32,
-    marginBottom: 11.5,
-    paddingVertical: 12.5,
-    paddingHorizontal: 9.88,
-    marginHorizontal: 30,
-    overflow: 'hidden',
-  },
-
-  searchBarAndroid: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    backgroundColor: 'rgba(124, 120, 120, 0.1)',
-    borderRadius: 8,
-    marginTop: 24,
-    marginBottom: 8.5,
-    height: 54,
-    // paddingVertical: 12.5,
-    paddingHorizontal: 9.88,
-    marginHorizontal: 30,
-  },
-
-  searchBar_textInput: {
-    marginLeft: 9.87,
-    width: '90%',
   },
 
   //////// Contacts

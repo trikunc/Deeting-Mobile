@@ -12,7 +12,10 @@ import {
 
 import SignOutModal from '../../components/Modal/SignOutModal';
 import QRCodeModal from '../../components/Modal/QRCodeModal';
-import {ButtonDanger} from '../../components/Button/ButtonComponent';
+import {
+  ButtonDanger,
+  BtnBlueText,
+} from '../../components/Button/ButtonComponent';
 import {TextDisplay} from '../../components/Input/TextInput';
 import {ChangePicModal} from '../../components/Modal/PopUpModal';
 
@@ -83,16 +86,14 @@ const Profile = ({navigation}) => {
           <TextDisplay title="Personal Meeting ID" text="110-989-541" bold />
           <TextDisplay title="Email" text="johndoe@gmail.com" />
           <View style={styles.profile}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ChangePassword')}>
-              <Text style={styles.profile_blueText}>Change Password</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setModal1(true)}>
-              <Text style={styles.profile_blueText}>
-                See My Profile QR Code
-              </Text>
-            </TouchableOpacity>
+            <BtnBlueText
+              text="Change Password"
+              callBack={() => navigation.navigate('ChangePassword')}
+            />
+            <BtnBlueText
+              text="See My Profile QR Code"
+              callBack={() => setModal1(true)}
+            />
           </View>
 
           <ButtonDanger text="Sign Out" callBack={() => setModal2(true)} />

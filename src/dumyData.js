@@ -169,3 +169,42 @@ export const meetingList = [
     passcode: 'r8agtx',
   },
 ];
+
+export const messages = [
+  {
+    id: 1,
+    userName: 'Andira',
+    userImg: Pic1,
+    messageTime: '14:30',
+    messageText: 'We can talk about it after I finish my work',
+    notification: 2,
+    status: 'online',
+  },
+  {
+    id: 2,
+    userName: 'Alvian',
+    userImg: Pic3,
+    messageTime: '08:09',
+    messageText: 'Thank for your information',
+    notification: 0,
+    status: 'offline',
+  },
+  {
+    id: 3,
+    userName: 'Bobby',
+    userImg: Pic8,
+    messageTime: 'Yesterday',
+    messageText: 'Maybe tomorrow we will lalala',
+    notification: 0,
+    status: 'online',
+  },
+  {
+    id: 4,
+    userName: 'Andira',
+    userImg: Pic9,
+    messageTime: 'Aug 1',
+    messageText: 'Of course, you can follow me',
+    notification: 0,
+    status: 'online',
+  },
+];
