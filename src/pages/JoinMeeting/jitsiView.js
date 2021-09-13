@@ -3,7 +3,7 @@ import {
 	View, 
 	ActivityIndicator,
 	StyleSheet,
-	Alert,
+	StatusBar,
 } from 'react-native';
 import JitsiMeet, { JitsiMeetView } from 'react-native-jitsi-meet';
 
@@ -23,7 +23,8 @@ export default class Jitsi extends Component {
 			},
 			onlyAudio: audio.camera,
 			url:`https://dev.deeting.ai/${data.joinId}`,
-			loading:true
+			loading:true,
+			terminate:false,
 		};
 
 
@@ -31,15 +32,17 @@ export default class Jitsi extends Component {
 
 	componentDidMount() {
 		const { userInfo, onlyAudio, url } = this.state;
-
+		
 		setTimeout(() => {
+			StatusBar.setHidden(true, 'none');
+		    StatusBar.setTranslucent(true);
 			if (!onlyAudio) {
 				JitsiMeet.audioCall(url, userInfo);
 			} else {
 				JitsiMeet.call(url, userInfo);
 			}
+		}, 500)
 
-		}, 100);
 	}
 
 	componentWillUnmount() {
@@ -47,16 +50,20 @@ export default class Jitsi extends Component {
 	}
 
 	onConferenceWillJoin = () => {
-		this.setState({ loading: false });
+		
 	}
 
 	onConferenceJoined = () => {
-
+		  this.setState({ loading: false });
+        setTimeout(()=>{
+           this.setState({ loading: true });
+           this.setState({ terminate: true });
+        },100)
 	}
 
 	onConferenceTerminated = () => {
 
-		if(!this.state.loading){
+		if(this.state.terminate){
 			this.props.navigation.reset({
 	        	index: 0,
 	        	routes: [{ name: 'Landing' }],
@@ -66,23 +73,18 @@ export default class Jitsi extends Component {
 
 	render() {
 
-		return(
-			<>
-				<JitsiMeetView
-		      		onConferenceTerminated={this.onConferenceTerminated}
-		      		onConferenceJoined={this.onConferenceJoined}
-		      		onConferenceWillJoin={this.onConferenceWillJoin}
-		      		style={StyleSheet.absoluteFill}
-				/>
+		
 
-				{
-					this.state.loading ? 
-						<View style={{ flex: 1, justifyContent:'center', alignItems: 'center' }} >
-							<ActivityIndicator size="large" color='#000000' /> 
-						</View>
-					:null
-				}
-			</>
+		return(
+		<>	
+			{this.state.loading &&
+			<JitsiMeetView
+	      		onConferenceTerminated={this.onConferenceTerminated}
+	      		onConferenceJoined={this.onConferenceJoined}
+	      		onConferenceWillJoin={this.onConferenceWillJoin}
+	      		style={{ flex: 1, width: '100%', height: '100%'}}
+			/>}
+		</>		
 		);
 	}
 }
