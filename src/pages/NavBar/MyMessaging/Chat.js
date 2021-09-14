@@ -23,7 +23,7 @@ import {messages} from '../../../dumyData';
 const windowWidth = Dimensions.get('window').width;
 const MAX_LENGTH = 24;
 
-const MyMessaging = ({navigation}) => {
+const Chat = ({navigation}) => {
   const [dataArray, setDataArray] = useState(messages);
   const [dataFilter, setDataFilter] = useState(messages);
   const [value, setValue] = useState();
@@ -39,13 +39,7 @@ const MyMessaging = ({navigation}) => {
   const RenderMessage = params => {
     console.log('renderMessage', params);
     return (
-      <TouchableOpacity
-        style={styles.message}
-        onPress={() =>
-          navigation.navigate('Chat', {
-            userName: params.item.userName,
-          })
-        }>
+      <View style={styles.message}>
         <View style={styles.message_img}>
           <Image source={params.item.userImg} style={{height: 40, width: 40}} />
           {params.item.status === 'online' && (
@@ -70,7 +64,7 @@ const MyMessaging = ({navigation}) => {
             )}
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -88,32 +82,21 @@ const MyMessaging = ({navigation}) => {
             source={ArrowLeft}
           />
         </TouchableOpacity>
-        <Text style={styles.topView_Text}>My Messaging</Text>
+        <View>
+          <View></View>
+          <View>
+            <Text>Andira</Text>
+            <Text>Online</Text>
+          </View>
+        </View>
       </View>
 
-      <View style={styles.botView}>
-        <SearchInput
-          value={value}
-          placeholder="Search Message .."
-          callBack={text => searchUser(text)}
-        />
-        <BtnBlueText
-          text="Favorite messages"
-          callBack={() => alert('Favorite messages')}
-        />
-
-        <FlatList
-          data={dataFilter}
-          renderItem={RenderMessage}
-          keyExtractor={item => item.id.toString()}
-          // extraData={refreshFlatlist}
-        />
-      </View>
+      <View style={styles.botView}></View>
     </SafeAreaView>
   );
 };
 
-export default MyMessaging;
+export default Chat;
 
 const styles = StyleSheet.create({
   container: {

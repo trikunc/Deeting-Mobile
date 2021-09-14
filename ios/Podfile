@@ -3,6 +3,23 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
+workspace 'JitsiMeetSDKTest.xcworkspace'
+
+# target 'JitsiMeetSDKTest' do
+#   project 'JitsiMeetSDKTest.xcodeproj'
+
+#   pod 'JitsiMeetSDK'
+# end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+    end
+  end
+end
+
+
 target 'Deeting' do
   config = use_native_modules!
 
@@ -18,10 +35,20 @@ target 'Deeting' do
     # Pods for testing
   end
 
+  pod 'JitsiMeetSDK'
+
   pod 'Firebase/Crashlytics'
 
   # Recommended: Add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'
+
+  # pod 'JitsiMeetSDK'
+
+  # post_install do |installer|
+  #   installer.pods_project.build_configurations.each do |config|
+  #     config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+  #   end
+  # end
   
 
   # Enables Flipper.

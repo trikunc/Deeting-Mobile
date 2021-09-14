@@ -33,6 +33,7 @@ import NewSchedule from '../pages/NavBar/NewSchedule/NewSchedule';
 import MyRecordings from '../pages/NavBar/MyRecordings/MyRecordings';
 import WebinarList from '../pages/NavBar/WebinarList/WebinarList';
 import MyMessaging from '../pages/NavBar/MyMessaging/MyMessaging';
+import Chat from '../pages/NavBar/MyMessaging/Chat';
 import MeetingCalendar from '../pages/NavBar/MeetingCalendar/MeetingCalendar';
 
 // Jitsi View
@@ -149,6 +150,7 @@ function AppNavigation() {
         component={MyMessaging}
         options={style}
       />
+      <Stack.Screen name="Chat" component={Chat} options={style} />
       <Stack.Screen
         name="MeetingCalendar"
         component={MeetingCalendar}
